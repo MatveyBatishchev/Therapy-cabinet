@@ -3,6 +3,8 @@ spring:
     name: therapy-room
   datasource:
     driver-class-name: org.postgresql.Driver
-  config:
-    activate:
-      on-profile: local
+  profiles:
+    active: local
+  liquibase:
+    enabled: true
+    change-log: db/changelog/db.changelog-master.yaml

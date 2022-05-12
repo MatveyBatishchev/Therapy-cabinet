@@ -14,5 +14,7 @@ databaseChangeLog:
       value: uuid_generate_v4()
       dbms: postgresql
 
+  - include:
+      file: db/changelog/init/create-patient-table.yaml
   - includeAll:
       path: db/changelog/init

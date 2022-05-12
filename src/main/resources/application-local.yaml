@@ -7,3 +7,4 @@ spring:
       schema: doc
   liquibase:
     default-schema: doc
+    enabled: true

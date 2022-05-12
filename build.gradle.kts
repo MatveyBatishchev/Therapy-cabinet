@@ -27,9 +27,7 @@ dependencies {
     // DB tools
     implementation("org.postgresql:postgresql:42.2.22")
     implementation("org.liquibase:liquibase-core:3.8.0")
-
-    // SpringBoot
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
     testImplementation(kotlin("test"))
 }
