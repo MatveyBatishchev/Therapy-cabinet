@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/therapy_room_db
+    username: postgres
+    password: secret
+    hikari:
+      schema: doc
+  liquibase:
+    default-schema: doc

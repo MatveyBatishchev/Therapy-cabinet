@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: therapy-room
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  config:
+    activate:
+      on-profile: local
