@@ -18,3 +18,7 @@ databaseChangeLog:
       file: db/changelog/init/create-patient-table.yaml
   - includeAll:
       path: db/changelog/init
+  - includeAll:
+      path: db/changelog/add-columns
+  - includeAll:
+      path: db/changelog/remarks

@@ -1,0 +1,122 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-labtype-table
+      author: IRZaripov
+      comment: "Создание таблицы видов анализов"
+      changes:
+        - createTable:
+            tableName: labtype
+            remarks: "Таблица видов анализов"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  remarks: "Название анализа"
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column: 
+                  name: lolim
+                  type: varchar(200)
+                  remarks: "Нижняя граница нормы показателя"
+              - column: 
+                  name: lolimnum
+                  type: double
+                  remarks: "Числовая нижняя граница нормы показателя"
+              - column: 
+                  name: uplim
+                  type: varchar(200)
+                  remarks: "Верхняя граница нормы показателя"
+              - column:
+                  name: uplimnum
+                  type: double
+                  remarks: "Числовая верхняя граница нормы показателя"
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-labevent-table
+      author: IRZaripov
+      comment: "Создание таблицы анализов"
+      changes:
+        - createTable:
+            tableName: labevent
+            remarks: "Таблица анализов"
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: patient_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_patient_id
+                    references: patient(id)
+              - column:
+                  name: labtype_id
+                  type: integer
+                  remarks: "Вид анализа"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_labtype_id
+                    references: labtype(id)
+              - column:
+                  name: specimen
+                  type: varchar(100)
+                  remarks: "Биологический материал"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: varchar(200)
+                  remarks: "Показатель"
+              - column:
+                  name: valuenum
+                  type: double
+                  remarks: "Числовой показатель"
+              - column:
+                  name: comments
+                  type: text
+                  remarks: "Комментарий специалиста"
+              - column:
+                  name: taken
+                  type: datetime
+                  remarks: "Время взятия анализа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: aflag
+                  type: varchar(32)
+                  remarks: "Отклонение от нормы"
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  constraints:
+                    nullable: false

@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-adverse-reaction-column-patient-table
+      author: IRZaripov
+      changes:
+        - addColumn:
+            tableName: patient
+            columns:
+              - column:
+                  name: adverse_reactions
+                  type: text
+                  remarks: "Нежелательные реакции"
+              - column:
+                  name: date_of_birth
+                  type: date
+                  remarks: "Дата рождения"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sex
+                  type: smallint
+                  remarks: "Пол пациента (формат ISO/IEC 5218)"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  constraints:
+                    nullable: false
