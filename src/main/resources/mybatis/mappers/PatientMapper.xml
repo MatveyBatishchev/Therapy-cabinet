@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_room.mybatis.mappers.PatientMapper">
+    <!--   maps-->
+
+    <resultMap id="PatientMap" type="ru.mospolytech.therapy_room.models.domain.Patient">
+        <id column="id" property="id"/>
+        <result column="full_name" property="fullName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="adverse_reactions" property="adverseReactions"/>
+        <result column="date_of_birth" property="dateOfBirth"/>
+        <result column="sex" property="sex"/>
+    </resultMap>
+
+    <!--    queries-->
+    <insert id="create" parameterType="map">
+        insert into doc.patient (id, full_name, phone_number, adverse_reactions, date_of_birth, sex)
+        values (#{patient.id}, #{patient.fullName}, #{patient.phoneNumber}, #{patient.adverseReactions},
+                #{patient.dateOfBirth}, #{patient.sex.code})
+    </insert>
+
+    <select id="read" parameterType="map" resultMap="PatientMap">
+        select
+        from doc.patient
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.patient
+        set
+        <if test="patient.fullName != null">full_name = #{patient.fullName},</if>
+        <if test="patient.phoneNumber != null">phone_number = #{patient.phoneNumber},</if>
+        <if test="patient.adverseReactions != null"> adverse_reactions = #{patient.adverseReactions}, </if>
+        <if test="patient.dateOfBirth != null"> date_of_birth = #{patient.dateOfBirth}, </if>
+        <if test="patient.sex != null"> sex = #{patient.sex.code},</if>
+--         FIXME: changed field set to now() even if nothing changed
+         changed = now()
+        where id = #{patient.id}
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.patient
+        where id = #{id}
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="PatientMap">
+        select id, full_name, phone_number, adverse_reactions, date_of_birth, sex
+        from doc.patient
+        limit #{limit} offset #{offset}
+    </select>
+</mapper>
