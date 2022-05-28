@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-labtype-table
+      author: IRZaripov
+      comment: "Создание таблицы видов анализов"
+      changes:
+        - createTable:
+            tableName: labtype
+            remarks: "Таблица видов анализов"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  remarks: "Название анализа"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: specimen
+                  type: varchar(100)
+                  remarks: "Биологический материал"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mu
+                  type: varchar(32)
+                  remarks: "Единицы измерения"
+              - column:
+                  name: lolim
+                  type: varchar(200)
+                  remarks: "Нижняя граница нормы показателя"
+              - column:
+                  name: lolimnum
+                  type: double
+                  remarks: "Числовая нижняя граница нормы показателя"
+              - column:
+                  name: uplim
+                  type: varchar(200)
+                  remarks: "Верхняя граница нормы показателя"
+              - column:
+                  name: uplimnum
+                  type: double
+                  remarks: "Числовая верхняя граница нормы показателя"
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: labtype
+            columnNames: name, specimen, mu

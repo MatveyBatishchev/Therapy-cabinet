@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-patient-icd-table
+      author: IRZaripov
+      comment: "Создание таблицы с диагнозами МКБ каждого пациента"
+      changes:
+        - createTable:
+            tableName: patient_icd
+            remarks: "Таблица диагнозов МКБ пациентов"
+            columns:
+              - column:
+                  name: patient_id
+                  type: uuid
+                  remarks: "UUID пациента (внешний ключ)"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_patient_id
+                    references: patient(id)
+              - column:
+                  name: code
+                  type: varchar(8)
+                  remarks: "Строковый код диагноза по классификации МКБ"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: patient_icd
+            columnNames: patient_id, code
