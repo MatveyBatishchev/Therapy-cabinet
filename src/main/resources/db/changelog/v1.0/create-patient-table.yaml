@@ -1,11 +1,32 @@
 databaseChangeLog:
   - changeSet:
-      id: add-adverse-reaction-column-patient-table
+      id: create-patient-table
       author: IRZaripov
+      comment: "Создание таблицы с данными пациентов"
       changes:
-        - addColumn:
+        - createTable:
             tableName: patient
+            remarks: "Таблица с данными пациентов"
             columns:
+              - column:
+                  name: id
+                  type: uuid
+                  remarks: "UUID пациента (первичный ключ)"
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(96)
+                  remarks: "ФИО пациента"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: varchar(11)
+                  remarks: "Номер телефона пациента"
+                  constraints:
+                    nullable: false
               - column:
                   name: adverse_reactions
                   type: text

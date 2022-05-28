@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      relativeToChangelogFile: true
+      file: create-patient-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-patient-icd-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-labtype-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-labevent-table.yaml
