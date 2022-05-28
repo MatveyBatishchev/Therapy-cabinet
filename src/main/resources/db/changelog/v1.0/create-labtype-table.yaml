@@ -50,12 +50,14 @@ databaseChangeLog:
                   name: created
                   type: datetime
                   remarks: "Время создания записи"
+                  defaultValueComputed: now()
                   constraints:
                     nullable: false
               - column:
                   name: changed
                   type: datetime
                   remarks: "Время изменения записи"
+                  defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addUniqueConstraint:
