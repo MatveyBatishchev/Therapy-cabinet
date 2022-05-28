@@ -1,19 +1,4 @@
 databaseChangeLog:
-  # ByteArray
-  - property:
-      name: blob_type
-      value: bytea
-      dbms: postgresql
-  # Datetime.now()
-  - property:
-      name: now
-      value: now()
-      dbms: postgresql
-  - property:
-      name: uuid_generate
-      value: uuid_generate_v4()
-      dbms: postgresql
-
   - include:
       relativeToChangelogFile: true
       file: /v1.0/changelog-v1.0-cumulative.yaml
