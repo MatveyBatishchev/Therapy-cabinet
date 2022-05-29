@@ -28,6 +28,14 @@ dependencies {
     implementation("org.postgresql:postgresql:42.2.22")
     implementation("org.liquibase:liquibase-core:3.8.0")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0")
+
+    // Joda-Time
+    implementation("joda-time:joda-time:2.10.10")
+
+    // API tools
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.4")
 
     testImplementation(kotlin("test"))
 }

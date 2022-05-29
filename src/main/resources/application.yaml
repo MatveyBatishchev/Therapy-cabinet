@@ -7,4 +7,15 @@ spring:
     active: local
   liquibase:
     enabled: true
-    change-log: db/changelog/db.changelog-master.yaml
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+mybatis:
+  config-location: classpath:mybatis/conf.xml
+server:
+  servlet:
+    context-path: /therapy_room
+  port: 8080
+springdoc:
+  swagger-ui:
+    path: /swagger
+  api-docs:
+    path: /swagger.json
