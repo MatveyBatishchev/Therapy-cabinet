@@ -1,6 +1,6 @@
 spring:
   application:
-    name: therapy-room
+    name: therapy-cabinet
   datasource:
     driver-class-name: org.postgresql.Driver
   profiles:
@@ -12,7 +12,7 @@ mybatis:
   config-location: classpath:mybatis/conf.xml
 server:
   servlet:
-    context-path: /therapy_room
+    context-path: /therapy-cabinet
   port: 8080
 springdoc:
   swagger-ui:

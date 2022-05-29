@@ -1,3 +1,3 @@
 
-rootProject.name = "therapy-room"
+rootProject.name = "therapy-cabinet"
 

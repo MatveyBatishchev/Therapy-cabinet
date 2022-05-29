@@ -1,9 +1,9 @@
-package ru.mospolytech.therapy_room.controller.patient;
+package ru.mospolytech.therapy_cabinet.controller.patient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mospolytech.therapy_room.models.domain.Patient;
-import ru.mospolytech.therapy_room.mybatis.mappers.PatientMapper;
+import ru.mospolytech.therapy_cabinet.models.domain.Patient;
+import ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper;
 
 import java.util.List;
 import java.util.UUID;

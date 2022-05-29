@@ -12,7 +12,7 @@ services:
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: therapy_room_db
     networks:
-      - therapy-room-network
+      - therapy-cabinet-network
     deploy:
       resources:
         limits:
@@ -23,7 +23,7 @@ services:
           memory: 1536M
 
 networks:
-  therapy-room-network:
+  therapy-cabinet-network:
     driver: bridge
 volumes:
   postgres-data:

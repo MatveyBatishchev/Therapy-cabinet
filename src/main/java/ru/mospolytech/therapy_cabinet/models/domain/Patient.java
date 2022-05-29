@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_room.models.domain;
+package ru.mospolytech.therapy_cabinet.models.domain;
 
 import org.joda.time.LocalDate;
 

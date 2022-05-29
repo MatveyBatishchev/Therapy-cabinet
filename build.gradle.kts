@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.20"
 }
 
-group = "ru.mospolytech.therapy-room"
+group = "ru.mospolytech.therapy-cabinet"
 version = "1.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

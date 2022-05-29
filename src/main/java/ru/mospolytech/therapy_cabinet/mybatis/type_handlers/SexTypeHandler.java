@@ -1,9 +1,9 @@
-package ru.mospolytech.therapy_room.mybatis.type_handlers;
+package ru.mospolytech.therapy_cabinet.mybatis.type_handlers;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
-import ru.mospolytech.therapy_room.models.domain.Sex;
+import ru.mospolytech.therapy_cabinet.models.domain.Sex;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

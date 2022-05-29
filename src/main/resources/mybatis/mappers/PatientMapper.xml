@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ru.mospolytech.therapy_room.mybatis.mappers.PatientMapper">
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper">
     <!--   maps-->
 
-    <resultMap id="PatientMap" type="ru.mospolytech.therapy_room.models.domain.Patient">
+    <resultMap id="PatientMap" type="ru.mospolytech.therapy_cabinet.models.domain.Patient">
         <id column="id" property="id"/>
         <result column="full_name" property="fullName"/>
         <result column="phone_number" property="phoneNumber"/>

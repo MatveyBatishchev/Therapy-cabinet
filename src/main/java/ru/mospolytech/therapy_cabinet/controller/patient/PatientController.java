@@ -1,8 +1,8 @@
-package ru.mospolytech.therapy_room.controller.patient;
+package ru.mospolytech.therapy_cabinet.controller.patient;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.mospolytech.therapy_room.models.domain.Patient;
+import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
 import java.util.List;
 import java.util.UUID;

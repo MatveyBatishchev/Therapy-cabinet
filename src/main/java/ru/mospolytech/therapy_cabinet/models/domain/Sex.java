@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_room.models.domain;
+package ru.mospolytech.therapy_cabinet.models.domain;
 
 /**
  * Пол человека в формате ISO/IEC 5218

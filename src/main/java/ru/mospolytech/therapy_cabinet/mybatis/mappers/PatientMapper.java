@@ -1,9 +1,9 @@
-package ru.mospolytech.therapy_room.mybatis.mappers;
+package ru.mospolytech.therapy_cabinet.mybatis.mappers;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import ru.mospolytech.therapy_room.models.domain.Patient;
+import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
 import java.util.List;
 import java.util.UUID;

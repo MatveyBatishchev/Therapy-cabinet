@@ -5,7 +5,7 @@
     <typeHandlers>
         <typeHandler handler="common.mybatis.type_handlers.LocalDateTypeHandler"/>
         <typeHandler handler="common.mybatis.type_handlers.UUIDTypeHandler"/>
-        <typeHandler handler="ru.mospolytech.therapy_room.mybatis.type_handlers.SexTypeHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.SexTypeHandler"/>
     </typeHandlers>
 
     <mappers>
