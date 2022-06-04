@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-medication-table
+      author: MYBatishchev
+      comment: "Создание таблицы с лекарственными препаратами"
+      changes:
+        - createTable:
+            tableName: medication
+            remarks: "Таблица с лекарственными препаратами"
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(120)
+                  remarks: "Официальное название препарата"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nomenclature
+                  type: varchar(120)
+                  remarks: "Номенклатура препарата"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: manufacturer
+                  type: varchar(120)
+                  remarks: "Производитель препарата"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: dose_form
+                  type: varchar(50)
+                  remarks: "Описание единицы назначения препарата"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: container_form
+                  type: varchar(50)
+                  remarks: "Основная единица учёта - контейнер, в котором хранятся единицы назначения"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: container_volume
+                  type: integer
+                  remarks: "Кол-во единиц назначения в единице учёта"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: double
+                  remarks: "Кол-во препарата в основных единицах учёта (поэтому имеет место дробная часть)"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
