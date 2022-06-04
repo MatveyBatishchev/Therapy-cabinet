@@ -21,7 +21,7 @@
     </insert>
 
     <select id="read" parameterType="map" resultMap="PatientMap">
-        select
+        select *
         from doc.patient
         where id = #{id}
     </select>
