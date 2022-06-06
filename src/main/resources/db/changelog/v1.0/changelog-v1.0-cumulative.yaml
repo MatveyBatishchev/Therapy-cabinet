@@ -11,3 +11,18 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: create-labevent-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-therapy-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-medication-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-prescription-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-order-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-order-entry-table.yaml
