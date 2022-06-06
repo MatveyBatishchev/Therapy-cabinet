@@ -37,6 +37,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-ui:1.6.4")
 
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+
     testImplementation(kotlin("test"))
 }
 
