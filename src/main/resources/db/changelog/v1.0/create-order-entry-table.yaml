@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-entry
+      author: MYBatishchev
+      comment: "Создание таблицы с записями в заказе"
+      changes:
+        - createTable:
+            tableName: order_entry
+            remarks: "Таблица с записями заказа"
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: medication_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_medication_id
+                    references: medication(id)
+              - column:
+                  name: order_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_id
+                    references: order(id)
+              - column:
+                  name: amount
+                  type: integer
+                  remarks: "Кол-во единиц на заказ"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
