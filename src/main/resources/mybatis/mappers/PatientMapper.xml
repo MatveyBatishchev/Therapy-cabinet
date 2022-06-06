@@ -50,4 +50,22 @@
         from doc.patient
         limit #{limit} offset #{offset}
     </select>
+
+    <insert id="addPatientIcd" parameterType="map">
+        insert into doc.patient_icd (patient_id, code)
+        values (#{patientId}, #{icdCode})
+    </insert>
+
+    <select id="readPatientIcds" resultType="string" parameterType="map">
+        select code
+        from doc.patient_icd
+        where patient_id = #{patientId}
+    </select>
+
+    <delete id="removePatientIcd" parameterType="map">
+        delete
+        from doc.patient_icd
+        where patient_id = #{patientId}
+          and code = #{icdCode}
+    </delete>
 </mapper>

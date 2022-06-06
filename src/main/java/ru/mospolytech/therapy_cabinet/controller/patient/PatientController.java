@@ -1,5 +1,6 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
@@ -32,4 +33,20 @@ public interface PatientController {
     @ResponseBody
     List<Patient> readAll(@RequestParam("offset") Long offset,
                           @RequestParam("limit") Long limit);
+
+    @PutMapping("/{id}/icd")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void addPatientIcd(@PathVariable("id") UUID id,
+                       @RequestParam("icdCode") String icdCode);
+
+
+    @GetMapping("/{id}/icd")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    List<String> readPatientIcds(@PathVariable("id") UUID id);
+
+    @DeleteMapping("/{id}/icd")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void removePatientIcd(@PathVariable("id") UUID id,
+                          @RequestParam("icdCode") String icdCode);
 }

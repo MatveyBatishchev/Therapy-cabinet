@@ -1,13 +1,17 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.ibatis.reflection.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+//TODO: add sql exception propagation
 @RestController
 public class PatientControllerImpl implements PatientController {
 
@@ -43,5 +47,20 @@ public class PatientControllerImpl implements PatientController {
     @Override
     public List<Patient> readAll(Long offset, Long limit) {
         return patientMapper.readAll(offset, limit);
+    }
+
+    @Override
+    public void addPatientIcd(UUID id, String icdCode) {
+        patientMapper.addPatientIcd(id, icdCode);
+    }
+
+    @Override
+    public List<String> readPatientIcds(UUID id) {
+        return patientMapper.readPatientIcds(id);
+    }
+
+    @Override
+    public void removePatientIcd(UUID id, String icdCode) {
+        patientMapper.removePatientIcd(id, icdCode);
     }
 }
