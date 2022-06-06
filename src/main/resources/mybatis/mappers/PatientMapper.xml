@@ -22,7 +22,7 @@
     </insert>
 
     <select id="read" parameterType="map" resultMap="PatientMap">
-        select *
+        select id, full_name, phone_number, adverse_reactions, date_of_birth, sex
         from doc.patient
         where id = #{id};
     </select>

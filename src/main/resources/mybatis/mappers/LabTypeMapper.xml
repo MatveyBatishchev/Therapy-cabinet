@@ -27,7 +27,7 @@
     </select>
 
     <select id="read" parameterType="map" resultMap="LabTypeMap">
-        select *
+        select id, name, specimen, mu, lolim, lolimnum, uplim, uplimnum
         from doc.labtype
         where id = #{id};
     </select>

@@ -5,11 +5,13 @@
     <typeHandlers>
         <typeHandler handler="common.mybatis.type_handlers.LocalDateTypeHandler"/>
         <typeHandler handler="common.mybatis.type_handlers.UUIDTypeHandler"/>
+        <typeHandler handler="common.mybatis.type_handlers.DateTimeTypeHandler"/>
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.SexTypeHandler"/>
     </typeHandlers>
 
     <mappers>
         <mapper resource="mybatis/mappers/PatientMapper.xml"/>
         <mapper resource="mybatis/mappers/LabTypeMapper.xml"/>
+        <mapper resource="mybatis/mappers/LabEventMapper.xml"/>
     </mappers>
 </configuration>
