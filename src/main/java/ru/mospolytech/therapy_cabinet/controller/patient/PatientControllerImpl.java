@@ -1,5 +1,6 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.reflection.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,9 @@ import java.util.UUID;
 
 //TODO: add sql exception propagation
 @RestController
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PatientControllerImpl implements PatientController {
-
     private final PatientMapper patientMapper;
-
-    @Autowired
-    public PatientControllerImpl(final PatientMapper patientMapper) {
-        this.patientMapper = patientMapper;
-    }
 
     @Override
     public Patient create(Patient patient) {

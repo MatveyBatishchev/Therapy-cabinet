@@ -14,16 +14,17 @@
     </resultMap>
 
     <!--    queries-->
+
     <insert id="create" parameterType="map">
         insert into doc.patient (id, full_name, phone_number, adverse_reactions, date_of_birth, sex)
         values (#{patient.id}, #{patient.fullName}, #{patient.phoneNumber}, #{patient.adverseReactions},
-                #{patient.dateOfBirth}, #{patient.sex.code})
+                #{patient.dateOfBirth}, #{patient.sex.code});
     </insert>
 
     <select id="read" parameterType="map" resultMap="PatientMap">
         select *
         from doc.patient
-        where id = #{id}
+        where id = #{id};
     </select>
 
     <update id="update" parameterType="map">
@@ -31,41 +32,41 @@
         set
         <if test="patient.fullName != null">full_name = #{patient.fullName},</if>
         <if test="patient.phoneNumber != null">phone_number = #{patient.phoneNumber},</if>
-        <if test="patient.adverseReactions != null"> adverse_reactions = #{patient.adverseReactions}, </if>
-        <if test="patient.dateOfBirth != null"> date_of_birth = #{patient.dateOfBirth}, </if>
-        <if test="patient.sex != null"> sex = #{patient.sex.code},</if>
---         FIXME: changed field set to now() even if nothing changed
-         changed = now()
-        where id = #{patient.id}
+        <if test="patient.adverseReactions != null">adverse_reactions = #{patient.adverseReactions},</if>
+        <if test="patient.dateOfBirth != null">date_of_birth = #{patient.dateOfBirth},</if>
+        <if test="patient.sex != null">sex = #{patient.sex.code},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{patient.id};
     </update>
 
     <delete id="delete" parameterType="map">
         delete
         from doc.patient
-        where id = #{id}
+        where id = #{id};
     </delete>
 
     <select id="readAll" parameterType="map" resultMap="PatientMap">
         select id, full_name, phone_number, adverse_reactions, date_of_birth, sex
         from doc.patient
-        limit #{limit} offset #{offset}
+        limit #{limit} offset #{offset};
     </select>
 
     <insert id="addPatientIcd" parameterType="map">
         insert into doc.patient_icd (patient_id, code)
-        values (#{patientId}, #{icdCode})
+        values (#{patientId}, #{icdCode});
     </insert>
 
     <select id="readPatientIcds" resultType="string" parameterType="map">
         select code
         from doc.patient_icd
-        where patient_id = #{patientId}
+        where patient_id = #{patientId};
     </select>
 
     <delete id="removePatientIcd" parameterType="map">
         delete
         from doc.patient_icd
         where patient_id = #{patientId}
-          and code = #{icdCode}
+          and code = #{icdCode};
     </delete>
 </mapper>

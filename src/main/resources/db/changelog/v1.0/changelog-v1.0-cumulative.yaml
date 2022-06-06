@@ -29,3 +29,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: add-cascade-patient-icd-patient-id-fk.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-autoinc-labtype-id.yaml
