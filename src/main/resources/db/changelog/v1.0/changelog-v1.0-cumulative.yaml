@@ -11,3 +11,15 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: create-labevent-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-user-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-role-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-user-has-role-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-verification-token-table.yaml
