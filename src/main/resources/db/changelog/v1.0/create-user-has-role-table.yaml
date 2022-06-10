@@ -25,14 +25,14 @@ databaseChangeLog:
                     references: role(id)
                     nullable: false
               - column:
-                  name: created_at
+                  name: created
                   type: datetime
                   remarks: "Время назначения роли"
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
               - column:
-                  name: changed_at
+                  name: changed
                   type: datetime
                   remarks: "Время изменения роли"
                   defaultValueComputed: now()
