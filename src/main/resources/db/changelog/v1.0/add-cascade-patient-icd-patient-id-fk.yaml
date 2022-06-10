@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-cascade-patient-icd-patient-id-fk
+      author: IRZaripov
+      comment: "Автоматически удаляет строки из patient_icd при удалении пациента. "
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: patient_icd
+            constraintName: fk_patient_id
+        - addForeignKeyConstraint:
+            baseTableName: patient_icd
+            baseColumnNames: patient_id
+            constraintName: fk_patient_id
+            onDelete: CASCADE
+            referencedTableName: patient
+            referencedColumnNames: id

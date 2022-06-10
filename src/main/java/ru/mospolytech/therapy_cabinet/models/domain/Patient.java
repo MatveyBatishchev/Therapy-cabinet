@@ -1,9 +1,12 @@
 package ru.mospolytech.therapy_cabinet.models.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.joda.time.LocalDate;
 
 import java.util.UUID;
 
+@Data
 public class Patient {
     /**
      * Идентификатор пациента
@@ -29,52 +32,4 @@ public class Patient {
      * Пол пациента
      */
     private Sex sex;
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAdverseReactions(String adverseReactions) {
-        this.adverseReactions = adverseReactions;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAdverseReactions() {
-        return adverseReactions;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
 }

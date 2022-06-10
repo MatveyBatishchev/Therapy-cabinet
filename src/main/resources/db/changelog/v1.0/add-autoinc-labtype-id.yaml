@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-autoinc-labtype-id
+      author: IRZaripov
+      comment: "Добавление автоинкремента идентификатора в таблицу labtype"
+      changes:
+        - addAutoIncrement:
+            tableName: labtype
+            columnName: id

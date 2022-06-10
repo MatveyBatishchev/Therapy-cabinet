@@ -23,3 +23,24 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: create-verification-token-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-therapy-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-medication-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-prescription-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-order-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: create-order-entry-table.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-cascade-patient-icd-patient-id-fk.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-autoinc-labtype-id.yaml

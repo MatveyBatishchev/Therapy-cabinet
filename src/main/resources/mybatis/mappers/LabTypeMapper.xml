@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.LabTypeMapper">
+    <!--maps-->
+
+    <resultMap id="LabTypeMap" type="ru.mospolytech.therapy_cabinet.models.domain.LabType">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="specimen" property="specimen"/>
+        <result column="mu" property="measurementUnits"/>
+        <result column="lolim" property="lowerLimit"/>
+        <result column="lolimnum" property="lowerLimitNumeric"/>
+        <result column="uplim" property="upperLimit"/>
+        <result column="uplimnum" property="upperLimitNumeric"/>
+    </resultMap>
+
+    <!--queries-->
+
+    <!--не нужно делать так, если возвращемое значение не нужно-->
+    <select id="create" parameterType="map" resultType="int">
+        insert into doc.labtype (name, specimen, mu, lolim, lolimnum, uplim, uplimnum)
+        values (#{labType.name}, #{labType.specimen}, #{labType.measurementUnits}, #{labType.lowerLimit},
+                #{labType.lowerLimitNumeric},
+                #{labType.upperLimit}, #{labType.upperLimitNumeric})
+        returning id;
+    </select>
+
+    <select id="read" parameterType="map" resultMap="LabTypeMap">
+        select id, name, specimen, mu, lolim, lolimnum, uplim, uplimnum
+        from doc.labtype
+        where id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.labtype
+        set
+        <if test="labType.name != null">name = #{labType.name},</if>
+        <if test="labType.specimen != null">specimen = #{labType.specimen},</if>
+        <if test="labType.measurementUnits != null">mu = #{labType.measurementUnits},</if>
+        <if test="labType.lowerLimit != null">lolim = #{labType.lowerLimit},</if>
+        <if test="labType.lowerLimitNumeric != null">lolimnum = #{labType.lowerLimitNumeric},</if>
+        <if test="labType.upperLimit != null">uplim = #{labType.upperLimit},</if>
+        <if test="labType.upperLimitNumeric != null">uplimnum = #{labType.upperLimitNumeric},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{labType.id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.labtype
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="LabTypeMap">
+        select id,
+               name,
+               specimen,
+               mu,
+               lolim,
+               lolimnum,
+               uplim,
+               uplimnum
+        from doc.labtype
+        limit #{limit} offset #{offset};
+    </select>
+</mapper>

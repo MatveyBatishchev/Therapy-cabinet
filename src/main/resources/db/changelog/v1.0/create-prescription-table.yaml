@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-prescription-table
+      author: MYBatishchev
+      comment: "Создание таблицы с лекарственными назначениями"
+      changes:
+        - createTable:
+            tableName: prescription
+            remarks: "Таблица с лекарственными назначениями"
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: therapy_id
+                  type: integer
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_therapy_id
+                    references: therapy(id)
+              - column:
+                  name: medication_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_medication_id
+                    references: medication(id)
+              - column:
+                  name: request_amount
+                  type: integer
+                  remarks: "Кол-во запрошенного препарата в единицах назначения"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: used_amount
+                  type: integer
+                  remarks: "Кол-во использованного препарата в единицах назначения"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: administration_type
+                  type: varchar(100)
+                  remarks: "Тип введения препарата"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: comment
+                  type: text
+                  remarks: "Примечание к назначению"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: smallint
+                  remarks: "Статус назначения"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения записи"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false

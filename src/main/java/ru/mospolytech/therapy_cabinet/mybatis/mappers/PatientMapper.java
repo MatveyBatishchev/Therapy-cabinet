@@ -12,7 +12,9 @@ import java.util.UUID;
 @Mapper
 public interface PatientMapper {
     void create(@Param("patient") Patient patient);
+
     Patient read(@Param("id") UUID id);
+
     void update(@Param("patient") Patient patient);
 
     boolean delete(@Param("id") UUID id);
@@ -20,5 +22,19 @@ public interface PatientMapper {
     List<Patient> readAll(
             @Param("offset") Long offset,
             @Param("limit") Long limit
+    );
+
+    void addPatientIcd(
+            @Param("patientId") UUID id,
+            @Param("icdCode") String icdCode
+    );
+
+    List<String> readPatientIcds(
+            @Param("patientId") UUID id
+    );
+
+    void removePatientIcd(
+            @Param("patientId") UUID id,
+            @Param("icdCode") String icdCode
     );
 }
