@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.UserMapper">
+    <!--    Maps    -->
+    <resultMap id="UserMap" type="ru.mospolytech.therapy_cabinet.models.domain.user.User">
+        <id column="id" property="id"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="password" property="password"/>
+        <result column="created" property="createdAt"/>
+        <result column="is_enabled" property="isEnabled"/>
+        <result column="changed" property="updatedAt"/>
+
+        <collection property="roles" ofType="ru.mospolytech.therapy_cabinet.models.domain.user.Role">
+            <id column="roleId" property="id"/>
+            <result column="role_name" property="roleName"
+                    typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
+        </collection>
+    </resultMap>
+
+    <!--    Queries    -->
+    <select id="findAllUsers" parameterType="map" resultMap="UserMap">
+        select u.id           as id,
+               u.email        as email,
+               u.phone_number as phone_number,
+               u.password     as password,
+               u.created      as created,
+               u.changed      as changed,
+               u.is_enabled   as is_enabled,
+               r.id           as roleId,
+               r.role_name    as role_name
+        from doc.user u
+                 left join doc.user_has_role ur
+                           on ur.user_id = u.id
+                 left join doc.role r
+                           on ur.role_id = r.id
+        limit #{limit} offset #{offset};
+    </select>
+
+    <select id="findUserById" parameterType="map" resultMap="UserMap">
+        select u.id           as id,
+               u.email        as email,
+               u.phone_number as phone_number,
+               u.password     as password,
+               u.created      as created,
+               u.changed      as changed,
+               u.is_enabled   as is_enabled,
+               r.id           as roleId,
+               r.role_name    as role_name
+        from doc.user u
+                 left join doc.user_has_role ur
+                           on ur.user_id = u.id
+                 left join doc.role r
+                           on ur.role_id = r.id
+        where u.id = #{id}
+    </select>
+
+    <insert id="createUser" parameterType="map">
+        insert into doc."user" (id, email, phone_number, password, created, changed, is_enabled)
+        values (#{user.id},
+                #{user.email},
+                #{user.phoneNumber},
+                #{user.password});
+        insert into doc.user_has_role(user_id, role_id)
+        values
+        <foreach collection="user.roles" item="role" index="index" open="(" separator="),(" close=")">
+            #{user.id}, #{role.id}
+        </foreach>
+    </insert>
+
+    <update id="updateUser" parameterType="map">
+        update doc."user"
+        set
+        <if test="user.email != null and user.email != ''">
+            email = #{user.email},
+        </if>
+        <if test="user.phoneNumber != null and user.phoneNumber != ''">
+            phone_number = #{user.phoneNumber},
+        </if>
+        <if test="user.password != null and user.password != ''">
+            password = #{user.password},
+        </if>
+        is_enabled = #{user.isEnabled},
+        changed    = now()
+        where id = #{user.id}
+    </update>
+
+    <delete id="deleteUser" parameterType="map">
+        delete
+        from doc."user"
+        where id = #{id}
+    </delete>
+
+    <select id="findUserByEmail" resultMap="UserMap">
+        select u.id           as id,
+               u.email        as email,
+               u.phone_number as phone_number,
+               u.password     as password,
+               u.created      as created,
+               u.changed      as changed,
+               u.is_enabled   as is_enabled,
+               r.id           as roleId,
+               r.role_name    as role_name
+        from doc.user u
+                 left join doc.user_has_role ur
+                           on ur.user_id = u.id
+                 left join doc.role r
+                           on ur.role_id = r.id
+        where email = #{email,jdbcType=VARCHAR}
+    </select>
+</mapper>
