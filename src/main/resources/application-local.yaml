@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/therapy_room_db
+    url: jdbc:postgresql://localhost:5444/therapy_room_db
     username: postgres
     password: secret
     hikari:
