@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-has-role-table
+      author: VKamalov
+      comment: "Создание промежуточной таблицы для связи пользователя с его ролями"
+      changes:
+        - createTable:
+            tableName: user_has_role
+            remarks: "Промежуточная таблица для связи пользователя с его ролями"
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  remarks: "UUID пользователя (внешний ключ)"
+                  constraints:
+                    foreignKeyName: fk_user_id
+                    references: user(id)
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: smallint
+                  remarks: "UUID пользовательской роли (внешний ключ)"
+                  constraints:
+                    foreignKeyName: fk_role_id
+                    references: role(id)
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  remarks: "Время назначения роли"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed_at
+                  type: datetime
+                  remarks: "Время изменения роли"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
