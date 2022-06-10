@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-role-table
+      author: VKamalov
+      comment: "Создание таблицы пользовательских ролей"
+      changes:
+        - createTable:
+            tableName: role
+            remarks: "Таблица с ролями пользователей"
+            columns:
+              - column:
+                  name: id
+                  type: smallint
+                  remarks: "ID роли (первичный ключ)"
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_name
+                  type: varchar(63)
+                  remarks: "Наименование пользовательской роли"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания роли"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: changed
+                  type: datetime
+                  remarks: "Время изменения роли"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false

@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-verification-token-table
+      author: VKamalov
+      comment: "Создание таблицы с информацией о подтверждении регистрации"
+      changes:
+        - createTable:
+            tableName: verification_token
+            remarks: "Таблица с информацией о подтверждении регистрации"
+            columns:
+              - column:
+                  name: token
+                  type: uuid
+                  remarks: "Токен для подтверждения регистрации"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  remarks: "UUID пользователя (внешний ключ)"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_id
+                    references: user(id)
+              - column:
+                  name: created
+                  type: datetime
+                  remarks: "Время создания токена"
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expired
+                  type: datetime
+                  remarks: "Время истечения срока действия токена"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: confirmed
+                  type: datetime
+                  remarks: "Время подтверждения регистрации"
+                  constraints:
+                    nullable: true

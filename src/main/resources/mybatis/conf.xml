@@ -2,11 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <typeAliases>
+        <typeAlias type="ru.mospolytech.therapy_cabinet.models.domain.user.User" alias="User"/>
+        <typeAlias type="ru.mospolytech.therapy_cabinet.models.domain.user.Role" alias="Role"/>
+    </typeAliases>
+
     <typeHandlers>
         <typeHandler handler="common.mybatis.type_handlers.LocalDateTypeHandler"/>
         <typeHandler handler="common.mybatis.type_handlers.UUIDTypeHandler"/>
         <typeHandler handler="common.mybatis.type_handlers.DateTimeTypeHandler"/>
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.SexTypeHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
     </typeHandlers>
 
     <mappers>
