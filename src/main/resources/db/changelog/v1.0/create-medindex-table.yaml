@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: create-order-table
+      id: create-medindex-table
       author: MYBatishchev
-      comment: "Создание таблицы с заказами в аптеку"
+      comment: "Создание таблицы клинического индекса пациента"
       changes:
         - createTable:
-            tableName: order
-            remarks: "Таблица с заказами в аптеку"
+            tableName: medindex
+            remarks: "Таблица клинических индексов пациента"
             columns:
               - column:
                   name: id
@@ -15,29 +15,29 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: supplier
-                  type: varchar(120)
-                  remarks: "Поставщик препаратов"
+                  name: therapy_id
+                  type: integer
+                  remarks: "ID терапии (внешний ключ)"
                   constraints:
                     nullable: false
+                    foreignKeyName: fk_therapy_id
+                    references: therapy(id)
               - column:
-                  name: form_date
-                  type: datetime
-                  remarks: "Время формирования и отправки заказа"
+                  name: index_type_id
+                  type: integer
+                  remarks: "Вид индекса"
                   constraints:
                     nullable: false
+                    foreignKeyName: fk_index_type_id
+                    references: index_type(id)
               - column:
-                  name: delivery_date
-                  type: datetime
-                  remarks: "Время поступления заказа"
-                  constraints:
-                    nullable: true
+                  name: value
+                  type: double
+                  remarks: "Значение индекса"
               - column:
-                  name: status
-                  type: smallint
-                  remarks: "Статус заказа"
-                  constraints:
-                    nullable: false
+                  name: comments
+                  type: text
+                  remarks: "Примечание специалиста"
               - column:
                   name: created
                   type: datetime

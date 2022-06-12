@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: integer
+                  type: uuid
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -29,17 +29,11 @@ databaseChangeLog:
                     foreignKeyName: fk_medication_id
                     references: medication(id)
               - column:
-                  name: request_amount
+                  name: amount
                   type: integer
-                  remarks: "Кол-во запрошенного препарата в единицах назначения"
+                  remarks: "Кол-во списанного к терапии лекарства"
                   constraints:
                     nullable: false
-              - column:
-                  name: used_amount
-                  type: integer
-                  remarks: "Кол-во использованного препарата в единицах назначения"
-                  constraints:
-                    nullable: true
               - column:
                   name: administration_type
                   type: varchar(100)

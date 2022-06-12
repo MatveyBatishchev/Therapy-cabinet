@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: aadd-patient-columns
+      author: MYBatishchev
+      comment: "Добавление полей в таблицу пациента"
+      changes:
+        - addColumn:
+            tableName: patient
+            columns:
+              - column:
+                  name: email
+                  type: varchar(120)
+                  remarks: "Электронная почта"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: contact_person
+                  type: varchar(11)
+                  remarks: "Телефонный номер контактного лица"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ambulatory_card
+                  type: varchar(10)
+                  remarks: "Номер амбулаторной карты из системы Interin"
+                  constraints:
+                    nullable: true
+              - column:
+                  name: finance_source
+                  type: smallint
+                  remarks: "Источник финансирования"
+                  constraints:
+                    nullable: true
