@@ -8,8 +8,8 @@
         <result column="email" property="email"/>
         <result column="phone_number" property="phoneNumber"/>
         <result column="password" property="password"/>
-        <result column="created" property="createdAt"/>
         <result column="is_enabled" property="isEnabled"/>
+        <result column="created" property="createdAt"/>
         <result column="changed" property="updatedAt"/>
 
         <collection property="roles" ofType="ru.mospolytech.therapy_cabinet.models.domain.user.Role">
@@ -24,7 +24,7 @@
         <result column="email" property="email"/>
         <result column="phone_number" property="phoneNumber"/>
         <result column="password" property="password"/>
-        <result column="is_enabled" property="isEnabled"/>
+        <result column="is_enabled" property="isEnabled" javaType="boolean" jdbcType="BOOLEAN"/>
 
         <collection property="roles" ofType="ru.mospolytech.therapy_cabinet.models.domain.user.Role">
             <id column="roleId" property="id"/>
@@ -71,16 +71,17 @@
     </select>
 
     <insert id="createUser" parameterType="map">
-        insert into doc."user" (id, email, phone_number, password, created, changed, is_enabled)
-        values (#{user.id},
-                #{user.email},
-                #{user.phoneNumber},
-                #{user.password});
+        insert into doc.user (id, email, phone_number, password, created, changed, is_enabled)
+        values (#{user.id}, #{user.email}, #{user.phoneNumber}, #{user.password}, #{user.createdAt}, #{user.updatedAt},
+                #{user.isEnabled});
+
         insert into doc.user_has_role(user_id, role_id)
         values
-        <foreach collection="user.roles" item="role" index="index" open="(" separator="),(" close=")">
-            #{user.id}, #{role.id}
-        </foreach>
+        <trim suffixOverrides=",">
+            <foreach collection="user.roles" item="role">
+                (#{user.id}, #{role.id}),
+            </foreach>
+        </trim>
     </insert>
 
     <update id="updateUser" parameterType="map">
@@ -97,13 +98,22 @@
         </if>
         is_enabled = #{user.isEnabled},
         changed    = now()
-        where id = #{user.id}
+        where id = #{user.id};
+
+        <foreach collection="user.roles" item="role">
+            INSERT INTO doc.user_has_role(user_id, role_id)
+            VALUES (#{user.id}, #{role.id})
+            ON CONFLICT(user_id, role_id) DO UPDATE
+                SET user_id = #{user.id},
+                    role_id = #{role.id}
+            WHERE doc.user_has_role.user_id = #{user.id};
+        </foreach>
     </update>
 
     <delete id="deleteUser" parameterType="map">
-        delete
-        from doc."user"
-        where id = #{id}
+        DELETE
+        FROM doc."user"
+        WHERE id = #{id}
     </delete>
 
     <select id="findUserByEmail" resultMap="UserDetailsMap">
@@ -111,6 +121,8 @@
                u.email        as email,
                u.phone_number as phone_number,
                u.password     as password,
+               u.created      as created,
+               u.changed      as changed,
                u.is_enabled   as is_enabled,
                r.id           as roleId,
                r.role_name    as role_name

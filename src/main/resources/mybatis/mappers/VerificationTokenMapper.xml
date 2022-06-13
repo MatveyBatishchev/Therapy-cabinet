@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.VerificationTokenMapper">
+    <!--  Maps  -->
+    <resultMap id="tokenMap" type="ru.mospolytech.therapy_cabinet.models.domain.user.VerificationToken">
+        <result column="token" property="token"/>
+        <result column="created" property="createdAt"/>
+        <result column="expired" property="expiredAt"/>
+        <result column="confirmed" property="confirmedAt"/>
+        <result column="user_id" property="userUuid"/>
+    </resultMap>
+
+    <!--  Queries  -->
+    <insert id="saveVerificationToken">
+        insert into doc.verification_token(token, user_id, created, expired, confirmed)
+        VALUES (#{token.token}, #{token.userUuid}, #{token.createdAt}, #{token.expiredAt}, #{token.confirmedAt})
+    </insert>
+
+    <select id="findByToken" resultMap="tokenMap">
+        select token     as token,
+               created   as created,
+               expired   as expired,
+               confirmed as confirmed,
+               user_id   as user_id
+        from doc.verification_token
+        where token = #{token};
+    </select>
+
+    <delete id="removeUserAndTokenByToken">
+        delete
+        from doc."verification_token"
+        WHERE token = #{token}
+    </delete>
+
+    <update id="updateVerificationToken">
+        update doc.verification_token
+        set confirmed = #{token.confirmedAt}
+        where token = #{token.token}
+    </update>
+</mapper>
