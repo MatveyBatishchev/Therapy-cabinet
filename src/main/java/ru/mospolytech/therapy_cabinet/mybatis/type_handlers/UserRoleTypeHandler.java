@@ -3,10 +3,8 @@ package ru.mospolytech.therapy_cabinet.mybatis.type_handlers;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.TypeHandler;
-import ru.mospolytech.therapy_cabinet.models.domain.user.Authority;
 import ru.mospolytech.therapy_cabinet.exception.RoleNotFoundException;
-
-import static ru.mospolytech.therapy_cabinet.exception.RoleNotFoundException.*;
+import ru.mospolytech.therapy_cabinet.models.domain.user.Authority;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -14,11 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import static ru.mospolytech.therapy_cabinet.exception.RoleNotFoundException.ROLE_NOT_EXISTS;
+
 
 /**
  * @author Dimevision
  * @version 0.1
- *
+ * <p>
  * Class made for handling {@link ru.mospolytech.therapy_cabinet.models.domain.user.Authority} enum
  */
 
