@@ -20,5 +20,7 @@
         <mapper resource="mybatis/mappers/UserMapper.xml"/>
         <mapper resource="mybatis/mappers/LabTypeMapper.xml"/>
         <mapper resource="mybatis/mappers/LabEventMapper.xml"/>
+        <mapper resource="mybatis/mappers/VerificationTokenMapper.xml"/>
+        <mapper resource="mybatis/mappers/RoleMapper.xml"/>
     </mappers>
 </configuration>
