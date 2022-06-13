@@ -13,14 +13,17 @@ databaseChangeLog:
                   type: uuid
                   remarks: "UUID пользователя (внешний ключ)"
                   constraints:
+                    primaryKey: true
                     foreignKeyName: fk_user_id
                     references: user(id)
                     nullable: false
+                    deleteCascade: true
               - column:
                   name: role_id
                   type: smallint
                   remarks: "ID пользовательской роли (внешний ключ)"
                   constraints:
+                    primaryKey: true
                     foreignKeyName: fk_role_id
                     references: role(id)
                     nullable: false

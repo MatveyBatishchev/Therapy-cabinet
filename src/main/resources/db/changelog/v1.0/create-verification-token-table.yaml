@@ -22,6 +22,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_user_id
                     references: user(id)
+                    deleteCascade: true
               - column:
                   name: created
                   type: datetime
