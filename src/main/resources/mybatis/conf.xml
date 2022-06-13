@@ -18,5 +18,7 @@
         <mapper resource="mybatis/mappers/TherapyMapper.xml"/>
         <mapper resource="mybatis/mappers/MedicationMapper.xml"/>
         <mapper resource="mybatis/mappers/PrescriptionMapper.xml"/>
+        <mapper resource="mybatis/mappers/IndexTypeMapper.xml"/>
+        <mapper resource="mybatis/mappers/MedIndexMapper.xml"/>
     </mappers>
 </configuration>

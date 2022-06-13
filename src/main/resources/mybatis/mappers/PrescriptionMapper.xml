@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.PrescriptionMapper">
+
+    <!--maps-->
     <resultMap id="PrescriptionMap" type="ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRead">
         <id column="id" property="id"/>
         <result column="value" property="value"/>
@@ -10,8 +12,8 @@
         <result column="administration_type" property="administrationType"/>
         <result column="comments" property="comments"/>
         <association columnPrefix="therapy_" property="therapy"
-                     javaType="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyCreate"
-                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper.TherapyCreateMap"/>
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyRead"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper.TherapyMap"/>
         <association columnPrefix="medication_" property="medication"
                      javaType="ru.mospolytech.therapy_cabinet.models.domain.Medication"
                      resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedicationMapper.MedicationMap"/>
@@ -98,6 +100,6 @@
         from doc.prescription
                  left join doc.therapy therapy on therapy.id = prescription.therapy_id
                  left join doc.medication medication on medication.id = prescription.medication_id
-            limit #{limit} offset #{offset};
+        limit #{limit} offset #{offset};
     </select>
 </mapper>

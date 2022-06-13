@@ -35,6 +35,10 @@ databaseChangeLog:
                   type: double
                   remarks: "Значение индекса"
               - column:
+                  name: aflag
+                  type: varchar(32)
+                  remarks: "Отклонение от нормы"
+              - column:
                   name: comments
                   type: text
                   remarks: "Примечание специалиста"

@@ -16,11 +16,11 @@ public interface TherapyMapper {
 
     TherapyRead read(@Param("id") int id);
 
-    void update(@Param("therapyId") int id,
+    void update(@Param("id") int id,
                 @Param("therapy") TherapyCreate therapy);
 
     boolean delete(@Param("id") int id);
 
     List<TherapyRead> readAll(@Param("offset") Long offset,
-                               @Param("limit") Long limit);
+                              @Param("limit") Long limit);
 }

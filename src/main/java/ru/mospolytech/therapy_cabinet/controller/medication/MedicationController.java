@@ -29,6 +29,6 @@ public interface MedicationController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     List<Medication> readAll(@RequestParam("offset") Long offset,
-                          @RequestParam("limit") Long limit);
+                             @RequestParam("limit") Long limit);
 
 }

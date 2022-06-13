@@ -30,6 +30,6 @@ public interface TherapyController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     List<TherapyRead> readAll(@RequestParam("offset") Long offset,
-                          @RequestParam("limit") Long limit);
+                              @RequestParam("limit") Long limit);
 
 }

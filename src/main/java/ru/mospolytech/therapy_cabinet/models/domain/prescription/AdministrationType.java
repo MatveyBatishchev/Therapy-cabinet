@@ -15,7 +15,7 @@ public enum AdministrationType {
     }
 
     /**
-     * @return код тип введения лекарства
+     * @return код типа введения лекарства
      */
     public int getCode() {
         return code;
