@@ -18,6 +18,7 @@ databaseChangeLog:
                   name: therapy_id
                   type: integer
                   constraints:
+                    unique: true
                     nullable: false
                     foreignKeyName: fk_therapy_id
                     references: therapy(id)
@@ -29,29 +30,29 @@ databaseChangeLog:
                     foreignKeyName: fk_medication_id
                     references: medication(id)
               - column:
-                  name: amount
+                  name: dose_amount
                   type: integer
-                  remarks: "Кол-во списанного к терапии лекарства"
+                  remarks: "Кол-во списанного к терапии лекарства в дозах"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: substance_amount
+                  type: double
+                  remarks: "Кол-во списанного к терапии вещества лекарства"
                   constraints:
                     nullable: false
               - column:
                   name: administration_type
-                  type: varchar(100)
+                  type: smallint
                   remarks: "Тип введения препарата"
                   constraints:
                     nullable: true
               - column:
-                  name: comment
+                  name: comments
                   type: text
                   remarks: "Примечание к назначению"
                   constraints:
                     nullable: true
-              - column:
-                  name: status
-                  type: smallint
-                  remarks: "Статус назначения"
-                  constraints:
-                    nullable: false
               - column:
                   name: created
                   type: datetime

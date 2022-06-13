@@ -7,11 +7,16 @@
         <typeHandler handler="common.mybatis.type_handlers.UUIDTypeHandler"/>
         <typeHandler handler="common.mybatis.type_handlers.DateTimeTypeHandler"/>
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.SexTypeHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.TherapyStatusHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.AdministrationTypeHandler"/>
     </typeHandlers>
 
     <mappers>
         <mapper resource="mybatis/mappers/PatientMapper.xml"/>
         <mapper resource="mybatis/mappers/LabTypeMapper.xml"/>
         <mapper resource="mybatis/mappers/LabEventMapper.xml"/>
+        <mapper resource="mybatis/mappers/TherapyMapper.xml"/>
+        <mapper resource="mybatis/mappers/MedicationMapper.xml"/>
+        <mapper resource="mybatis/mappers/PrescriptionMapper.xml"/>
     </mappers>
 </configuration>

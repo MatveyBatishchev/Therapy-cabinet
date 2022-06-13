@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedicationMapper">
+    <!--   maps-->
+
+    <resultMap id="MedicationMap" type="ru.mospolytech.therapy_cabinet.models.domain.Medication">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nomenclature" property="nomenclature"/>
+        <result column="manufacturer" property="manufacturer"/>
+        <result column="dose_form" property="doseForm"/>
+        <result column="dose_val" property="doseVal"/>
+        <result column="mu" property="measurementUnits"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+    <!--queries-->
+
+    <insert id="create" parameterType="map">
+        insert into doc.medication (id, name, nomenclature, manufacturer, dose_form, dose_val, mu, amount)
+        values (#{medication.id}, #{medication.name}, #{medication.nomenclature}, #{medication.manufacturer},
+                #{medication.doseForm}, #{medication.doseVal}, #{medication.measurementUnits}, #{medication.amount});
+    </insert>
+
+    <select id="read" parameterType="map" resultMap="MedicationMap">
+        select id, name, nomenclature, manufacturer, dose_form, dose_val, mu, amount
+        from doc.medication
+        where id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.medication
+        set
+        <if test="medication.name != null">name = #{medication.name},</if>
+        <if test="medication.nomenclature != null">nomenclature = #{medication.nomenclature},</if>
+        <if test="medication.manufacturer != null">manufacturer = #{medication.manufacturer},</if>
+        <if test="medication.doseForm != null">dose_form = #{medication.doseForm},</if>
+        <if test="medication.doseVal != null">dose_val = #{medication.doseVal},</if>
+        <if test="medication.measurementUnits != null">mu = #{medication.measurementUnits},</if>
+        <if test="medication.amount != null">amount = #{medication.amount},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{medication.id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.medication
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="MedicationMap">
+        select id, name, nomenclature, manufacturer, dose_form, dose_val, mu, amount
+        from doc.medication
+        limit #{limit} offset #{offset};
+    </select>
+
+</mapper>

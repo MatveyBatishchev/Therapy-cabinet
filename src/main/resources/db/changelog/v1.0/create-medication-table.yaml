@@ -55,7 +55,7 @@ databaseChangeLog:
                   type: integer
                   remarks: "Кол-во препарата в единицах учёта (мелких единицах)"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: created
                   type: datetime

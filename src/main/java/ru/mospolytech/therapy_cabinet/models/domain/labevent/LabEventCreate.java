@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_cabinet.models.domain;
+package ru.mospolytech.therapy_cabinet.models.domain.labevent;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

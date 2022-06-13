@@ -1,10 +1,9 @@
 package ru.mospolytech.therapy_cabinet.controller.lab_event;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventCreate;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventRead;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 
 import java.util.List;
 import java.util.UUID;

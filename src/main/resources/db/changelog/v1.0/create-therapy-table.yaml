@@ -46,7 +46,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: comment
+                  name: comments
                   type: text
                   remarks: "Примечание к записи о терапии"
                   constraints:
