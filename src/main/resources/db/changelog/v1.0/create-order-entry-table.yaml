@@ -22,12 +22,12 @@ databaseChangeLog:
                     foreignKeyName: fk_medication_id
                     references: medication(id)
               - column:
-                  name: order_id
+                  name: medorder_id
                   type: uuid
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_order_id
-                    references: order(id)
+                    foreignKeyName: fk_medorder_id
+                    references: medorder(id)
               - column:
                   name: amount
                   type: integer

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @MappedTypes(TherapyStatus.class)
 @SuppressWarnings("OptionalGetWithoutIsPresent")
-public class TherapyStatusHandler extends BaseTypeHandler<TherapyStatus> {
+public class TherapyStatusTypeHandler extends BaseTypeHandler<TherapyStatus> {
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, TherapyStatus parameter, JdbcType jdbcType) throws SQLException {
         ps.setInt(i , parameter.getCode());

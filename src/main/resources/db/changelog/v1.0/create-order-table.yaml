@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: create-order-table
+      id: create-medorder-table
       author: MYBatishchev
       comment: "Создание таблицы с заказами в аптеку"
       changes:
         - createTable:
-            tableName: order
+            tableName: medorder
             remarks: "Таблица с заказами в аптеку"
             columns:
               - column:

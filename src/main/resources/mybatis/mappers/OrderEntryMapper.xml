@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.OrderEntryMapper">
+
+    <!--maps-->
+    <resultMap id="OrderEntryMap" type="ru.mospolytech.therapy_cabinet.models.domain.order.OrderEntryRead">
+        <id column="id" property="id"/>
+        <result column="amount" property="amount"/>
+        <association columnPrefix="medorder_" property="medOrder"
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedOrderMapper.MedOrderMap"/>
+        <association columnPrefix="medication_" property="medication"
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.Medication"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedicationMapper.MedicationMap"/>
+    </resultMap>
+
+    <!--queries-->
+    <insert id="create" parameterType="map">
+        insert into doc.order_entry (medorder_id, medication_id, amount)
+        values (#{orderEntry.medOrderId}, #{orderEntry.medicationId}, #{orderEntry.amount});
+    </insert>
+
+    <select id="read" parameterType="map" resultMap="OrderEntryMap">
+        select order_entry.id            as id,
+               medorder_id,
+               medication_id,
+               order_entry.amount        as amount,
+               medorder.id               as medorder_id,
+               medorder.supplier         as medorder_supplier,
+               medorder.form_date        as medorder_form_date,
+               medorder.delivery_date    as medorder_delivery_date,
+               medorder.status           as medorder_status,
+               medication.id             as medication_id,
+               medication.name           as medication_name,
+               medication.nomenclature   as medication_nomenclature,
+               medication.manufacturer   as medication_manufacturer,
+               medication.dose_form      as medication_dose_form,
+               medication.dose_val       as medication_dose_val,
+               medication.mu             as medication_mu,
+               medication.amount         as medication_amount
+        from doc.order_entry
+                 left join doc.medication medication on medication.id = order_entry.medication_id
+                 left join doc.medorder medorder on medorder.id = order_entry.medorder_id
+        where order_entry.id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.order_entry
+        set
+        <if test="orderEntry.medOrderId != null">medorder_id = #{orderEntry.medOrderId},</if>
+        <if test="orderEntry.medicationId != null">medication_id = #{orderEntry.medicationId},</if>
+        <if test="orderEntry.amount != null">amount = #{orderEntry.amount},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.order_entry
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="OrderEntryMap">
+        select order_entry.id            as id,
+               medorder_id,
+               medication_id,
+               order_entry.amount        as amount,
+               medorder.id               as medorder_id,
+               medorder.supplier         as medorder_supplier,
+               medorder.form_date        as medorder_form_date,
+               medorder.delivery_date    as medorder_delivery_date,
+               medorder.status           as medorder_status,
+               medication.id             as medication_id,
+               medication.name           as medication_name,
+               medication.nomenclature   as medication_nomenclature,
+               medication.manufacturer   as medication_manufacturer,
+               medication.dose_form      as medication_dose_form,
+               medication.dose_val       as medication_dose_val,
+               medication.mu             as medication_mu,
+               medication.amount         as medication_amount
+        from doc.order_entry
+                 left join doc.medication medication on medication.id = order_entry.medication_id
+                 left join doc.medorder medorder on medorder.id = order_entry.medorder_id
+        limit #{limit} offset #{offset};
+    </select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedOrderMapper">
+
+    <!--maps-->
+    <resultMap id="MedOrderMap" type="ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder">
+        <id column="id" property="id"/>
+        <result column="supplier" property="supplier"/>
+        <result column="form_date" property="formDate"/>
+        <result column="delivery_date" property="deliveryDate"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!--queries-->
+    <insert id="create" parameterType="map">
+        insert into doc.medorder (id, supplier, form_date, delivery_date, status)
+        values (#{medOrder.id}, #{medOrder.supplier}, #{medOrder.formDate}, #{medOrder.deliveryDate},
+                #{medOrder.status.code});
+    </insert>
+
+    <select id="read" parameterType="map" resultMap="MedOrderMap">
+        select id, supplier, form_date, delivery_date, status
+        from doc.medorder
+        where id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.medorder
+        set
+        <if test="medOrder.supplier != null">supplier = #{medOrder.supplier},</if>
+        <if test="medOrder.formDate != null">form_date = #{medOrder.formDate},</if>
+        <if test="medOrder.deliveryDate != null">delivery_date = #{medOrder.deliveryDate},</if>
+        <if test="medOrder.status != null">status = #{medOrder.status},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{medOrder.id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.medorder
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="MedOrderMap">
+        select id, supplier, form_date, delivery_date, status
+        from doc.medorder
+        limit #{limit} offset #{offset};
+    </select>
+
+</mapper>
