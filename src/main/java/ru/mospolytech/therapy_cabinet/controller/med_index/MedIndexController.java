@@ -1,28 +1,28 @@
-package ru.mospolytech.therapy_cabinet.controller.lab_event;
+package ru.mospolytech.therapy_cabinet.controller.med_index;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
-import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
+import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexCreate;
+import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/lab_event")
-public interface LabEventController {
+@RequestMapping("/med-index")
+public interface MedIndexController {
+
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody LabEventCreate labEvent);
+    void create(@RequestBody MedIndexCreate medIndex);
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    LabEventRead read(@PathVariable("id") UUID id);
+    MedIndexRead read(@PathVariable("id") UUID id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void update(@PathVariable("id") UUID id,
-                @RequestBody LabEventCreate labEvent);
+                @RequestBody MedIndexCreate medIndex);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -30,6 +30,7 @@ public interface LabEventController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<LabEventRead> readAll(@RequestParam("offset") Long offset,
+    List<MedIndexRead> readAll(@RequestParam("offset") Long offset,
                                @RequestParam("limit") Long limit);
+
 }

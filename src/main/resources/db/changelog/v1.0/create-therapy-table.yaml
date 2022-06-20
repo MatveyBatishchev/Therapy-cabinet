@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: integer
+                  type: serial
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -46,7 +46,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: comment
+                  name: comments
                   type: text
                   remarks: "Примечание к записи о терапии"
                   constraints:
@@ -65,3 +65,6 @@ databaseChangeLog:
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
+        - addAutoIncrement:
+            tableName: therapy
+            columnName: id

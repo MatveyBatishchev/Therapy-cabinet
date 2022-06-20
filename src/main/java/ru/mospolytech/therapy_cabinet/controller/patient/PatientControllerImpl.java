@@ -1,14 +1,11 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.ibatis.reflection.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 

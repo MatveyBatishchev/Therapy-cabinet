@@ -35,27 +35,27 @@ databaseChangeLog:
               - column:
                   name: dose_form
                   type: varchar(50)
-                  remarks: "Описание единицы назначения препарата"
+                  remarks: "Описание единицы учёта препарата"
                   constraints:
                     nullable: false
               - column:
-                  name: container_form
-                  type: varchar(50)
-                  remarks: "Основная единица учёта - контейнер, в котором хранятся единицы назначения"
+                  name: dose_val
+                  type: double
+                  remarks: "Кол-во вещества в единице учёта"
                   constraints:
                     nullable: false
               - column:
-                  name: container_volume
-                  type: integer
-                  remarks: "Кол-во единиц назначения в единице учёта"
+                  name: mu
+                  type: varchar(32)
+                  remarks: "Единицы измерения вещества лекарства"
                   constraints:
                     nullable: false
               - column:
                   name: amount
-                  type: double
-                  remarks: "Кол-во препарата в основных единицах учёта (поэтому имеет место дробная часть)"
+                  type: integer
+                  remarks: "Кол-во препарата в единицах учёта (мелких единицах)"
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: created
                   type: datetime

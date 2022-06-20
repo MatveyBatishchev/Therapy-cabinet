@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedIndexMapper">
+
+    <!--maps-->
+    <resultMap id="MedIndexMap" type="ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead">
+        <id column="id" property="id"/>
+        <result column="value" property="value"/>
+        <result column="comments" property="comments"/>
+        <result column="aflag" property="abnormalityFlag"/>
+        <association columnPrefix="therapy_" property="therapy"
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyRead"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper.TherapyMap"/>
+        <association columnPrefix="index_type_" property="indexType"
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.IndexType"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.IndexTypeMapper.IndexTypeMap"/>
+    </resultMap>
+
+    <!--queries-->
+    <insert id="create" parameterType="map">
+        insert into doc.medindex (id, therapy_id, index_type_id, value, comments, aflag)
+        values (#{medIndex.id}, #{medIndex.therapyId}, #{medIndex.indexTypeId}, #{medIndex.value},
+                #{medIndex.comments}, #{medIndex.abnormalityFlag});
+    </insert>
+
+    <select id="read" parameterType="map" resultMap="MedIndexMap">
+        select medindex.id               as id,
+               therapy_id,
+               index_type_id,
+               value,
+               medindex.comments         as comments,
+               aflag,
+               therapy.id                as therapy_id,
+               therapy.start_time        as therapy_start_time,
+               therapy.end_time          as therapy_end_time,
+               therapy.cabinet           as therapy_cabinet,
+               therapy.status            as therapy_status,
+               therapy.comments          as therapy_comments,
+               therapy.patient_id        as therapy_patient_id,
+               index_type.id             as index_type_id,
+               index_type.name           as index_type_name,
+               index_type.lolimnum       as index_type_lolimnum,
+               index_type.uplimnum       as index_type_uplimnum
+        from doc.medindex
+                 left join doc.index_type index_type on index_type.id = medindex.index_type_id
+                 left join doc.therapy therapy on therapy.id =  medindex.therapy_id
+        where medindex.id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.medindex
+        set
+        <if test="medIndex.therapyId != null">therapy_id = #{medIndex.therapyId},</if>
+        <if test="medIndex.indexTypeId != null">index_type_id = #{medIndex.indexTypeId},</if>
+        <if test="medIndex.value != null">value = #{medIndex.value},</if>
+        <if test="medIndex.comments != null">comments = #{medIndex.comments},</if>
+        <if test="medIndex.abnormalityFlag != null">aflag = #{medIndex.abnormalityFlag},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.medindex
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="MedIndexMap">
+        select medindex.id               as id,
+               therapy_id,
+               index_type_id,
+               value,
+               medindex.comments         as comments,
+               aflag,
+               therapy.id                as therapy_id,
+               therapy.start_time        as therapy_start_time,
+               therapy.end_time          as therapy_end_time,
+               therapy.cabinet           as therapy_cabinet,
+               therapy.status            as therapy_status,
+               therapy.comments          as therapy_comments,
+               therapy.patient_id        as therapy_patient_id,
+               index_type.id             as index_type_id,
+               index_type.name           as index_type_name,
+               index_type.lolimnum       as index_type_lolimnum,
+               index_type.uplimnum       as index_type_uplimnum
+        from doc.medindex
+                 left join doc.index_type index_type on index_type.id = medindex.index_type_id
+                 left join doc.therapy therapy on therapy.id =  medindex.therapy_id
+        limit #{limit} offset #{offset};
+    </select>
+
+</mapper>

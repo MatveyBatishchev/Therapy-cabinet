@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: create-prescription-table
+      id: create-medindex-table
       author: MYBatishchev
-      comment: "Создание таблицы с лекарственными назначениями"
+      comment: "Создание таблицы клинического индекса пациента"
       changes:
         - createTable:
-            tableName: prescription
-            remarks: "Таблица с лекарственными назначениями"
+            tableName: medindex
+            remarks: "Таблица клинических индексов пациента"
             columns:
               - column:
                   name: id
@@ -17,42 +17,31 @@ databaseChangeLog:
               - column:
                   name: therapy_id
                   type: integer
+                  remarks: "ID терапии (внешний ключ)"
                   constraints:
-                    unique: true
                     nullable: false
                     foreignKeyName: fk_therapy_id
                     references: therapy(id)
               - column:
-                  name: medication_id
-                  type: uuid
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_medication_id
-                    references: medication(id)
-              - column:
-                  name: dose_amount
+                  name: index_type_id
                   type: integer
-                  remarks: "Кол-во списанного к терапии лекарства в дозах"
+                  remarks: "Вид индекса"
                   constraints:
                     nullable: false
+                    foreignKeyName: fk_index_type_id
+                    references: index_type(id)
               - column:
-                  name: substance_amount
+                  name: value
                   type: double
-                  remarks: "Кол-во списанного к терапии вещества лекарства"
-                  constraints:
-                    nullable: false
+                  remarks: "Значение индекса"
               - column:
-                  name: administration_type
-                  type: smallint
-                  remarks: "Тип введения препарата"
-                  constraints:
-                    nullable: true
+                  name: aflag
+                  type: varchar(32)
+                  remarks: "Отклонение от нормы"
               - column:
                   name: comments
                   type: text
-                  remarks: "Примечание к назначению"
-                  constraints:
-                    nullable: true
+                  remarks: "Примечание специалиста"
               - column:
                   name: created
                   type: datetime

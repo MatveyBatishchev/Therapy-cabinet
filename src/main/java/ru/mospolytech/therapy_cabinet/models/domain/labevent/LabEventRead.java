@@ -1,7 +1,9 @@
-package ru.mospolytech.therapy_cabinet.models.domain;
+package ru.mospolytech.therapy_cabinet.models.domain.labevent;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.mospolytech.therapy_cabinet.models.domain.LabType;
+import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
 import java.util.UUID;
 

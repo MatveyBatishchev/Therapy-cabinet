@@ -3,9 +3,8 @@ package ru.mospolytech.therapy_cabinet.mybatis.mappers;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEvent;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventCreate;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventRead;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 
 import java.util.List;
 import java.util.UUID;

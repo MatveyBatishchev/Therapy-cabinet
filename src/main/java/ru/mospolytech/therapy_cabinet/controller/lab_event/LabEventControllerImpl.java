@@ -3,8 +3,8 @@ package ru.mospolytech.therapy_cabinet.controller.lab_event;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventCreate;
-import ru.mospolytech.therapy_cabinet.models.domain.LabEventRead;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
+import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.LabEventMapper;
 
 import java.util.List;

@@ -1,12 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: create-order-entry
+      id: create-index-type-table
       author: MYBatishchev
-      comment: "Создание таблицы с записями в заказе"
+      comment: "Создание таблицы видов индексов"
       changes:
         - createTable:
-            tableName: order_entry
-            remarks: "Таблица с записями заказа"
+            tableName: index_type
+            remarks: "Таблица видов индексов"
             columns:
               - column:
                   name: id
@@ -15,25 +15,19 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: medication_id
-                  type: uuid
+                  name: name
+                  type: varchar(50)
+                  remarks: "Название индекса"
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_medication_id
-                    references: medication(id)
               - column:
-                  name: medorder_id
-                  type: uuid
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_medorder_id
-                    references: medorder(id)
+                  name: lolimnum
+                  type: double
+                  remarks: "Числовая нижняя граница нормы показателя"
               - column:
-                  name: amount
-                  type: integer
-                  remarks: "Кол-во единиц на заказ"
-                  constraints:
-                    nullable: false
+                  name: uplimnum
+                  type: double
+                  remarks: "Числовая верхняя граница нормы показателя"
               - column:
                   name: created
                   type: datetime
@@ -49,5 +43,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addAutoIncrement:
-            tableName: order_entry
+            tableName: index_type
             columnName: id
+        - addUniqueConstraint:
+            tableName: index_type
+            columnNames: name
