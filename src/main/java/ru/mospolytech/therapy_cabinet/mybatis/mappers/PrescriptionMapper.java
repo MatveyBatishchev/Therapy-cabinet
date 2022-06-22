@@ -7,7 +7,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionCre
 import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRead;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @Mapper
@@ -15,14 +14,13 @@ public interface PrescriptionMapper {
 
     void create(@Param("prescription") PrescriptionCreate prescription);
 
-    PrescriptionRead read(@Param("id") UUID id);
+    PrescriptionRead readByTherapyId(@Param("therapyId") int therapyId);
 
-    void update(@Param("id") UUID id,
-                @Param("prescription") PrescriptionCreate prescription);
+    void updateByTherapyId(@Param("therapyId") int therapyId, PrescriptionCreate prescription);
 
-    boolean delete(@Param("id") UUID id);
+    void deleteByTherapyId(@Param("therapyId") int therapyId);
 
-    List<PrescriptionRead> readAll(@Param("offset") Long offset,
-                                   @Param("limit") Long limit);
+    List<PrescriptionCreate> readAll(@Param("offset") Long offset,
+                                     @Param("limit") Long limit);
 
 }

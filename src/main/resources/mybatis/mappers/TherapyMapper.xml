@@ -4,11 +4,10 @@
 <mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper">
 
     <!--maps-->
-    <resultMap id="TherapyMap" type="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyRead">
+    <resultMap id="TherapyReadMap" type="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyRead">
         <id column="id" property="id"/>
-        <result column="start_time" property="startTime"/>
-        <result column="end_time" property="endTime"/>
-        <result column="cabinet" property="cabinet"/>
+        <result column="date" property="date"/>
+        <result column="time_period" property="timePeriod"/>
         <result column="status" property="status"/>
         <result column="comments" property="comments"/>
         <association columnPrefix="patient_" property="patient"
@@ -16,27 +15,39 @@
                      resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper.PatientMap"/>
     </resultMap>
 
+    <resultMap id="TherapyCreateMap" type="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyCreate">
+        <id column="id" property="id"/>
+        <result column="date" property="date"/>
+        <result column="time_period" property="timePeriod"/>
+        <result column="status" property="status"/>
+        <result column="comments" property="comments"/>
+        <result column="patient_id" property="patientId"/>
+    </resultMap>
+
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.therapy (patient_id, start_time, end_time, cabinet, status, comments)
-        values (#{therapy.patientId}, #{therapy.startTime}, #{therapy.endTime},
-                #{therapy.cabinet}, #{therapy.status.code}, #{therapy.comments})
+        insert into doc.therapy (patient_id, date, time_period, status, comments)
+        values (#{therapy.patientId}, #{therapy.date}, #{therapy.timePeriod.code},
+                #{therapy.status.code}, #{therapy.comments})
     </insert>
 
-    <select id="read" parameterType="map" resultMap="TherapyMap">
+    <select id="read" parameterType="map" resultMap="TherapyReadMap">
         select therapy.id                        as id,
                patient_id,
-               start_time,
-               end_time,
-               cabinet,
+               date,
+               time_period,
                status,
-               comments,
+               therapy.comments                  as comments,
                patient.id                        as patient_id,
                patient.full_name                 as patient_full_name,
                patient.phone_number              as patient_phone_number,
                patient.adverse_reactions         as patient_adverse_reactions,
                patient.date_of_birth             as patient_date_of_birth,
-               patient.sex                       as patient_sex
+               patient.sex                       as patient_sex,
+               patient.email                     as patient_email,
+               patient.ambulatory_card           as patient_ambulatory_card,
+               patient.contact_person            as patient_contact_person,
+               patient.finance_source            as patient_finance_source
         from doc.therapy
              left join doc.patient patient on patient.id = therapy.patient_id
         where therapy.id = #{id};
@@ -46,9 +57,8 @@
         update doc.therapy
         set
         <if test="therapy.patientId != null">patient_id = #{therapy.patientId},</if>
-        <if test="therapy.startTime != null">start_time = #{therapy.startTime},</if>
-        <if test="therapy.endTime != null">end_time = #{therapy.endTime},</if>
-        <if test="therapy.cabinet != null">cabinet = #{therapy.cabinet},</if>
+        <if test="therapy.date != null">date = #{therapy.date},</if>
+        <if test="therapy.timePeriod != null">time_period = #{therapy.timePeriod},</if>
         <if test="therapy.status != null">status = #{therapy.status.code},</if>
         <if test="therapy.comments != null">comments = #{therapy.comments},</if>
         -- FIXME: changed field set to now() even if nothing changed
@@ -62,23 +72,24 @@
         where id = #{id};
     </delete>
 
-    <select id="readAll" parameterType="map" resultMap="TherapyMap">
-        select therapy.id                        as id,
+    <select id="readAll" parameterType="map" resultMap="TherapyCreateMap">
+        select id,
                patient_id,
-               start_time,
-               end_time,
-               cabinet,
+               date,
+               time_period,
                status,
-               comments,
-               patient.id                        as patient_id,
-               patient.full_name                 as patient_full_name,
-               patient.phone_number              as patient_phone_number,
-               patient.adverse_reactions         as patient_adverse_reactions,
-               patient.date_of_birth             as patient_date_of_birth,
-               patient.sex                       as patient_sex
+               comments
         from doc.therapy
-             left join doc.patient patient on patient.id = therapy.patient_id
         limit #{limit} offset #{offset};
+    </select>
+
+    <select id="readAllByPatientId" parameterType="map" resultMap="TherapyCreateMap">
+        select id,
+               date,
+               time_period
+        from doc.therapy
+        where therapy.patient_id = #{patientId}
+        <if test="startDate != null and endDate != null">and date &gt;= #{startDate} and date &lt;= #{endDate}</if>
     </select>
 
 </mapper>

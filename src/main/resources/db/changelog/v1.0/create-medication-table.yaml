@@ -15,12 +15,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
-                  type: varchar(120)
-                  remarks: "Официальное название препарата"
-                  constraints:
-                    nullable: false
-              - column:
                   name: nomenclature
                   type: varchar(120)
                   remarks: "Номенклатура препарата"
@@ -50,12 +44,6 @@ databaseChangeLog:
                   remarks: "Единицы измерения вещества лекарства"
                   constraints:
                     nullable: false
-              - column:
-                  name: amount
-                  type: integer
-                  remarks: "Кол-во препарата в единицах учёта (мелких единицах)"
-                  constraints:
-                    nullable: true
               - column:
                   name: created
                   type: datetime

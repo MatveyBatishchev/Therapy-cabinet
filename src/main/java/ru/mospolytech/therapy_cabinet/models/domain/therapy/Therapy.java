@@ -1,7 +1,7 @@
 package ru.mospolytech.therapy_cabinet.models.domain.therapy;
 
 import lombok.Data;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 @Data
 public abstract class Therapy {
@@ -10,17 +10,13 @@ public abstract class Therapy {
      */
     private int id;
     /**
-     * Время начала терапии
+     * Дата проведения терапии
      */
-    private DateTime startTime;
+    private LocalDate date;
     /**
-     * Время окончания терапии
+     * Временной период проведения терапии
      */
-    private DateTime endTime;
-    /**
-     * Кабинет, где будет проходить терапия
-     */
-    private String cabinet;
+    private TimePeriod timePeriod;
     /**
      * Статус терапии
      */

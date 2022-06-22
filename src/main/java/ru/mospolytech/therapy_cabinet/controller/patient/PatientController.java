@@ -1,6 +1,5 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;

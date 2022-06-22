@@ -10,6 +10,8 @@
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.TherapyStatusTypeHandler"/>
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.AdministrationTypeHandler"/>
         <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.MedOrderStatusTypeHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.TimePeriodTypeHandler"/>
+        <typeHandler handler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.FinanceSourceTypeHandler"/>
     </typeHandlers>
 
     <mappers>
@@ -23,5 +25,6 @@
         <mapper resource="mybatis/mappers/MedIndexMapper.xml"/>
         <mapper resource="mybatis/mappers/OrderMapper.xml"/>
         <mapper resource="mybatis/mappers/OrderEntryMapper.xml"/>
+        <mapper resource="mybatis/mappers/CalendarMapper.xml"/>
     </mappers>
 </configuration>

@@ -22,23 +22,17 @@ databaseChangeLog:
                     foreignKeyName: fk_patient_id
                     references: patient(id)
               - column:
-                  name: start_time
-                  type: datetime
-                  remarks: "Время начала терапии"
+                  name: date
+                  type: date
+                  remarks: "Дата проведения терапии"
                   constraints:
                     nullable: false
               - column:
-                  name: end_time
-                  type: datetime
-                  remarks: "Время окончания терапии"
+                  name: time_period
+                  type: smallint
+                  remarks: "Временной период проведения терапии"
                   constraints:
-                    nullable: true
-              - column:
-                  name: cabinet
-                  type: varchar(15)
-                  remarks: "Кабинет, где будет проходить терапия"
-                  constraints:
-                    nullable: true
+                    nullable: false
               - column:
                   name: status
                   type: smallint
