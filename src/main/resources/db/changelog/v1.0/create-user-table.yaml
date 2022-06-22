@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: VKamalov
+      comment: "Создание таблицы с данными пользователей"
+      changes:
+        - createTable:
+            tableName: user
+            remarks: "Таблица с данными пользователей"
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  remarks: "UUID пользователя (первичный ключ)"
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(127)
+                  remarks: "Логин пользователя"
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(127)
+                  remarks: "Пароль для входа (ключ шифрования BCrypt)"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: roles
+                  type: integer[]
+                  remarks: "Роли пользователя"
+                  constraints:
+                    nullable: false
