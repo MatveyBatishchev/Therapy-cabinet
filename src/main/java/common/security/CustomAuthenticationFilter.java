@@ -32,7 +32,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     private final RefreshTokenRepository refreshTokenRepository;
 
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager, RefreshTokenRepository refreshTokenRepository) {
-        super.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/v1/login", "POST"));
+        super.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/login", "POST"));
 
         this.authenticationManager = authenticationManager;
         this.refreshTokenRepository = refreshTokenRepository;
