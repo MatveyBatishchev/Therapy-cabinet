@@ -11,7 +11,7 @@ import ru.mospolytech.therapy_cabinet.models.dto.user.RefreshTokenRequest;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserRegistrationRequest;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.UserMapper;
-import ru.mospolytech.therapy_cabinet.redis.model.RefreshToken;
+import ru.mospolytech.therapy_cabinet.models.domain.redis.RefreshToken;
 import ru.mospolytech.therapy_cabinet.redis.repository.RefreshTokenRepository;
 
 import javax.servlet.http.HttpServletRequest;

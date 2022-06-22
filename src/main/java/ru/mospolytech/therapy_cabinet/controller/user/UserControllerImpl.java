@@ -1,7 +1,6 @@
 package ru.mospolytech.therapy_cabinet.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.user.User;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
@@ -23,37 +22,27 @@ public class UserControllerImpl implements UserController {
     private final UserServiceImplementation userService;
 
     @Override
-    public ResponseEntity<List<UserDTO>> findAllUsers(Long offset, Long limit) {
-        List<UserDTO> users = userService.findAllUsers(offset, limit);
-
-        return ResponseEntity.ok(users);
+    public List<UserDTO> findAllUsers(Long offset, Long limit) {
+        return userService.findAllUsers(offset, limit);
     }
 
     @Override
-    public ResponseEntity<UserDTO> findUserById(UUID userId) {
-        UserDTO user = userService.findUserById(userId);
-
-        return ResponseEntity.ok(user);
+    public UserDTO findUserById(UUID userId) {
+        return userService.findUserById(userId);
     }
 
     @Override
-    public ResponseEntity<User> createUser(UserRegistrationRequest userRegistration) {
-        User user = userService.createUser(userRegistration);
-
-        return ResponseEntity.ok(user);
+    public User createUser(UserRegistrationRequest userRegistration) {
+        return userService.createUser(userRegistration);
     }
 
     @Override
-    public ResponseEntity<User> updateUser(User user) {
+    public void updateUser(User user) {
         userService.updateUser(user);
-
-        return ResponseEntity.ok(user);
     }
 
     @Override
-    public ResponseEntity<Void> deleteUser(UUID userId) {
+    public void deleteUser(UUID userId) {
         userService.deleteUser(userId);
-
-        return ResponseEntity.ok().build();
     }
 }

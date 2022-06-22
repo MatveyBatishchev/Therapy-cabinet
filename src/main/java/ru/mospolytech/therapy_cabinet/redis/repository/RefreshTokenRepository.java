@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 import ru.mospolytech.therapy_cabinet.models.domain.user.User;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.UserMapper;
-import ru.mospolytech.therapy_cabinet.redis.model.RefreshToken;
+import ru.mospolytech.therapy_cabinet.models.domain.redis.RefreshToken;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;

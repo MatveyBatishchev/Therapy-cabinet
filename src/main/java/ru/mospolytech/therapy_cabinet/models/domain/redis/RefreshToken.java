@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_cabinet.redis.model;
+package ru.mospolytech.therapy_cabinet.models.domain.redis;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

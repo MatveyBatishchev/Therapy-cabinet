@@ -16,7 +16,6 @@ public interface LabEventController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     LabEventRead read(@PathVariable("id") UUID id);
 
     @PutMapping("/{id}")
