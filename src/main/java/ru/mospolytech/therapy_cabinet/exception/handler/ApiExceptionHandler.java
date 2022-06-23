@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_cabinet.exception;
+package ru.mospolytech.therapy_cabinet.exception.handler;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;

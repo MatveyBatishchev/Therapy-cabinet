@@ -1,4 +1,4 @@
-package ru.mospolytech.therapy_cabinet.exception;
+package ru.mospolytech.therapy_cabinet.exception.handler;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

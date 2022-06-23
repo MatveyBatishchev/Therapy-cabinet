@@ -30,7 +30,7 @@ public class UserRoleTypeHandler implements TypeHandler<List<Authority>> {
 
     @Override
     public List<Authority> getResult(ResultSet rs, String columnName) throws SQLException {
-        String[] role = rs.getString(columnName).replaceAll("[{}]", "").split(",");
+        String[] role = rs.getString(columnName).replaceAll("[{}|\"]", "").split(",");
         if (role.length == 0) {
             return Collections.emptyList();
         }
