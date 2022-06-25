@@ -2,6 +2,7 @@ package ru.mospolytech.therapy_cabinet.controller.med_index;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.mospolytech.therapy_cabinet.models.domain.IndexType;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 
@@ -30,7 +31,12 @@ public interface MedIndexController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    List<MedIndexRead> readAll(@RequestParam("offset") Long offset,
-                               @RequestParam("limit") Long limit);
+    List<MedIndexCreate> readAll(@RequestParam("offset") Long offset,
+                                 @RequestParam("limit") Long limit);
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    List<MedIndexCreate> readAllBySearch(@RequestParam(name="therapyId", required = false) Integer therapyId,
+                                         @RequestParam(name="indexType", required = false) IndexType indexType);
 
 }

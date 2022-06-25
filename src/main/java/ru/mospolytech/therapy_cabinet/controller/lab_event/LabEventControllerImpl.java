@@ -1,43 +1,43 @@
 package ru.mospolytech.therapy_cabinet.controller.lab_event;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.LabEventMapper;
+import ru.mospolytech.therapy_cabinet.service.lab_event.LabEventServiceImpl;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class LabEventControllerImpl implements LabEventController {
-    private final LabEventMapper labEventMapper;
+
+    private final LabEventServiceImpl labEventService;
 
     @Override
     public void create(LabEventCreate labEvent) {
-        labEvent.setId(UUID.randomUUID());
-        labEventMapper.create(labEvent);
+        labEventService.createLabEvent(labEvent);
     }
 
     @Override
     public LabEventRead read(UUID id) {
-        return labEventMapper.read(id);
+        return labEventService.findLabEventById(id);
     }
 
     @Override
     public void update(UUID id, LabEventCreate labEvent) {
-        labEventMapper.update(id, labEvent);
+        labEventService.updateLabEvent(id, labEvent);
     }
 
     @Override
     public void delete(UUID id) {
-        labEventMapper.delete(id);
+        labEventService.deleteLabEvent(id);
     }
 
     @Override
     public List<LabEventRead> readAll(Long offset, Long limit) {
-        return labEventMapper.readAll(offset, limit);
+        return labEventService.findAllLabEvents(offset, limit);
     }
+
 }

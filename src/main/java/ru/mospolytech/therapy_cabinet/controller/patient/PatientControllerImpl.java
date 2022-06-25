@@ -1,59 +1,57 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper;
+import ru.mospolytech.therapy_cabinet.service.patient.PatientServiceImpl;
 
 import java.util.List;
 import java.util.UUID;
 
 //TODO: add sql exception propagation
 @RestController
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class PatientControllerImpl implements PatientController {
-    private final PatientMapper patientMapper;
+
+    private final PatientServiceImpl patientService;
 
     @Override
     public Patient create(Patient patient) {
-        patient.setId(UUID.randomUUID());
-        patientMapper.create(patient);
-        return patient;
+        return patientService.createPatent(patient);
     }
 
     @Override
     public Patient read(UUID id) {
-        return patientMapper.read(id);
+        return patientService.findPatientById(id);
     }
 
     @Override
     public void update(Patient patient) {
-        patientMapper.update(patient);
+        patientService.updatePatient(patient);
     }
 
     @Override
     public void delete(UUID id) {
-        patientMapper.delete(id);
+        patientService.deletePatient(id);
     }
 
     @Override
     public List<Patient> readAll(Long offset, Long limit) {
-        return patientMapper.readAll(offset, limit);
+        return patientService.findAllPatients(offset, limit);
     }
 
     @Override
     public void addPatientIcd(UUID id, String icdCode) {
-        patientMapper.addPatientIcd(id, icdCode);
+        patientService.addPatientIcd(id, icdCode);
     }
 
     @Override
     public List<String> readPatientIcds(UUID id) {
-        return patientMapper.readPatientIcds(id);
+        return patientService.findPatientIcds(id);
     }
 
     @Override
     public void removePatientIcd(UUID id, String icdCode) {
-        patientMapper.removePatientIcd(id, icdCode);
+        patientService.removePatientIcd(id, icdCode);
     }
 }

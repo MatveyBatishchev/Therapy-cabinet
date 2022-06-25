@@ -3,6 +3,7 @@ package ru.mospolytech.therapy_cabinet.mybatis.mappers;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+import ru.mospolytech.therapy_cabinet.models.domain.IndexType;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 
@@ -22,7 +23,10 @@ public interface MedIndexMapper {
 
     boolean delete(@Param("id") UUID id);
 
-    List<MedIndexRead> readAll(@Param("offset") Long offset,
-                               @Param("limit") Long limit);
+    List<MedIndexCreate> readAll(@Param("offset") Long offset,
+                                 @Param("limit") Long limit);
+
+    List<MedIndexCreate> readAllBySearch(@Param("therapyId") Integer therapyId,
+                                         @Param("indexType") IndexType indexType);
 
 }

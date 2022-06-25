@@ -37,6 +37,61 @@
                 #{prescription.substanceAmount}, #{prescription.administrationType.code}, #{prescription.comments});
     </insert>
 
+    <select id="read" parameterType="map" resultMap="PrescriptionReadMap">
+        select prescription.id           as id,
+               medication_id,
+               dose_amount,
+               substance_amount,
+               administration_type,
+               prescription.comments     as comments,
+               therapy.id                as therapy_id,
+               therapy.date              as therapy_date,
+               therapy.time_period       as therapy_time_period,
+               therapy.status            as therapy_status,
+               therapy.comments          as therapy_comments,
+               therapy.patient_id        as therapy_patient_id,
+               medication.id             as medication_id,
+               medication.nomenclature   as medication_nomenclature,
+               medication.manufacturer   as medication_manufacturer,
+               medication.dose_form      as medication_dose_form,
+               medication.dose_val       as medication_dose_val,
+               medication.mu             as medication_mu
+        from doc.prescription
+                 left join doc.therapy therapy on therapy.id = prescription.therapy_id
+                 left join doc.medication medication on medication.id = prescription.medication_id
+        where prescription.id = #{id};
+    </select>
+
+    <update id="update" parameterType="map">
+        update doc.prescription
+        set
+        <if test="prescription.medicationId != null">medication_id = #{prescription.medicationId},</if>
+        <if test="prescription.doseAmount != null">dose_amount = #{prescription.doseAmount},</if>
+        <if test="prescription.substanceAmount != null">substance_amount = #{prescription.substanceAmount},</if>
+        <if test="prescription.comments != null">comments = #{prescription.comments},</if>
+        <if test="prescription.administrationType != null">administration_type = #{prescription.administrationType.code},</if>
+        -- FIXME: changed field set to now() even if nothing changed
+        changed = now()
+        where id = #{id};
+    </update>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from doc.prescription
+        where id = #{id};
+    </delete>
+
+    <select id="readAll" parameterType="map" resultMap="PrescriptionCreateMap">
+        select id,
+               therapy_id,
+               medication_id,
+               dose_amount,
+               substance_amount,
+               administration_type
+        from doc.prescription
+        limit #{limit} offset #{offset};
+    </select>
+
     <select id="readByTherapyId" parameterType="map" resultMap="PrescriptionReadMap">
         select prescription.id           as id,
                medication_id,
@@ -62,26 +117,7 @@
         where prescription.therapy_id = #{therapyId};
     </select>
 
-    <update id="updateByTherapyId" parameterType="map">
-        update doc.prescription
-        set
-        <if test="prescription.medicationId != null">medication_id = #{prescription.medicationId},</if>
-        <if test="prescription.doseAmount != null">dose_amount = #{prescription.doseAmount},</if>
-        <if test="prescription.substanceAmount != null">substance_amount = #{prescription.substanceAmount},</if>
-        <if test="prescription.comments != null">comments = #{prescription.comments},</if>
-        <if test="prescription.administrationType != null">administration_type = #{prescription.administrationType.code},</if>
-        -- FIXME: changed field set to now() even if nothing changed
-        changed = now()
-        where therapy_id = #{therapyId};
-    </update>
-
-    <delete id="deleteByTherapyId" parameterType="map">
-        delete
-        from doc.prescription
-        where therapy_id = #{therapyId};
-    </delete>
-
-    <select id="readAll" parameterType="map" resultMap="PrescriptionCreateMap">
+    <select id="readAllBySearch" parameterType="map" resultMap="PrescriptionCreateMap">
         select id,
                therapy_id,
                medication_id,
@@ -89,6 +125,12 @@
                substance_amount,
                administration_type
         from doc.prescription
-        limit #{limit} offset #{offset};
+        where true
+        <if test="medicationId != null">and medication_id = #{medicationId}</if>
+        <if test="doseAmount != null">and dose_amount = #{doseAmount}</if>
+        <if test="substanceAmount != null">and substance_amount = #{substanceAmount}</if>
+        <if test="administrationType != null">and administration_type = #{administrationType}</if>
     </select>
+
+
 </mapper>

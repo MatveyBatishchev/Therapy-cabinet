@@ -1,28 +1,25 @@
 package ru.mospolytech.therapy_cabinet.models.domain;
 
-import lombok.Data;
+/**
+ * Типы вычисляемых для пациента индексов
+ */
+public enum IndexType {
 
-@Data
-public class IndexType {
+    SDAI(0),
+    DAS(1),
+    BASDAI(2);
 
-    /**
-     * Идентификатор типа анализа
-     */
-    private int id;
+    private final int code;
 
-    /**
-     * Официальное название индекса
-     */
-    private String name;
-
-    /**
-     * Нижняя граница нормы показателя
-     */
-    private double lowerLimitNumeric;
+    IndexType(int code) {
+        this.code = code;
+    }
 
     /**
-     * Верхняя граница нормы показателя
+     * @return возвращает код типа индекса
      */
-    private double upperLimitNumeric;
+    public int getCode() {
+        return code;
+    }
 
 }

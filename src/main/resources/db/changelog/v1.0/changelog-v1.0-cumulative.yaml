@@ -37,9 +37,6 @@ databaseChangeLog:
       file: add-patient-columns.yaml
   - include:
       relativeToChangelogFile: true
-      file: create-index-type-table.yaml
-  - include:
-      relativeToChangelogFile: true
       file: create-medindex-table.yaml
   - include:
       relativeToChangelogFile: true

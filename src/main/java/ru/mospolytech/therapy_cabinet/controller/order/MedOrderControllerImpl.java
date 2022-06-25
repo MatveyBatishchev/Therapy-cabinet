@@ -3,7 +3,7 @@ package ru.mospolytech.therapy_cabinet.controller.order;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.MedOrderMapper;
+import ru.mospolytech.therapy_cabinet.service.medorder.MedOrderServiceImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,32 +12,31 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MedOrderControllerImpl implements MedOrderController {
 
-    private final MedOrderMapper medOrderMapper;
+    private final MedOrderServiceImpl medOrderService;
 
     @Override
     public void create(MedOrder medOrder) {
-        medOrder.setId(UUID.randomUUID());
-        medOrderMapper.create(medOrder);
+        medOrderService.createMedOrder(medOrder);
     }
 
     @Override
     public MedOrder read(UUID id) {
-        return medOrderMapper.read(id);
+        return medOrderService.findMedOrderById(id);
     }
 
     @Override
     public void update(MedOrder medOrder) {
-        medOrderMapper.update(medOrder);
+        medOrderService.updateMedOrder(medOrder);
     }
 
     @Override
     public void delete(UUID id) {
-        medOrderMapper.delete(id);
+        medOrderService.deleteMedOrder(id);
     }
 
     @Override
     public List<MedOrder> readAll(Long offset, Long limit) {
-        return medOrderMapper.readAll(offset, limit);
+        return medOrderService.findAllMedOrders(offset, limit);
     }
 
 }

@@ -24,6 +24,12 @@
         <result column="patient_id" property="patientId"/>
     </resultMap>
 
+    <resultMap id="CalendarMap" type="ru.mospolytech.therapy_cabinet.models.domain.Calendar">
+        <id column="date" property="date"/>
+        <result column="morning_count" property="morningCount"/>
+        <result column="day_count" property="dayCount"/>
+    </resultMap>
+
     <!--queries-->
     <insert id="create" parameterType="map">
         insert into doc.therapy (patient_id, date, time_period, status, comments)
@@ -83,13 +89,27 @@
         limit #{limit} offset #{offset};
     </select>
 
-    <select id="readAllByPatientId" parameterType="map" resultMap="TherapyCreateMap">
+    <select id="readAllBySearch" parameterType="map" resultMap="TherapyCreateMap">
         select id,
                date,
-               time_period
+               time_period,
+               status,
+               patient_id
         from doc.therapy
-        where therapy.patient_id = #{patientId}
-        <if test="startDate != null and endDate != null">and date &gt;= #{startDate} and date &lt;= #{endDate}</if>
+        where true
+        <if test="patientId != null">and patient_id = #{patientId}</if>
+        <if test="startDate != null">and date &gt;= #{startDate}</if>
+        <if test="endDate != null">and date &lt;= #{endDate}</if>
+        <if test="timePeriod != null">and time_period = #{timePeriod}</if>
+        <if test="therapyStatus != null">and status = #{therapyStatus}</if>
+    </select>
+
+    <select id="readCalendar" parameterType="map" resultMap="CalendarMap">
+        select date, count(*) FILTER (WHERE time_period = 0) as "morning_count", count(*) FILTER (WHERE time_period = 1) as "day_count"
+        from doc.therapy
+        where date &gt;= #{startDate}::date and date &lt;= #{endDate}::date
+        group by date
+        order by date
     </select>
 
 </mapper>

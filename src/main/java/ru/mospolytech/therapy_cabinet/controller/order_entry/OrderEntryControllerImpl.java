@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.order.OrderEntryCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.order.OrderEntryRead;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.OrderEntryMapper;
+import ru.mospolytech.therapy_cabinet.service.order_entry.OrderEntryServiceImpl;
 
 import java.util.List;
 
@@ -12,31 +12,31 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderEntryControllerImpl implements OrderEntryController {
 
-    private final OrderEntryMapper orderEntryMapper;
+    private final OrderEntryServiceImpl orderEntryService;
 
     @Override
     public void create(OrderEntryCreate orderEntry) {
-        orderEntryMapper.create(orderEntry);
+        orderEntryService.createOrderEntry(orderEntry);
     }
 
     @Override
     public OrderEntryRead read(int id) {
-        return orderEntryMapper.read(id);
+        return orderEntryService.findOrderEntryById(id);
     }
 
     @Override
     public void update(int id, OrderEntryCreate orderEntry) {
-        orderEntryMapper.update(id, orderEntry);
+        orderEntryService.updateOrderEntry(id, orderEntry);
     }
 
     @Override
     public void delete(int id) {
-        orderEntryMapper.delete(id);
+        orderEntryService.deleteOrderEntry(id);
     }
 
     @Override
     public List<OrderEntryRead> readAll(Long offset, Long limit) {
-        return orderEntryMapper.readAll(offset, limit);
+        return orderEntryService.findAllOrderEntries(offset, limit);
     }
 
 }
