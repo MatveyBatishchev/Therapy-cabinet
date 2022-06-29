@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.UserMapper">
+    <!--    Maps    -->
+    <resultMap id="UserMap" type="ru.mospolytech.therapy_cabinet.models.domain.user.User">
+        <id column="id" property="id"/>
+        <result column="login" property="login"/>
+        <result column="password" property="password"/>
+        <result column="roles" property="roles"
+                javaType="java.util.ArrayList" jdbcType="ARRAY"
+                typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="UserDTOMap" type="ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO">
+        <id column="id" property="id"/>
+        <result column="login" property="login"/>
+        <result column="roles" property="roles"
+                javaType="java.util.ArrayList" jdbcType="ARRAY"
+                typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
+    </resultMap>
+
+    <!--    Queries    -->
+    <select id="findAllUsers" parameterType="map" resultMap="UserDTOMap">
+        select u.id    as id,
+               u.login as login,
+               u.roles as roles
+        from doc."user" u
+        limit #{limit} offset #{offset};
+    </select>
+
+    <select id="findUserById" parameterType="map" resultMap="UserDTOMap">
+        select u.id    as id,
+               u.login as login,
+               u.roles as roles
+        from doc.user u
+        where u.id = #{id}
+    </select>
+
+    <insert id="createUser" parameterType="map">
+        insert into doc.user (id, login, password, roles)
+        values (#{user.id}, #{user.login}, #{user.password}, ARRAY
+        <foreach collection="user.roles" item="role" separator="," open="[" close="]">
+            #{role.id}
+        </foreach>)
+    </insert>
+
+    <update id="updateUser" parameterType="map">
+        UPDATE doc."user"
+        SET login    = #{user.login},
+            password = #{user.password},
+        roles        = ARRAY
+        <foreach collection="user.roles" item="role" separator="," open="[" close="]">
+            #{role.id}
+        </foreach>
+    WHERE id = #{user.id}
+    </update>
+
+    <delete id="deleteUser" parameterType="map">
+        DELETE
+        FROM doc."user"
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findUserByUsername" resultMap="UserMap">
+        select u.id as id,
+        u.login as login,
+        u.password as password,
+        u.roles as roles
+        from doc."user" u
+        where login = #{username, jdbcType=VARCHAR}
+    </select>
+</mapper>

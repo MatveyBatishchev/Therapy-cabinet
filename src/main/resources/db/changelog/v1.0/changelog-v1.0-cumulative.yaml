@@ -43,4 +43,7 @@ databaseChangeLog:
       file: create-medindex-table.yaml
   - include:
       relativeToChangelogFile: true
+      file: create-user-table.yaml
+  - include:
+      relativeToChangelogFile: true
       file: add-cascade-prescription-therapy-medication-fk.yaml

@@ -30,6 +30,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0")
 
+    // Caching
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-cache:2.7.0")
+    implementation("redis.clients:jedis:3.9.0")
+
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.0")
+    implementation("com.auth0:java-jwt:3.19.2")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+
     // Joda-Time
     implementation("joda-time:joda-time:2.10.10")
 

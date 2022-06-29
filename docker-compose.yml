@@ -21,6 +21,12 @@ services:
         reservations:
           cpus: '0.1'
           memory: 1536M
+  cache:
+    image: redis
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
 
 networks:
   therapy-cabinet-network:

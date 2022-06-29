@@ -10,12 +10,10 @@ import java.util.List;
 public interface LabTypeController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     LabType create(@RequestBody LabType labType);
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     LabType read(@PathVariable("id") int id);
 
     @PutMapping

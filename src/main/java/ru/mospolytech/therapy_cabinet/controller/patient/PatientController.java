@@ -1,6 +1,5 @@
 package ru.mospolytech.therapy_cabinet.controller.patient;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
@@ -12,12 +11,10 @@ import java.util.UUID;
 public interface PatientController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     Patient create(@RequestBody Patient patient);
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     Patient read(@PathVariable("id") UUID id);
 
     @PutMapping
@@ -30,7 +27,6 @@ public interface PatientController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     List<Patient> readAll(@RequestParam("offset") Long offset,
                           @RequestParam("limit") Long limit);
 
@@ -42,7 +38,6 @@ public interface PatientController {
 
     @GetMapping("/{id}/icd")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     List<String> readPatientIcds(@PathVariable("id") UUID id);
 
     @DeleteMapping("/{id}/icd")
