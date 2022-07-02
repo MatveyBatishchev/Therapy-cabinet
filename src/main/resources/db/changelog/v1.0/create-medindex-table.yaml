@@ -20,16 +20,14 @@ databaseChangeLog:
                   remarks: "ID терапии (внешний ключ)"
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_therapy_id
+                    foreignKeyName: fk_medindex_therapy_id
                     references: therapy(id)
               - column:
-                  name: index_type_id
-                  type: integer
+                  name: index_type
+                  type: smallint
                   remarks: "Вид индекса"
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_index_type_id
-                    references: index_type(id)
               - column:
                   name: value
                   type: double

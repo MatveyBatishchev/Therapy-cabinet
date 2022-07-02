@@ -20,14 +20,14 @@ databaseChangeLog:
                   constraints:
                     unique: true
                     nullable: false
-                    foreignKeyName: fk_therapy_id
+                    foreignKeyName: fk_prescription_therapy_id
                     references: therapy(id)
               - column:
                   name: medication_id
                   type: uuid
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_medication_id
+                    foreignKeyName: fk_prescription_medication_id
                     references: medication(id)
               - column:
                   name: dose_amount

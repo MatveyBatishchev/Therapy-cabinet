@@ -1,6 +1,7 @@
 package ru.mospolytech.therapy_cabinet.models.domain.medindex;
 
 import lombok.Data;
+import ru.mospolytech.therapy_cabinet.models.domain.IndexType;
 
 import java.util.UUID;
 
@@ -21,6 +22,11 @@ public class MedIndex {
      * Примечание специалиста
      */
     private String comments;
+
+    /**
+     * Тип индекса
+     */
+    private IndexType indexType;
 
     /**
      * Отклонение от нормы

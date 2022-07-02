@@ -24,6 +24,7 @@ databaseChangeLog:
                   type: varchar(10)
                   remarks: "Номер амбулаторной карты из системы Interin"
                   constraints:
+                    unique: true
                     nullable: true
               - column:
                   name: finance_source

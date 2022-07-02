@@ -1,6 +1,5 @@
 package ru.mospolytech.therapy_cabinet.models.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.joda.time.LocalDate;
 
@@ -32,4 +31,20 @@ public class Patient {
      * Пол пациента
      */
     private Sex sex;
+    /**
+     * Электронная почта пациента
+     */
+    private String email;
+    /**
+     * Телефонный номер контактного лица пациента
+     */
+    private String contactPerson;
+    /**
+     * Номер амбулаторной карты, для синхронизации с системой Interin
+     */
+    private String ambulatoryCard;
+    /**
+     * Источник финансирования пациента
+     */
+    private FinanceSource financeSource;
 }

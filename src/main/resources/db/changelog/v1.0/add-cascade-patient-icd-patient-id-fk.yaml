@@ -6,11 +6,11 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: patient_icd
-            constraintName: fk_patient_id
+            constraintName: fk_patient_icd_patient_id
         - addForeignKeyConstraint:
             baseTableName: patient_icd
             baseColumnNames: patient_id
-            constraintName: fk_patient_id
+            constraintName: fk_patient_icd_patient_id
             onDelete: CASCADE
             referencedTableName: patient
             referencedColumnNames: id

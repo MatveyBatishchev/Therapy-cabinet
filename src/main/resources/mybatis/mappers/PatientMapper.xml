@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper">
-    <!--   maps-->
 
+    <!--maps-->
     <resultMap id="PatientMap" type="ru.mospolytech.therapy_cabinet.models.domain.Patient">
         <id column="id" property="id"/>
         <result column="full_name" property="fullName"/>
@@ -11,18 +11,24 @@
         <result column="adverse_reactions" property="adverseReactions"/>
         <result column="date_of_birth" property="dateOfBirth"/>
         <result column="sex" property="sex"/>
+        <result column="email" property="email"/>
+        <result column="contact_person" property="contactPerson"/>
+        <result column="ambulatory_card" property="ambulatoryCard"/>
+        <result column="finance_source" property="financeSource"/>
     </resultMap>
 
-    <!--    queries-->
-
+    <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.patient (id, full_name, phone_number, adverse_reactions, date_of_birth, sex)
+        insert into doc.patient (id, full_name, phone_number, adverse_reactions, date_of_birth, sex, email,
+                                 contact_person, ambulatory_card, finance_source)
         values (#{patient.id}, #{patient.fullName}, #{patient.phoneNumber}, #{patient.adverseReactions},
-                #{patient.dateOfBirth}, #{patient.sex.code});
+                #{patient.dateOfBirth}, #{patient.sex.code}, #{patient.email}, #{patient.contactPerson},
+                #{patient.ambulatoryCard}, #{patient.financeSource});
     </insert>
 
     <select id="read" parameterType="map" resultMap="PatientMap">
-        select id, full_name, phone_number, adverse_reactions, date_of_birth, sex
+        select id, full_name, phone_number, adverse_reactions, date_of_birth,
+               sex, email, contact_person, ambulatory_card, finance_source
         from doc.patient
         where id = #{id};
     </select>
@@ -35,6 +41,10 @@
         <if test="patient.adverseReactions != null">adverse_reactions = #{patient.adverseReactions},</if>
         <if test="patient.dateOfBirth != null">date_of_birth = #{patient.dateOfBirth},</if>
         <if test="patient.sex != null">sex = #{patient.sex.code},</if>
+        <if test="patient.email != null">email = #{patient.email},</if>
+        <if test="patient.contactPerson != null">contact_person = #{patient.contactPerson},</if>
+        <if test="patient.ambulatoryCard != null">ambulatory_card = #{patient.ambulatoryCard},</if>
+        <if test="patient.financeSource != null">finance_source = #{patient.financeSource.code},</if>
         -- FIXME: changed field set to now() even if nothing changed
         changed = now()
         where id = #{patient.id};
@@ -47,7 +57,8 @@
     </delete>
 
     <select id="readAll" parameterType="map" resultMap="PatientMap">
-        select id, full_name, phone_number, adverse_reactions, date_of_birth, sex
+        select id, full_name, phone_number, adverse_reactions, date_of_birth,
+               sex, email, contact_person, ambulatory_card, finance_source
         from doc.patient
         limit #{limit} offset #{offset};
     </select>

@@ -2,9 +2,10 @@ package ru.mospolytech.therapy_cabinet.controller.prescription;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+import ru.mospolytech.therapy_cabinet.models.domain.prescription.AdministrationType;
 import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRead;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.PrescriptionMapper;
+import ru.mospolytech.therapy_cabinet.service.prescription.PrescriptionServiceImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,32 +14,43 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PrescriptionControllerImpl implements PrescriptionController {
 
-    private final PrescriptionMapper prescriptionMapper;
+    private final PrescriptionServiceImpl prescriptionService;
 
     @Override
     public void create(PrescriptionCreate prescription) {
-        prescription.setId(UUID.randomUUID());
-        prescriptionMapper.create(prescription);
+        prescriptionService.createPrescription(prescription);
     }
 
     @Override
     public PrescriptionRead read(UUID id) {
-        return prescriptionMapper.read(id);
+        return prescriptionService.findPrescriptionById(id);
     }
 
     @Override
     public void update(UUID id, PrescriptionCreate prescription) {
-        prescriptionMapper.update(id, prescription);
+        prescriptionService.updatePrescription(id, prescription);
     }
 
     @Override
     public void delete(UUID id) {
-        prescriptionMapper.delete(id);
+        prescriptionService.deletePrescription(id);
     }
 
     @Override
-    public List<PrescriptionRead> readAll(Long offset, Long limit) {
-        return prescriptionMapper.readAll(offset, limit);
+    public List<PrescriptionCreate> readAll(Long offset, Long limit) {
+        return prescriptionService.findAllPrescriptions(offset, limit);
     }
+
+    @Override
+    public PrescriptionRead readByTherapyId(int therapyId) {
+        return prescriptionService.findPrescriptionByTherapyId(therapyId);
+    }
+
+    @Override
+    public List<PrescriptionCreate> readAllBySearch(UUID medicationId, Integer doseAmount, Double substanceAmount,
+                                                    AdministrationType administrationType) {
+        return prescriptionService.findPrescriptionsBySearch(medicationId, doseAmount, substanceAmount, administrationType);
+    }
+
 
 }

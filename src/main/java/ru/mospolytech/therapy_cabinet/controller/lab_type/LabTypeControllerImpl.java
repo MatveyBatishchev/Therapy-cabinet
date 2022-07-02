@@ -1,44 +1,40 @@
 package ru.mospolytech.therapy_cabinet.controller.lab_type;
 
 import lombok.AllArgsConstructor;
-import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mospolytech.therapy_cabinet.models.domain.LabType;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.LabEventMapper;
-import ru.mospolytech.therapy_cabinet.mybatis.mappers.LabTypeMapper;
+import ru.mospolytech.therapy_cabinet.service.lab_type.LabTypeServiceImpl;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class LabTypeControllerImpl implements LabTypeController {
-    private final LabTypeMapper labTypeMapper;
+
+    private final LabTypeServiceImpl labTypeService;
 
     @Override
     public LabType create(LabType labType) {
-        val generatedId = labTypeMapper.create(labType);
-        labType.setId(generatedId);
-        return labType;
+        return labTypeService.createLabType(labType);
     }
 
     @Override
     public LabType read(int id) {
-        return labTypeMapper.read(id);
+        return labTypeService.findLabTypeById(id);
     }
 
     @Override
     public void update(LabType labType) {
-        labTypeMapper.update(labType);
+        labTypeService.updateLabType(labType);
     }
 
     @Override
     public void delete(int id) {
-        labTypeMapper.delete(id);
+        labTypeService.deleteLabType(id);
     }
 
     @Override
     public List<LabType> readAll(Long offset, Long limit) {
-        return labTypeMapper.readAll(offset, limit);
+        return labTypeService.findAllLabTypes(offset, limit);
     }
 }

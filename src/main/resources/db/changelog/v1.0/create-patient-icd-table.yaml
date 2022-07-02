@@ -14,7 +14,7 @@ databaseChangeLog:
                   remarks: "UUID пациента (внешний ключ)"
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_patient_id
+                    foreignKeyName: fk_patient_icd_patient_id
                     references: patient(id)
               - column:
                   name: code

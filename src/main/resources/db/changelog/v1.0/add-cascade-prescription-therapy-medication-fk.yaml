@@ -6,21 +6,21 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: prescription
-            constraintName: fk_therapy_id
+            constraintName: fk_prescription_therapy_id
         - addForeignKeyConstraint:
             baseTableName: prescription
             baseColumnNames: therapy_id
-            constraintName: fk_therapy_id
+            constraintName: fk_prescription_therapy_id
             onDelete: CASCADE
             referencedTableName: therapy
             referencedColumnNames: id
         - dropForeignKeyConstraint:
             baseTableName: prescription
-            constraintName: fk_medication_id
+            constraintName: fk_prescription_medication_id
         - addForeignKeyConstraint:
             baseTableName: prescription
             baseColumnNames: medication_id
-            constraintName: fk_medication_id
+            constraintName: fk_prescription_medication_id
             onDelete: CASCADE
             referencedTableName: medication
             referencedColumnNames: id

@@ -12,9 +12,4 @@ public class MedIndexCreate extends MedIndex {
      */
     private int therapyId;
 
-    /**
-     * Вид индекса
-     */
-    private int indexTypeId;
-
 }

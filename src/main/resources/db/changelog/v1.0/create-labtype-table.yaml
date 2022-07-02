@@ -63,3 +63,7 @@ databaseChangeLog:
         - addUniqueConstraint:
             tableName: labtype
             columnNames: name, specimen, mu
+        - addAutoIncrement:
+            tableName: labtype
+            columnName: id
+            columnDataType: int

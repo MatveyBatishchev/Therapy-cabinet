@@ -4,7 +4,7 @@
 <mapper namespace="ru.mospolytech.therapy_cabinet.mybatis.mappers.PrescriptionMapper">
 
     <!--maps-->
-    <resultMap id="PrescriptionMap" type="ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRead">
+    <resultMap id="PrescriptionReadMap" type="ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRead">
         <id column="id" property="id"/>
         <result column="value" property="value"/>
         <result column="dose_amount" property="doseAmount"/>
@@ -12,42 +12,50 @@
         <result column="administration_type" property="administrationType"/>
         <result column="comments" property="comments"/>
         <association columnPrefix="therapy_" property="therapy"
-                     javaType="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyRead"
-                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper.TherapyMap"/>
+                     javaType="ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyCreate"
+                     resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper.TherapyCreateMap"/>
         <association columnPrefix="medication_" property="medication"
                      javaType="ru.mospolytech.therapy_cabinet.models.domain.Medication"
                      resultMap="ru.mospolytech.therapy_cabinet.mybatis.mappers.MedicationMapper.MedicationMap"/>
     </resultMap>
 
+    <resultMap id="PrescriptionCreateMap" type="ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionCreate">
+        <id column="id" property="id"/>
+        <result column="value" property="value"/>
+        <result column="dose_amount" property="doseAmount"/>
+        <result column="substance_amount" property="substanceAmount"/>
+        <result column="administration_type" property="administrationType"/>
+        <result column="comments" property="comments"/>
+        <result column="therapy_id" property="therapyId"/>
+        <result column="medication_id" property="medicationId"/>
+    </resultMap>
+
+    <!--queries-->
     <insert id="create" parameterType="map">
         insert into doc.prescription (id, therapy_id, medication_id, dose_amount, substance_amount, administration_type, comments)
         values (#{prescription.id}, #{prescription.therapyId}, #{prescription.medicationId}, #{prescription.doseAmount},
                 #{prescription.substanceAmount}, #{prescription.administrationType.code}, #{prescription.comments});
     </insert>
 
-    <select id="read" parameterType="map" resultMap="PrescriptionMap">
+    <select id="read" parameterType="map" resultMap="PrescriptionReadMap">
         select prescription.id           as id,
-               therapy_id,
                medication_id,
                dose_amount,
                substance_amount,
                administration_type,
                prescription.comments     as comments,
                therapy.id                as therapy_id,
-               therapy.start_time        as therapy_start_time,
-               therapy.end_time          as therapy_end_time,
-               therapy.cabinet           as therapy_cabinet,
+               therapy.date              as therapy_date,
+               therapy.time_period       as therapy_time_period,
                therapy.status            as therapy_status,
                therapy.comments          as therapy_comments,
                therapy.patient_id        as therapy_patient_id,
                medication.id             as medication_id,
-               medication.name           as medication_name,
                medication.nomenclature   as medication_nomenclature,
                medication.manufacturer   as medication_manufacturer,
                medication.dose_form      as medication_dose_form,
                medication.dose_val       as medication_dose_val,
-               medication.mu             as medication_mu,
-               medication.amount         as medication_amount
+               medication.mu             as medication_mu
         from doc.prescription
                  left join doc.therapy therapy on therapy.id = prescription.therapy_id
                  left join doc.medication medication on medication.id = prescription.medication_id
@@ -57,7 +65,6 @@
     <update id="update" parameterType="map">
         update doc.prescription
         set
-        <if test="prescription.therapyId != null">therapy_id = #{prescription.therapyId},</if>
         <if test="prescription.medicationId != null">medication_id = #{prescription.medicationId},</if>
         <if test="prescription.doseAmount != null">dose_amount = #{prescription.doseAmount},</if>
         <if test="prescription.substanceAmount != null">substance_amount = #{prescription.substanceAmount},</if>
@@ -74,32 +81,56 @@
         where id = #{id};
     </delete>
 
-    <select id="readAll" parameterType="map" resultMap="PrescriptionMap">
-        select prescription.id           as id,
+    <select id="readAll" parameterType="map" resultMap="PrescriptionCreateMap">
+        select id,
                therapy_id,
+               medication_id,
+               dose_amount,
+               substance_amount,
+               administration_type
+        from doc.prescription
+        limit #{limit} offset #{offset};
+    </select>
+
+    <select id="readByTherapyId" parameterType="map" resultMap="PrescriptionReadMap">
+        select prescription.id           as id,
                medication_id,
                dose_amount,
                substance_amount,
                administration_type,
                prescription.comments     as comments,
                therapy.id                as therapy_id,
-               therapy.start_time        as therapy_start_time,
-               therapy.end_time          as therapy_end_time,
-               therapy.cabinet           as therapy_cabinet,
+               therapy.date              as therapy_date,
+               therapy.time_period       as therapy_time_period,
                therapy.status            as therapy_status,
                therapy.comments          as therapy_comments,
                therapy.patient_id        as therapy_patient_id,
                medication.id             as medication_id,
-               medication.name           as medication_name,
                medication.nomenclature   as medication_nomenclature,
                medication.manufacturer   as medication_manufacturer,
                medication.dose_form      as medication_dose_form,
                medication.dose_val       as medication_dose_val,
-               medication.mu             as medication_mu,
-               medication.amount         as medication_amount
+               medication.mu             as medication_mu
         from doc.prescription
                  left join doc.therapy therapy on therapy.id = prescription.therapy_id
                  left join doc.medication medication on medication.id = prescription.medication_id
-        limit #{limit} offset #{offset};
+        where prescription.therapy_id = #{therapyId};
     </select>
+
+    <select id="readAllBySearch" parameterType="map" resultMap="PrescriptionCreateMap">
+        select id,
+               therapy_id,
+               medication_id,
+               dose_amount,
+               substance_amount,
+               administration_type
+        from doc.prescription
+        where true
+        <if test="medicationId != null">and medication_id = #{medicationId}</if>
+        <if test="doseAmount != null">and dose_amount = #{doseAmount}</if>
+        <if test="substanceAmount != null">and substance_amount = #{substanceAmount}</if>
+        <if test="administrationType != null">and administration_type = #{administrationType}</if>
+    </select>
+
+
 </mapper>

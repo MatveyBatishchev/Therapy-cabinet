@@ -10,13 +10,13 @@ import java.util.UUID;
 public class PrescriptionCreate extends Prescription {
 
     /**
-     * Идентификатор терапии
-     */
-    private int therapyId;
-
-    /**
      * Идентификатор лекарственного препарата
      */
     private UUID medicationId;
+
+    /**
+     * Идентификатор терапии
+     */
+    private int therapyId;
 
 }

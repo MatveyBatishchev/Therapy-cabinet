@@ -31,13 +31,7 @@ databaseChangeLog:
       file: add-cascade-patient-icd-patient-id-fk.yaml
   - include:
       relativeToChangelogFile: true
-      file: add-autoinc-labtype-id.yaml
-  - include:
-      relativeToChangelogFile: true
       file: add-patient-columns.yaml
-  - include:
-      relativeToChangelogFile: true
-      file: create-index-type-table.yaml
   - include:
       relativeToChangelogFile: true
       file: create-medindex-table.yaml
