@@ -19,7 +19,7 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_patient_id
+                    foreignKeyName: fk_labevent_patient_id
                     references: patient(id)
               - column:
                   name: labtype_id

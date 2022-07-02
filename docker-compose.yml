@@ -1,16 +1,17 @@
 services:
   db:
-    image: postgres:11.15-bullseye
-    command: postgres -c 'max_connections=200'
+    image: mysql:8.0.22
+#    command: postgres -c 'max_connections=200'
     volumes:
-      - postgres-data:/var/lib/postgresql
-      - ./src/main/resources/db/pginit.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-data:/var/lib/mysql
+      - ./src/main/resources/db/msinit.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - 5432:5432
+      - 3306:3306
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: therapy_room_db
+      MYSQL_DATABASE: doc
+      MYSQL_USER: mysql
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
     networks:
       - therapy-cabinet-network
     deploy:
@@ -21,10 +22,9 @@ services:
         reservations:
           cpus: '0.1'
           memory: 1536M
-
 networks:
   therapy-cabinet-network:
     driver: bridge
 volumes:
-  postgres-data:
+  mysql-data:
     external: false

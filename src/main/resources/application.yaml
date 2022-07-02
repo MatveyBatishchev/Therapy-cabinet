@@ -2,7 +2,7 @@ spring:
   application:
     name: therapy-cabinet
   datasource:
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: local
   liquibase:
