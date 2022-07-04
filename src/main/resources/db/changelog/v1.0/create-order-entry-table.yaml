@@ -11,19 +11,20 @@ databaseChangeLog:
               - column:
                   name: id
                   type: serial
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: medication_id
-                  type: uuid
+                  type: serial
                   constraints:
                     nullable: false
                     foreignKeyName: fk_order_entry_medication_id
                     references: medication(id)
               - column:
                   name: medorder_id
-                  type: uuid
+                  type: serial
                   constraints:
                     nullable: false
                     foreignKeyName: fk_order_entry_medorder_id

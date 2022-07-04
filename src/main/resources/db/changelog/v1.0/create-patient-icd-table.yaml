@@ -10,7 +10,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: patient_id
-                  type: uuid
+                  type: serial
                   remarks: "UUID пациента (внешний ключ)"
                   constraints:
                     nullable: false

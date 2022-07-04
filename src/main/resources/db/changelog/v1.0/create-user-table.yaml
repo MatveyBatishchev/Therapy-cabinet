@@ -1,16 +1,17 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
+      id: create-customer-table
       author: VKamalov
       comment: "Создание таблицы с данными пользователей"
       changes:
         - createTable:
-            tableName: user
+            tableName: customer
             remarks: "Таблица с данными пользователей"
             columns:
               - column:
                   name: id
-                  type: uuid
+                  type: serial
+                  autoIncrement: true
                   remarks: "UUID пользователя (первичный ключ)"
                   constraints:
                     primaryKey: true
@@ -30,7 +31,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: roles
-                  type: integer[]
+                  type: smallint
                   remarks: "Роли пользователя"
                   constraints:
                     nullable: false

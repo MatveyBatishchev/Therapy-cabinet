@@ -10,7 +10,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: uuid
+                  type: serial
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
