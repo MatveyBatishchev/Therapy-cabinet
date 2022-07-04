@@ -3,7 +3,6 @@ package ru.mospolytech.therapy_cabinet.models.domain.medindex;
 import lombok.Data;
 import ru.mospolytech.therapy_cabinet.models.domain.IndexType;
 
-import java.util.UUID;
 
 @Data
 public class MedIndex {
@@ -11,7 +10,7 @@ public class MedIndex {
     /**
      * Идентификатор записи и клиническом индексе
      */
-    private UUID id;
+    private Integer id;
 
     /**
      * Значение индекса

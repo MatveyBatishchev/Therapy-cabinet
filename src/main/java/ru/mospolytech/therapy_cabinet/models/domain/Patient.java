@@ -3,14 +3,13 @@ package ru.mospolytech.therapy_cabinet.models.domain;
 import lombok.Data;
 import org.joda.time.LocalDate;
 
-import java.util.UUID;
 
 @Data
 public class Patient {
     /**
      * Идентификатор пациента
      */
-    private UUID id;
+    private Integer id;
     /**
      * ФИО пациента
      */

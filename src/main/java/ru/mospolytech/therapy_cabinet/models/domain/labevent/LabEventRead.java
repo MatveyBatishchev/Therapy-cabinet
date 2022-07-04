@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import ru.mospolytech.therapy_cabinet.models.domain.LabType;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
-import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -13,7 +12,7 @@ public class LabEventRead extends LabEvent {
     /**
      * Идентификатор анализа
      */
-    private UUID id;
+    private Integer id;
     /**
      * Идентификатор пациента
      */

@@ -3,7 +3,6 @@ package ru.mospolytech.therapy_cabinet.models.domain.order;
 import lombok.Data;
 import org.joda.time.DateTime;
 
-import java.util.UUID;
 
 @Data
 public class MedOrder {
@@ -11,7 +10,7 @@ public class MedOrder {
     /**
      * Идентификатор заказа
      */
-    private UUID id;
+    private Integer id;
 
     /**
      * Наименование поставщика (аптеки)

@@ -2,15 +2,13 @@ package ru.mospolytech.therapy_cabinet.models.domain.prescription;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 public abstract class Prescription {
 
     /**
      * Идентификатор лекарственного назначения
      */
-    private UUID id;
+    private Integer id;
 
     /**
      * Кол-во списанного к терапии лекарства в дозах

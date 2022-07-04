@@ -2,14 +2,13 @@ package ru.mospolytech.therapy_cabinet.models.domain;
 
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 public class Medication {
     /**
      * Идентификатор лекарственного препарата
      */
-    private UUID id;
+    private Integer id;
     /**
      * Номенклатура препарата
      */

@@ -22,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @RedisHash("RefreshToken")
 public class RefreshToken implements Serializable {
-    private static final long serialVersionUID = 881597705214943359L;
+    private static final long serialVersionUID = 881597705214943451L;
 
     @Id
     @Indexed
@@ -30,5 +30,5 @@ public class RefreshToken implements Serializable {
 
     private Date expiredAt;
 
-    private String userId;
+    private Integer userId;
 }

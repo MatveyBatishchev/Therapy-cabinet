@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Dimevision
@@ -21,7 +20,7 @@ public class User {
     /**
      * Идентификатор пользователя
      */
-    private UUID id;
+    private Integer id;
     /**
      * Email пользователя
      */

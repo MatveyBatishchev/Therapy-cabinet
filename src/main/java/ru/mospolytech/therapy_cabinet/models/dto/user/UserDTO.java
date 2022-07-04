@@ -4,7 +4,6 @@ import lombok.Data;
 import ru.mospolytech.therapy_cabinet.models.domain.user.Authority;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Dimevision
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Data
 public class UserDTO {
 
-    private UUID id;
+    private Integer id;
 
     private String login;
 
