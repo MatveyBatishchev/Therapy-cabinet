@@ -26,7 +26,7 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.medindex (id, therapy_id, index_type, value, comments, aflag)
+        insert into std_1305_therapy.medindex (id, therapy_id, index_type, value, comments, aflag)
         values (#{medIndex.id}, #{medIndex.therapyId}, #{medIndex.indexType.code}, #{medIndex.value},
                 #{medIndex.comments}, #{medIndex.abnormalityFlag});
     </insert>
@@ -43,13 +43,13 @@
                therapy.status            as therapy_status,
                therapy.comments          as therapy_comments,
                therapy.patient_id        as therapy_patient_id
-        from doc.medindex
-                 left join doc.therapy therapy on therapy.id =  medindex.therapy_id
+        from std_1305_therapy.medindex
+                 left join std_1305_therapy.therapy therapy on therapy.id =  medindex.therapy_id
         where medindex.id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.medindex
+        update std_1305_therapy.medindex
         set
         <if test="medIndex.indexType != null">index_type = #{medIndex.indexType.code},</if>
         <if test="medIndex.value != null">value = #{medIndex.value},</if>
@@ -62,7 +62,7 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.medindex
+        from std_1305_therapy.medindex
         where id = #{id};
     </delete>
 
@@ -73,7 +73,7 @@
                value,
                comments,
                aflag
-        from doc.medindex
+        from std_1305_therapy.medindex
         limit #{limit} offset #{offset};
     </select>
 
@@ -84,7 +84,7 @@
                value,
                comments,
                aflag
-        from doc.medindex
+        from std_1305_therapy.medindex
         where true
         <if test="therapyId != null">and therapy_id = #{therapyId}</if>
         <if test="indexType != null">and index_type = #{indexType}</if>

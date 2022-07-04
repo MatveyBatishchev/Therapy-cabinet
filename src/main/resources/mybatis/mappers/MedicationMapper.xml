@@ -15,19 +15,19 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.medication (id, nomenclature, manufacturer, dose_form, dose_val, mu)
+        insert into std_1305_therapy.medication (id, nomenclature, manufacturer, dose_form, dose_val, mu)
         values (#{medication.id}, #{medication.nomenclature}, #{medication.manufacturer},
                 #{medication.doseForm}, #{medication.doseVal}, #{medication.measurementUnits});
     </insert>
 
     <select id="read" parameterType="map" resultMap="MedicationMap">
         select id, nomenclature, manufacturer, dose_form, dose_val, mu
-        from doc.medication
+        from std_1305_therapy.medication
         where id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.medication
+        update std_1305_therapy.medication
         set
         <if test="medication.nomenclature != null">nomenclature = #{medication.nomenclature},</if>
         <if test="medication.manufacturer != null">manufacturer = #{medication.manufacturer},</if>
@@ -41,13 +41,13 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.medication
+        from std_1305_therapy.medication
         where id = #{id};
     </delete>
 
     <select id="readAll" parameterType="map" resultMap="MedicationMap">
         select id, nomenclature, manufacturer, dose_form, dose_val, mu
-        from doc.medication
+        from std_1305_therapy.medication
         limit #{limit} offset #{offset};
     </select>
 

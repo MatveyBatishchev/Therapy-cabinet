@@ -19,9 +19,9 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.patient (id, full_name, phone_number, adverse_reactions, date_of_birth, sex, email,
+        insert into std_1305_therapy.patient (full_name, phone_number, adverse_reactions, date_of_birth, sex, email,
                                  contact_person, ambulatory_card, finance_source)
-        values (#{patient.id}, #{patient.fullName}, #{patient.phoneNumber}, #{patient.adverseReactions},
+        values (#{patient.fullName}, #{patient.phoneNumber}, #{patient.adverseReactions},
                 #{patient.dateOfBirth}, #{patient.sex.code}, #{patient.email}, #{patient.contactPerson},
                 #{patient.ambulatoryCard}, #{patient.financeSource});
     </insert>
@@ -29,12 +29,12 @@
     <select id="read" parameterType="map" resultMap="PatientMap">
         select id, full_name, phone_number, adverse_reactions, date_of_birth,
                sex, email, contact_person, ambulatory_card, finance_source
-        from doc.patient
+        from std_1305_therapy.patient
         where id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.patient
+        update std_1305_therapy.patient
         set
         <if test="patient.fullName != null">full_name = #{patient.fullName},</if>
         <if test="patient.phoneNumber != null">phone_number = #{patient.phoneNumber},</if>
@@ -52,31 +52,31 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.patient
+        from std_1305_therapy.patient
         where id = #{id};
     </delete>
 
     <select id="readAll" parameterType="map" resultMap="PatientMap">
         select id, full_name, phone_number, adverse_reactions, date_of_birth,
                sex, email, contact_person, ambulatory_card, finance_source
-        from doc.patient
+        from std_1305_therapy.patient
         limit #{limit} offset #{offset};
     </select>
 
     <insert id="addPatientIcd" parameterType="map">
-        insert into doc.patient_icd (patient_id, code)
+        insert into std_1305_therapy.patient_icd (patient_id, code)
         values (#{patientId}, #{icdCode});
     </insert>
 
     <select id="readPatientIcds" resultType="string" parameterType="map">
         select code
-        from doc.patient_icd
+        from std_1305_therapy.patient_icd
         where patient_id = #{patientId};
     </select>
 
     <delete id="removePatientIcd" parameterType="map">
         delete
-        from doc.patient_icd
+        from std_1305_therapy.patient_icd
         where patient_id = #{patientId}
           and code = #{icdCode};
     </delete>

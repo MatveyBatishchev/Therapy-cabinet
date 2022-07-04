@@ -32,7 +32,7 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.therapy (patient_id, date, time_period, status, comments)
+        insert into std_1305_therapy.therapy (patient_id, date, time_period, status, comments)
         values (#{therapy.patientId}, #{therapy.date}, #{therapy.timePeriod.code},
                 #{therapy.status.code}, #{therapy.comments})
     </insert>
@@ -54,13 +54,13 @@
                patient.ambulatory_card           as patient_ambulatory_card,
                patient.contact_person            as patient_contact_person,
                patient.finance_source            as patient_finance_source
-        from doc.therapy
-             left join doc.patient patient on patient.id = therapy.patient_id
+        from std_1305_therapy.therapy
+             left join std_1305_therapy.patient patient on patient.id = therapy.patient_id
         where therapy.id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.therapy
+        update std_1305_therapy.therapy
         set
         <if test="therapy.patientId != null">patient_id = #{therapy.patientId},</if>
         <if test="therapy.date != null">date = #{therapy.date},</if>
@@ -74,7 +74,7 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.therapy
+        from std_1305_therapy.therapy
         where id = #{id};
     </delete>
 
@@ -85,7 +85,7 @@
                time_period,
                status,
                comments
-        from doc.therapy
+        from std_1305_therapy.therapy
         limit #{limit} offset #{offset};
     </select>
 
@@ -95,7 +95,7 @@
                time_period,
                status,
                patient_id
-        from doc.therapy
+        from std_1305_therapy.therapy
         where true
         <if test="patientId != null">and patient_id = #{patientId}</if>
         <if test="startDate != null">and date &gt;= #{startDate}</if>
@@ -106,7 +106,7 @@
 
     <select id="readCalendar" parameterType="map" resultMap="CalendarMap">
         select date, count(*) FILTER (WHERE time_period = 0) as "morning_count", count(*) FILTER (WHERE time_period = 1) as "day_count"
-        from doc.therapy
+        from std_1305_therapy.therapy
         where date &gt;= #{startDate}::date and date &lt;= #{endDate}::date
         group by date
         order by date

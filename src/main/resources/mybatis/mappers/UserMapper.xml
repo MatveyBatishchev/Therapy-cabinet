@@ -8,7 +8,7 @@
         <result column="login" property="login"/>
         <result column="password" property="password"/>
         <result column="roles" property="roles"
-                javaType="java.util.ArrayList" jdbcType="ARRAY"
+                javaType="java.util.ArrayList" jdbcType="SMALLINT"
                 typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
     </resultMap>
 
@@ -16,7 +16,7 @@
         <id column="id" property="id"/>
         <result column="login" property="login"/>
         <result column="roles" property="roles"
-                javaType="java.util.ArrayList" jdbcType="ARRAY"
+                javaType="java.util.ArrayList" jdbcType="SMALLINT"
                 typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
     </resultMap>
 
@@ -25,7 +25,7 @@
         select u.id    as id,
                u.login as login,
                u.roles as roles
-        from doc."user" u
+        from std_1305_therapy.customer u
         limit #{limit} offset #{offset};
     </select>
 
@@ -33,41 +33,41 @@
         select u.id    as id,
                u.login as login,
                u.roles as roles
-        from doc.user u
+        from std_1305_therapy.customer u
         where u.id = #{id}
     </select>
 
-    <insert id="createUser" parameterType="map">
-        insert into doc.user (id, login, password, roles)
-        values (#{user.id}, #{user.login}, #{user.password}, ARRAY
-        <foreach collection="user.roles" item="role" separator="," open="[" close="]">
+    <insert id="createUser" parameterType="ru.mospolytech.therapy_cabinet.models.domain.user.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into std_1305_therapy.customer (id, login, password, roles)
+        values (#{user.id}, #{user.login}, #{user.password},
+        <foreach collection="user.roles" item="role" separator=",">
             #{role.id}
-        </foreach>)
+        </foreach>);
     </insert>
 
     <update id="updateUser" parameterType="map">
-        UPDATE doc."user"
-        SET login    = #{user.login},
-            password = #{user.password},
-        roles        = ARRAY
+        UPDATE std_1305_therapy.customer
+        SET login = #{user.login},
+        password = #{user.password},
+        roles =
         <foreach collection="user.roles" item="role" separator="," open="[" close="]">
             #{role.id}
         </foreach>
-    WHERE id = #{user.id}
+        WHERE id = #{user.id}
     </update>
 
     <delete id="deleteUser" parameterType="map">
         DELETE
-        FROM doc."user"
+        FROM std_1305_therapy.customer
         WHERE id = #{id}
     </delete>
 
     <select id="findUserByUsername" resultMap="UserMap">
-        select u.id as id,
-        u.login as login,
-        u.password as password,
-        u.roles as roles
-        from doc."user" u
+        select u.id       as id,
+               u.login    as login,
+               u.password as password,
+               u.roles    as roles
+        from std_1305_therapy.customer u
         where login = #{username, jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -17,23 +17,28 @@
 
     <!--queries-->
 
-    <!--не нужно делать так, если возвращемое значение не нужно-->
-    <select id="create" parameterType="map" resultType="int">
-        insert into doc.labtype (name, specimen, mu, lolim, lolimnum, uplim, uplimnum)
+    <insert id="create" parameterType="map">
+        insert into std_1305_therapy.labtype (name, specimen, mu, lolim, lolimnum, uplim, uplimnum)
         values (#{labType.name}, #{labType.specimen}, #{labType.measurementUnits}, #{labType.lowerLimit},
                 #{labType.lowerLimitNumeric},
-                #{labType.upperLimit}, #{labType.upperLimitNumeric})
-        returning id;
-    </select>
+                #{labType.upperLimit}, #{labType.upperLimitNumeric});
+    </insert>
 
     <select id="read" parameterType="map" resultMap="LabTypeMap">
-        select id, name, specimen, mu, lolim, lolimnum, uplim, uplimnum
-        from doc.labtype
+        select id,
+               name,
+               specimen,
+               mu,
+               lolim,
+               lolimnum,
+               uplim,
+               uplimnum
+        from std_1305_therapy.labtype
         where id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.labtype
+        update std_1305_therapy.labtype
         set
         <if test="labType.name != null">name = #{labType.name},</if>
         <if test="labType.specimen != null">specimen = #{labType.specimen},</if>
@@ -49,7 +54,7 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.labtype
+        from std_1305_therapy.labtype
         where id = #{id};
     </delete>
 
@@ -62,7 +67,7 @@
                lolimnum,
                uplim,
                uplimnum
-        from doc.labtype
+        from std_1305_therapy.labtype
         limit #{limit} offset #{offset};
     </select>
 </mapper>

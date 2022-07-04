@@ -17,7 +17,7 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.order_entry (medorder_id, medication_id, amount)
+        insert into std_1305_therapy.order_entry (medorder_id, medication_id, amount)
         values (#{orderEntry.medOrderId}, #{orderEntry.medicationId}, #{orderEntry.amount});
     </insert>
 
@@ -32,21 +32,19 @@
                medorder.delivery_date    as medorder_delivery_date,
                medorder.status           as medorder_status,
                medication.id             as medication_id,
-               medication.name           as medication_name,
                medication.nomenclature   as medication_nomenclature,
                medication.manufacturer   as medication_manufacturer,
                medication.dose_form      as medication_dose_form,
                medication.dose_val       as medication_dose_val,
-               medication.mu             as medication_mu,
-               medication.amount         as medication_amount
-        from doc.order_entry
-                 left join doc.medication medication on medication.id = order_entry.medication_id
-                 left join doc.medorder medorder on medorder.id = order_entry.medorder_id
+               medication.mu             as medication_mu
+        from std_1305_therapy.order_entry
+                 left join std_1305_therapy.medication medication on medication.id = order_entry.medication_id
+                 left join std_1305_therapy.medorder medorder on medorder.id = order_entry.medorder_id
         where order_entry.id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.order_entry
+        update std_1305_therapy.order_entry
         set
         <if test="orderEntry.medOrderId != null">medorder_id = #{orderEntry.medOrderId},</if>
         <if test="orderEntry.medicationId != null">medication_id = #{orderEntry.medicationId},</if>
@@ -58,7 +56,7 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.order_entry
+        from std_1305_therapy.order_entry
         where id = #{id};
     </delete>
 
@@ -73,16 +71,14 @@
                medorder.delivery_date    as medorder_delivery_date,
                medorder.status           as medorder_status,
                medication.id             as medication_id,
-               medication.name           as medication_name,
                medication.nomenclature   as medication_nomenclature,
                medication.manufacturer   as medication_manufacturer,
                medication.dose_form      as medication_dose_form,
                medication.dose_val       as medication_dose_val,
-               medication.mu             as medication_mu,
-               medication.amount         as medication_amount
-        from doc.order_entry
-                 left join doc.medication medication on medication.id = order_entry.medication_id
-                 left join doc.medorder medorder on medorder.id = order_entry.medorder_id
+               medication.mu             as medication_mu
+        from std_1305_therapy.order_entry
+                 left join std_1305_therapy.medication medication on medication.id = order_entry.medication_id
+                 left join std_1305_therapy.medorder medorder on medorder.id = order_entry.medorder_id
         limit #{limit} offset #{offset};
     </select>
 </mapper>

@@ -14,19 +14,19 @@
 
     <!--queries-->
     <insert id="create" parameterType="map">
-        insert into doc.medorder (id, supplier, form_date, delivery_date, status)
+        insert into std_1305_therapy.medorder (id, supplier, form_date, delivery_date, status)
         values (#{medOrder.id}, #{medOrder.supplier}, #{medOrder.formDate}, #{medOrder.deliveryDate},
                 #{medOrder.status.code});
     </insert>
 
     <select id="read" parameterType="map" resultMap="MedOrderMap">
         select id, supplier, form_date, delivery_date, status
-        from doc.medorder
+        from std_1305_therapy.medorder
         where id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.medorder
+        update std_1305_therapy.medorder
         set
         <if test="medOrder.supplier != null">supplier = #{medOrder.supplier},</if>
         <if test="medOrder.formDate != null">form_date = #{medOrder.formDate},</if>
@@ -39,13 +39,13 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.medorder
+        from std_1305_therapy.medorder
         where id = #{id};
     </delete>
 
     <select id="readAll" parameterType="map" resultMap="MedOrderMap">
         select id, supplier, form_date, delivery_date, status
-        from doc.medorder
+        from std_1305_therapy.medorder
         limit #{limit} offset #{offset};
     </select>
 

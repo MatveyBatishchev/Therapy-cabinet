@@ -18,7 +18,7 @@
     </resultMap>
 
     <insert id="create" parameterType="map">
-        insert into doc.labevent (id, patient_id, labtype_id, value, valuenum, comments, taken, aflag)
+        insert into std_1305_therapy.labevent (id, patient_id, labtype_id, value, valuenum, comments, taken, aflag)
         values (#{labEvent.id}, #{labEvent.patientId}, #{labEvent.labTypeId}, #{labEvent.value},
                 #{labEvent.valueNumeric}, #{labEvent.comments}, #{labEvent.taken}, #{labEvent.abnormalityFlag});
     </insert>
@@ -46,14 +46,14 @@
                labtype.lolimnum          as labtype_lolimnum,
                labtype.uplim             as labtype_uplim,
                labtype.uplimnum          as labtype_uplimnum
-        from doc.labevent
-                 left join doc.labtype labtype on labtype.id = labevent.labtype_id
-                 left join doc.patient patient on patient.id = labevent.patient_id
+        from std_1305_therapy.labevent
+                 left join std_1305_therapy.labtype labtype on labtype.id = labevent.labtype_id
+                 left join std_1305_therapy.patient patient on patient.id = labevent.patient_id
         where labevent.id = #{id};
     </select>
 
     <update id="update" parameterType="map">
-        update doc.labevent
+        update std_1305_therapy.labevent
         set
         <if test="labEvent.patientId != null">patient_id = #{labEvent.patientId},</if>
         <if test="labEvent.labTypeId != null">labtype_id = #{labEvent.labTypeId},</if>
@@ -70,7 +70,7 @@
 
     <delete id="delete" parameterType="map">
         delete
-        from doc.labevent
+        from std_1305_therapy.labevent
         where id = #{id};
     </delete>
 
@@ -97,9 +97,9 @@
                labtype.lolimnum          as labtype_lolimnum,
                labtype.uplim             as labtype_uplim,
                labtype.uplimnum          as labtype_uplimnum
-        from doc.labevent
-                 left join doc.labtype labtype on labtype.id = labevent.labtype_id
-                 left join doc.patient patient on patient.id = labevent.patient_id
+        from std_1305_therapy.labevent
+                 left join std_1305_therapy.labtype labtype on labtype.id = labevent.labtype_id
+                 left join std_1305_therapy.patient patient on patient.id = labevent.patient_id
         limit #{limit} offset #{offset};
     </select>
 </mapper>
