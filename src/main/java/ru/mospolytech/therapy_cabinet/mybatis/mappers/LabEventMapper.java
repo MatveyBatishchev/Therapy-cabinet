@@ -7,19 +7,19 @@ import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Component
 @Mapper
 public interface LabEventMapper {
     void create(@Param("labEvent") LabEventCreate labEvent);
 
-    LabEventRead read(@Param("id") UUID id);
+    LabEventRead read(@Param("id") Integer id);
 
-    void update(@Param("labEventId") UUID id,
+    void update(@Param("labEventId") Integer id,
                 @Param("labEvent") LabEventCreate labEvent);
 
-    boolean delete(@Param("id") UUID id);
+    boolean delete(@Param("id") Integer id);
 
     List<LabEventRead> readAll(@Param("offset") Long offset,
                                @Param("limit") Long limit);

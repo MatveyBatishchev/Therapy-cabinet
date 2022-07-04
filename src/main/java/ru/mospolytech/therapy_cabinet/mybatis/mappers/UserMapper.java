@@ -8,7 +8,6 @@ import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Dimevision
@@ -19,13 +18,13 @@ import java.util.UUID;
 @Mapper
 public interface UserMapper {
 
-    void createUser(@Param("user") User user);
+    int createUser(@Param("user") User user);
 
-    Optional<UserDTO> findUserById(@Param("id") UUID id);
+    Optional<UserDTO> findUserById(@Param("id") Integer id);
 
     void updateUser(@Param("user") User user);
 
-    void deleteUser(@Param("id") UUID id);
+    void deleteUser(@Param("id") Integer id);
 
     List<UserDTO> findAllUsers(
             @Param("offset") Long offset,

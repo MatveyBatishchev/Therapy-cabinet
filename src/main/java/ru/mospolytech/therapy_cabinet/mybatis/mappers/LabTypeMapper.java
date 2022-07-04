@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 import ru.mospolytech.therapy_cabinet.models.domain.LabType;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Component
 @Mapper
 public interface LabTypeMapper {
-    int create(@Param("labType") LabType labType);
+    void create(@Param("labType") LabType labType);
 
     LabType read(@Param("id") int id);
 

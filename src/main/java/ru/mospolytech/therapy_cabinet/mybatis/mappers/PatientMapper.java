@@ -6,18 +6,17 @@ import org.springframework.stereotype.Component;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @Mapper
 public interface PatientMapper {
     void create(@Param("patient") Patient patient);
 
-    Patient read(@Param("id") UUID id);
+    Patient read(@Param("id") Integer id);
 
     void update(@Param("patient") Patient patient);
 
-    boolean delete(@Param("id") UUID id);
+    boolean delete(@Param("id") Integer id);
 
     List<Patient> readAll(
             @Param("offset") Long offset,
@@ -25,16 +24,16 @@ public interface PatientMapper {
     );
 
     void addPatientIcd(
-            @Param("patientId") UUID id,
+            @Param("patientId") Integer id,
             @Param("icdCode") String icdCode
     );
 
     List<String> readPatientIcds(
-            @Param("patientId") UUID id
+            @Param("patientId") Integer id
     );
 
     void removePatientIcd(
-            @Param("patientId") UUID id,
+            @Param("patientId") Integer id,
             @Param("icdCode") String icdCode
     );
 }

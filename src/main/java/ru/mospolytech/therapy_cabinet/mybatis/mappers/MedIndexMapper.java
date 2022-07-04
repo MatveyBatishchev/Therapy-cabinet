@@ -8,7 +8,7 @@ import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Component
 @Mapper
@@ -16,12 +16,12 @@ public interface MedIndexMapper {
 
     void create(@Param("medIndex") MedIndexCreate medIndex);
 
-    MedIndexRead read(@Param("id") UUID id);
+    MedIndexRead read(@Param("id") Integer id);
 
-    void update(@Param("id") UUID id,
+    void update(@Param("id") Integer id,
                 @Param("medIndex") MedIndexCreate medIndex);
 
-    boolean delete(@Param("id") UUID id);
+    boolean delete(@Param("id") Integer id);
 
     List<MedIndexCreate> readAll(@Param("offset") Long offset,
                                  @Param("limit") Long limit);

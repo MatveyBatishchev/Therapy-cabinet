@@ -11,7 +11,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyStatus;
 import ru.mospolytech.therapy_cabinet.models.domain.therapy.TimePeriod;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @Mapper
@@ -29,7 +28,7 @@ public interface TherapyMapper {
     List<TherapyCreate> readAll(@Param("offset") Long offset,
                                 @Param("limit") Long limit);
 
-    List<TherapyCreate> readAllBySearch(@Param("patientId") UUID patientId,
+    List<TherapyCreate> readAllBySearch(@Param("patientId") Integer patientId,
                                         @Param("startDate") LocalDate startDate,
                                         @Param("endDate") LocalDate endDate,
                                         @Param("timePeriod") TimePeriod timePeriod,
