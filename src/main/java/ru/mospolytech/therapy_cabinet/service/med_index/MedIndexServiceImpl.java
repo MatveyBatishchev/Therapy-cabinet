@@ -8,7 +8,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.MedIndexMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -18,22 +17,21 @@ public class MedIndexServiceImpl implements MedIndexService {
 
     @Override
     public void createMedIndex(MedIndexCreate medIndex) {
-        medIndex.setId(UUID.randomUUID());
         medIndexMapper.create(medIndex);
     }
 
     @Override
-    public MedIndexRead findMedIndexById(UUID id) {
+    public MedIndexRead findMedIndexById(Integer id) {
         return medIndexMapper.read(id);
     }
 
     @Override
-    public void updateMedIndex(UUID id, MedIndexCreate medIndex) {
+    public void updateMedIndex(Integer id, MedIndexCreate medIndex) {
         medIndexMapper.update(id, medIndex);
     }
 
     @Override
-    public void deleteMedIndex(UUID id) {
+    public void deleteMedIndex(Integer id) {
         medIndexMapper.delete(id);
     }
 

@@ -7,7 +7,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyStatus;
 import ru.mospolytech.therapy_cabinet.models.domain.therapy.TimePeriod;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface TherapyService {
 
@@ -21,7 +20,7 @@ public interface TherapyService {
 
     List<TherapyCreate> findAllTherapies(Long offset, Long limit);
 
-    List<TherapyCreate> findTherapiesBySearch(UUID patientId, LocalDate startDate,
+    List<TherapyCreate> findTherapiesBySearch(Integer patientId, LocalDate startDate,
                                                  LocalDate endDate, TimePeriod timePeriod,
                                                  TherapyStatus therapyStatus);
 

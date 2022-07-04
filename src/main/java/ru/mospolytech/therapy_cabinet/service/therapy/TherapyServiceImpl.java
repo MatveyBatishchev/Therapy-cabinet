@@ -10,7 +10,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.therapy.TimePeriod;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +42,7 @@ public class TherapyServiceImpl implements TherapyService {
         return therapyMapper.readAll(offset, limit);
     }
 
-    public List<TherapyCreate> findTherapiesBySearch(UUID patientId, LocalDate startDate,
+    public List<TherapyCreate> findTherapiesBySearch(Integer patientId, LocalDate startDate,
                                                         LocalDate endDate, TimePeriod timePeriod,
                                                         TherapyStatus therapyStatus) {
         return therapyMapper.readAllBySearch(patientId, startDate, endDate, timePeriod, therapyStatus);

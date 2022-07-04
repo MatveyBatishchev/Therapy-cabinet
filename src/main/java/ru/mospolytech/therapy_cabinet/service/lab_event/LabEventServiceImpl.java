@@ -7,7 +7,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.LabEventMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -17,22 +16,21 @@ public class LabEventServiceImpl implements LabEventService {
 
     @Override
     public void createLabEvent(LabEventCreate labEvent) {
-        labEvent.setId(UUID.randomUUID());
         labEventMapper.create(labEvent);
     }
 
     @Override
-    public LabEventRead findLabEventById(UUID id) {
+    public LabEventRead findLabEventById(Integer id) {
         return labEventMapper.read(id);
     }
 
     @Override
-    public void updateLabEvent(UUID id, LabEventCreate labEvent) {
+    public void updateLabEvent(Integer id, LabEventCreate labEvent) {
         labEventMapper.update(id, labEvent);
     }
 
     @Override
-    public void deleteLabEvent(UUID id) {
+    public void deleteLabEvent(Integer id) {
         labEventMapper.delete(id);
     }
 

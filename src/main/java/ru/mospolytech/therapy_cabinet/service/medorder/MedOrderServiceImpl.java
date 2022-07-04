@@ -6,7 +6,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.MedOrderMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -16,12 +15,11 @@ public class MedOrderServiceImpl implements MedOrderService {
 
     @Override
     public void createMedOrder(MedOrder medOrder) {
-        medOrder.setId(UUID.randomUUID());
         medOrderMapper.create(medOrder);
     }
 
     @Override
-    public MedOrder findMedOrderById(UUID id) {
+    public MedOrder findMedOrderById(Integer id) {
         return medOrderMapper.read(id);
     }
 
@@ -31,7 +29,7 @@ public class MedOrderServiceImpl implements MedOrderService {
     }
 
     @Override
-    public void deleteMedOrder(UUID id) {
+    public void deleteMedOrder(Integer id) {
         medOrderMapper.delete(id);
     }
 

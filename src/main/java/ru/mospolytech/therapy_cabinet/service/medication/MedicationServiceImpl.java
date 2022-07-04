@@ -6,7 +6,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.Medication;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.MedicationMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -16,12 +15,11 @@ public class MedicationServiceImpl implements MedicationService {
 
     @Override
     public void createMedication(Medication medication) {
-        medication.setId(UUID.randomUUID());
         medicationMapper.create(medication);
     }
 
     @Override
-    public Medication findMedicationById(UUID id) {
+    public Medication findMedicationById(Integer id) {
         return medicationMapper.read(id);
     }
 
@@ -31,7 +29,7 @@ public class MedicationServiceImpl implements MedicationService {
     }
 
     @Override
-    public void deleteMedication(UUID id) {
+    public void deleteMedication(Integer id) {
         medicationMapper.delete(id);
     }
 

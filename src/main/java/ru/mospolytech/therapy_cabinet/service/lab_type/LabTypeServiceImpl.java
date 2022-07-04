@@ -16,8 +16,7 @@ public class LabTypeServiceImpl implements LabTypeService {
 
     @Override
     public LabType createLabType(LabType labType) {
-        val generatedId = labTypeMapper.create(labType);
-        labType.setId(generatedId);
+        labTypeMapper.create(labType);
         return labType;
     }
 

@@ -3,24 +3,22 @@ package ru.mospolytech.therapy_cabinet.service.patient;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface PatientService {
 
     Patient createPatent(Patient patient);
 
-    Patient findPatientById(UUID id);
+    Patient findPatientById(Integer id);
 
     void updatePatient(Patient patient);
 
-    void deletePatient(UUID id);
+    void deletePatient(Integer id);
 
     List<Patient> findAllPatients(Long offset, Long limit);
 
-    void addPatientIcd(UUID id, String icdCode);
+    void addPatientIcd(Integer id, String icdCode);
 
-    List<String> findPatientIcds(UUID id);
+    List<String> findPatientIcds(Integer id);
 
-    void removePatientIcd(UUID id, String icdCode);
-
+    void removePatientIcd(Integer id, String icdCode);
 }

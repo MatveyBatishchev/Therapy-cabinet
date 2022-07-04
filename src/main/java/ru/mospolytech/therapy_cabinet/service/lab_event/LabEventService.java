@@ -4,17 +4,16 @@ import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface LabEventService {
 
     void createLabEvent(LabEventCreate labEvent);
 
-    LabEventRead findLabEventById(UUID id);
+    LabEventRead findLabEventById(Integer id);
 
-    void updateLabEvent(UUID id, LabEventCreate labEvent);
+    void updateLabEvent(Integer id, LabEventCreate labEvent);
 
-    void deleteLabEvent(UUID id);
+    void deleteLabEvent(Integer id);
 
     List<LabEventRead> findAllLabEvents(Long offset, Long limit);
 

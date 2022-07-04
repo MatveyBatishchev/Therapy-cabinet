@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Dimevision
@@ -20,7 +19,7 @@ public interface UserService {
 
     List<UserDTO> findAllUsers(Long offset, Long limit);
 
-    UserDTO findUserById(UUID userId);
+    UserDTO findUserById(Integer userId);
 
     User findUserByUsername(String username);
 
@@ -28,7 +27,7 @@ public interface UserService {
 
     void updateUser(User user);
 
-    void deleteUser(UUID userId);
+    void deleteUser(Integer userId);
 
     void invalidateToken(RefreshTokenRequest refreshToken);
 

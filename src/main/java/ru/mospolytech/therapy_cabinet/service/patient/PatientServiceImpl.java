@@ -6,7 +6,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.PatientMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -16,13 +15,12 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient createPatent(Patient patient) {
-        patient.setId(UUID.randomUUID());
         patientMapper.create(patient);
         return patient;
     }
 
     @Override
-    public Patient findPatientById(UUID id) {
+    public Patient findPatientById(Integer id) {
         return patientMapper.read(id);
     }
 
@@ -32,7 +30,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deletePatient(UUID id) {
+    public void deletePatient(Integer id) {
         patientMapper.delete(id);
     }
 
@@ -42,17 +40,17 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void addPatientIcd(UUID id, String icdCode) {
+    public void addPatientIcd(Integer id, String icdCode) {
         patientMapper.addPatientIcd(id, icdCode);
     }
 
     @Override
-    public List<String> findPatientIcds(UUID id) {
+    public List<String> findPatientIcds(Integer id) {
         return patientMapper.readPatientIcds(id);
     }
 
     @Override
-    public void removePatientIcd(UUID id, String icdCode) {
+    public void removePatientIcd(Integer id, String icdCode) {
         patientMapper.removePatientIcd(id, icdCode);
     }
 

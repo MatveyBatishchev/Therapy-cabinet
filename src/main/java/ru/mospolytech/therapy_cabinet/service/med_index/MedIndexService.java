@@ -5,17 +5,16 @@ import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.medindex.MedIndexRead;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface MedIndexService {
 
     void createMedIndex(MedIndexCreate medIndex);
 
-    MedIndexRead findMedIndexById(UUID id);
+    MedIndexRead findMedIndexById(Integer id);
 
-    void updateMedIndex(UUID id, MedIndexCreate medIndex);
+    void updateMedIndex(Integer id, MedIndexCreate medIndex);
 
-    void deleteMedIndex(UUID id);
+    void deleteMedIndex(Integer id);
 
     List<MedIndexCreate> findAllMedIndexes(Long offset, Long limit);
 

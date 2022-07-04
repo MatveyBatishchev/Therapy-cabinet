@@ -8,7 +8,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRea
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.PrescriptionMapper;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -18,23 +17,22 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public void createPrescription(PrescriptionCreate prescription) {
-        prescription.setId(UUID.randomUUID());
         System.out.println(prescription);
         prescriptionMapper.create(prescription);
     }
 
     @Override
-    public PrescriptionRead findPrescriptionById(UUID id) {
+    public PrescriptionRead findPrescriptionById(Integer id) {
         return prescriptionMapper.read(id);
     }
 
     @Override
-    public void updatePrescription(UUID id, PrescriptionCreate prescription) {
+    public void updatePrescription(Integer id, PrescriptionCreate prescription) {
         prescriptionMapper.update(id, prescription);
     }
 
     @Override
-    public void deletePrescription(UUID id) {
+    public void deletePrescription(Integer id) {
         prescriptionMapper.delete(id);
     }
 
@@ -49,7 +47,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public List<PrescriptionCreate> findPrescriptionsBySearch(UUID medicationId, Integer doseAmount, Double substanceAmount,
+    public List<PrescriptionCreate> findPrescriptionsBySearch(Integer medicationId, Integer doseAmount, Double substanceAmount,
                                                               AdministrationType administrationType) {
         return prescriptionMapper.readAllBySearch(medicationId, doseAmount, substanceAmount, administrationType);
     }

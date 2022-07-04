@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.mospolytech.therapy_cabinet.exception.EntityNotFoundException.NOT_EXISTS;
@@ -52,13 +51,13 @@ public class UserServiceImplementation implements UserService {
         String password = passwordEncoder.encode(userRegistrationRequest.getPassword());
 
         User user = User.builder()
-                .id(UUID.randomUUID())
                 .login(userRegistrationRequest.getUsername())
                 .password(password)
                 .roles(userRegistrationRequest.getRoles())
                 .build();
 
         userMapper.createUser(user);
+        user.setId(user.getId());
 
         return user;
     }
@@ -73,17 +72,16 @@ public class UserServiceImplementation implements UserService {
         }
         refreshTokenRepository.deleteByToken(token.getToken());
 
-        UserDTO userDTO = userMapper.findUserById(UUID.fromString(token.getUserId()))
+        UserDTO userDTO = userMapper.findUserById(token.getUserId())
                 .orElseThrow();
         Map<String, Object> tokens = refreshTokenRepository.generateJwtTokens(userDTO.getLogin(), request);
 
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-
     }
 
     @Override
-    public UserDTO findUserById(UUID userId) {
+    public UserDTO findUserById(Integer userId) {
         return userMapper.findUserById(userId)
                 .orElseThrow(() ->
                         new EntityNotFoundException(String.format(NOT_EXISTS, "User id: " + userId)));
@@ -98,7 +96,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public void deleteUser(UUID userId) {
+    public void deleteUser(Integer userId) {
         userMapper.deleteUser(userId);
     }
 
