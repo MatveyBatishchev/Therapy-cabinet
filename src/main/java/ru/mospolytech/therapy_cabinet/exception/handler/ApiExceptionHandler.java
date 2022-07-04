@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ru.mospolytech.therapy_cabinet.exception.EntityNotFoundException;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -22,7 +23,7 @@ import static org.springframework.http.HttpStatus.*;
  * Обработчик ошибок, связанных с некорректной отправкой запросов
  */
 
-@ControllerAdvice
+@RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -50,6 +51,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class})
     protected ResponseEntity<Object> handleEntityNotFound(IllegalArgumentException ex) {
+        ApiError errorHandler = new ApiError(INTERNAL_SERVER_ERROR, ex);
+        errorHandler.setMessage(ex.getMessage());
+
+        return buildResponseEntity(errorHandler);
+    }
+
+    @ExceptionHandler({EntityNotFoundException.class})
+    protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
         ApiError errorHandler = new ApiError(INTERNAL_SERVER_ERROR, ex);
         errorHandler.setMessage(ex.getMessage());
 
