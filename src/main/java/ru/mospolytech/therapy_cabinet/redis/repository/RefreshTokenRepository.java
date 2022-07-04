@@ -67,7 +67,7 @@ public class RefreshTokenRepository {
         RefreshToken token = RefreshToken.builder()
                 .token(refreshToken)
                 .expiredAt(REFRESH_TOKEN_EXPIRES_AT)
-                .userId(user.getId().toString())
+                .userId(user.getId())
                 .build();
         save(token);
 
