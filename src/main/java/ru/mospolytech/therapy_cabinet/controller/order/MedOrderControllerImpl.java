@@ -6,7 +6,7 @@ import ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder;
 import ru.mospolytech.therapy_cabinet.service.medorder.MedOrderServiceImpl;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class MedOrderControllerImpl implements MedOrderController {
     }
 
     @Override
-    public MedOrder read(UUID id) {
+    public MedOrder read(Integer id) {
         return medOrderService.findMedOrderById(id);
     }
 
@@ -30,7 +30,7 @@ public class MedOrderControllerImpl implements MedOrderController {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         medOrderService.deleteMedOrder(id);
     }
 

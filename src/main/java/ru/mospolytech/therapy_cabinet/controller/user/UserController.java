@@ -9,7 +9,6 @@ import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserRegistrationRequest;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Dimevision
@@ -17,7 +16,7 @@ import java.util.UUID;
  */
 
 @RequestMapping("/user")
-@Tag(name = "Пользователь", description = "URL эндпоинты для работы с пользователями")
+@Tag(name = "Пользователь")
 public interface UserController {
 
     @GetMapping
@@ -32,9 +31,9 @@ public interface UserController {
     );
 
     @GetMapping("/{id}")
-    @Operation(summary = "Получить пользователя по UUID")
+    @Operation(summary = "Получить пользователя по ID")
     @ResponseStatus(HttpStatus.OK)
-    UserDTO findUserById(@PathVariable("id") UUID userId);
+    UserDTO findUserById(@PathVariable("id") Integer userId);
 
     @PostMapping
     @Operation(summary = "Создать нового пользователя")
@@ -46,8 +45,8 @@ public interface UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void updateUser(@RequestBody User user);
 
-    @DeleteMapping
-    @Operation(summary = "Удалить пользователя по UUID")
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить пользователя по ID")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteUser(@RequestBody UUID userId);
+    void deleteUser(@PathVariable("id") Integer userId);
 }

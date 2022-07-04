@@ -6,7 +6,6 @@ import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 import ru.mospolytech.therapy_cabinet.service.patient.PatientServiceImpl;
 
 import java.util.List;
-import java.util.UUID;
 
 //TODO: add sql exception propagation
 @RestController
@@ -21,7 +20,7 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
-    public Patient read(UUID id) {
+    public Patient read(Integer id) {
         return patientService.findPatientById(id);
     }
 
@@ -31,7 +30,7 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         patientService.deletePatient(id);
     }
 
@@ -41,17 +40,17 @@ public class PatientControllerImpl implements PatientController {
     }
 
     @Override
-    public void addPatientIcd(UUID id, String icdCode) {
+    public void addPatientIcd(Integer id, String icdCode) {
         patientService.addPatientIcd(id, icdCode);
     }
 
     @Override
-    public List<String> readPatientIcds(UUID id) {
+    public List<String> readPatientIcds(Integer id) {
         return patientService.findPatientIcds(id);
     }
 
     @Override
-    public void removePatientIcd(UUID id, String icdCode) {
+    public void removePatientIcd(Integer id, String icdCode) {
         patientService.removePatientIcd(id, icdCode);
     }
 }

@@ -7,7 +7,7 @@ import ru.mospolytech.therapy_cabinet.models.domain.labevent.LabEventRead;
 import ru.mospolytech.therapy_cabinet.service.lab_event.LabEventServiceImpl;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @AllArgsConstructor
@@ -21,17 +21,17 @@ public class LabEventControllerImpl implements LabEventController {
     }
 
     @Override
-    public LabEventRead read(UUID id) {
+    public LabEventRead read(Integer id) {
         return labEventService.findLabEventById(id);
     }
 
     @Override
-    public void update(UUID id, LabEventCreate labEvent) {
+    public void update(Integer id, LabEventCreate labEvent) {
         labEventService.updateLabEvent(id, labEvent);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         labEventService.deleteLabEvent(id);
     }
 

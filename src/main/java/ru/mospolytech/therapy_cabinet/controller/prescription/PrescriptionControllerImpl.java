@@ -8,7 +8,7 @@ import ru.mospolytech.therapy_cabinet.models.domain.prescription.PrescriptionRea
 import ru.mospolytech.therapy_cabinet.service.prescription.PrescriptionServiceImpl;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @AllArgsConstructor
@@ -22,17 +22,17 @@ public class PrescriptionControllerImpl implements PrescriptionController {
     }
 
     @Override
-    public PrescriptionRead read(UUID id) {
+    public PrescriptionRead read(Integer id) {
         return prescriptionService.findPrescriptionById(id);
     }
 
     @Override
-    public void update(UUID id, PrescriptionCreate prescription) {
+    public void update(Integer id, PrescriptionCreate prescription) {
         prescriptionService.updatePrescription(id, prescription);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         prescriptionService.deletePrescription(id);
     }
 
@@ -47,7 +47,7 @@ public class PrescriptionControllerImpl implements PrescriptionController {
     }
 
     @Override
-    public List<PrescriptionCreate> readAllBySearch(UUID medicationId, Integer doseAmount, Double substanceAmount,
+    public List<PrescriptionCreate> readAllBySearch(Integer medicationId, Integer doseAmount, Double substanceAmount,
                                                     AdministrationType administrationType) {
         return prescriptionService.findPrescriptionsBySearch(medicationId, doseAmount, substanceAmount, administrationType);
     }

@@ -12,7 +12,6 @@ import ru.mospolytech.therapy_cabinet.mybatis.mappers.TherapyMapper;
 import ru.mospolytech.therapy_cabinet.service.therapy.TherapyService;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -52,7 +51,7 @@ public class TherapyControllerImpl implements TherapyController{
     }
 
     @Override
-    public List<TherapyCreate> readAllBySearch(UUID patientId, LocalDate startDate,
+    public List<TherapyCreate> readAllBySearch(Integer patientId, LocalDate startDate,
                                                LocalDate endDate, TimePeriod timePeriod,
                                                TherapyStatus therapyStatus) {
         return therapyService.findTherapiesBySearch(patientId, startDate, endDate, timePeriod, therapyStatus);

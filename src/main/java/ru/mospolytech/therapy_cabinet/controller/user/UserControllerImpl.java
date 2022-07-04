@@ -8,7 +8,7 @@ import ru.mospolytech.therapy_cabinet.models.dto.user.UserRegistrationRequest;
 import ru.mospolytech.therapy_cabinet.service.user.UserServiceImplementation;
 
 import java.util.List;
-import java.util.UUID;
+
 
 /**
  * @author Dimevision
@@ -27,7 +27,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public UserDTO findUserById(UUID userId) {
+    public UserDTO findUserById(Integer userId) {
         return userService.findUserById(userId);
     }
 
@@ -42,7 +42,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public void deleteUser(UUID userId) {
+    public void deleteUser(Integer userId) {
         userService.deleteUser(userId);
     }
 }
