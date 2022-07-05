@@ -34,8 +34,8 @@ public interface PatientController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список пациентов")
-    List<Patient> readAll(@RequestParam("offset") Long offset,
-                          @RequestParam("limit") Long limit);
+    List<Patient> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                          @RequestParam(value = "limit", required = false) Long limit);
 
     @PostMapping("/{id}/icd")
     @ResponseStatus(HttpStatus.NO_CONTENT)

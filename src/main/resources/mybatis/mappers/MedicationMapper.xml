@@ -48,7 +48,7 @@
     <select id="readAll" parameterType="map" resultMap="MedicationMap">
         select id, nomenclature, manufacturer, dose_form, dose_val, mu
         from std_1305_therapy.medication
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
 </mapper>

@@ -37,7 +37,6 @@ public interface OrderEntryController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список записей")
-    List<OrderEntryRead> readAll(@RequestParam("offset") Long offset,
-                                 @RequestParam("limit") Long limit);
-
+    List<OrderEntryRead> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                                 @RequestParam(value = "limit", required = false) Long limit);
 }

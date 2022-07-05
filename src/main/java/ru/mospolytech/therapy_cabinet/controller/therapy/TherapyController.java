@@ -42,8 +42,8 @@ public interface TherapyController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список терапий")
-    List<TherapyCreate> readAll(@RequestParam("offset") Long offset,
-                                @RequestParam("limit") Long limit);
+    List<TherapyCreate> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                                @RequestParam(value = "limit", required = false) Long limit);
 
     @GetMapping("/calendar")
     @ResponseStatus(HttpStatus.OK)
@@ -61,6 +61,4 @@ public interface TherapyController {
                                         @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                         @RequestParam(name="time-period", required = false) TimePeriod timePeriod,
                                         @RequestParam(name="status", required = false) TherapyStatus therapyStatus);
-
-
 }

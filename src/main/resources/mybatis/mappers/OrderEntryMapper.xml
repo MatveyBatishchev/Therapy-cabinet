@@ -79,6 +79,6 @@
         from std_1305_therapy.order_entry
                  left join std_1305_therapy.medication medication on medication.id = order_entry.medication_id
                  left join std_1305_therapy.medorder medorder on medorder.id = order_entry.medorder_id
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 </mapper>

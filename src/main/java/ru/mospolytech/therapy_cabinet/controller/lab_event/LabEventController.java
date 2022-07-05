@@ -37,6 +37,6 @@ public interface LabEventController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список анализов")
-    List<LabEventRead> readAll(@RequestParam("offset") Long offset,
-                               @RequestParam("limit") Long limit);
+    List<LabEventRead> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                               @RequestParam(value = "limit", required = false) Long limit);
 }

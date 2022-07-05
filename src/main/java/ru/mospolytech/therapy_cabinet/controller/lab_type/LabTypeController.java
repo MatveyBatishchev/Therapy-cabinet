@@ -34,6 +34,6 @@ public interface LabTypeController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список видов анализов")
-    List<LabType> readAll(@RequestParam("offset") Long offset,
-                          @RequestParam("limit") Long limit);
+    List<LabType> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                          @RequestParam(value = "limit", required = false) Long limit);
 }

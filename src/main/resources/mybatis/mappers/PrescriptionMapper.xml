@@ -87,7 +87,7 @@
                substance_amount,
                administration_type
         from std_1305_therapy.prescription
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
     <select id="readByTherapyId" parameterType="map" resultMap="PrescriptionReadMap">

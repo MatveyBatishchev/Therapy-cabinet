@@ -36,7 +36,6 @@ public interface MedOrderController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список заказов")
-    List<MedOrder> readAll(@RequestParam("offset") Long offset,
-                           @RequestParam("limit") Long limit);
-
+    List<MedOrder> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                           @RequestParam(value = "limit", required = false) Long limit);
 }

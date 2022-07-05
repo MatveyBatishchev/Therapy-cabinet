@@ -60,7 +60,7 @@
         select id, full_name, phone_number, adverse_reactions, date_of_birth,
                sex, email, contact_person, ambulatory_card, finance_source
         from std_1305_therapy.patient
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
     <insert id="addPatientIcd" parameterType="map">

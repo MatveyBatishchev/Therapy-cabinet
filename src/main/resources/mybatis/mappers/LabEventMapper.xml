@@ -100,6 +100,6 @@
         from std_1305_therapy.labevent
                  left join std_1305_therapy.labtype labtype on labtype.id = labevent.labtype_id
                  left join std_1305_therapy.patient patient on patient.id = labevent.patient_id
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 </mapper>

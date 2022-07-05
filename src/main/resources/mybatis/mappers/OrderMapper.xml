@@ -46,7 +46,7 @@
     <select id="readAll" parameterType="map" resultMap="MedOrderMap">
         select id, supplier, form_date, delivery_date, status
         from std_1305_therapy.medorder
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
 </mapper>

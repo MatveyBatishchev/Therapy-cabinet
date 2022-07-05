@@ -39,13 +39,12 @@ public interface MedIndexController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список индексов")
-    List<MedIndexCreate> readAll(@RequestParam("offset") Long offset,
-                                 @RequestParam("limit") Long limit);
+    List<MedIndexCreate> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                                 @RequestParam(value = "limit", required = false) Long limit);
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список всех отфильтрованных по параметрам индексов")
     List<MedIndexCreate> readAllBySearch(@RequestParam(name="therapyId", required = false) Integer therapyId,
                                          @RequestParam(name="indexType", required = false) IndexType indexType);
-
 }

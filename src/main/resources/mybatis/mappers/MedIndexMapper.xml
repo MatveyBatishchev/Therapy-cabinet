@@ -74,7 +74,7 @@
                comments,
                aflag
         from std_1305_therapy.medindex
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
     <select id="readAllBySearch" parameterType="map" resultMap="MedIndexCreateMap">

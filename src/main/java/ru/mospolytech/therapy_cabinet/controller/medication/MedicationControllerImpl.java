@@ -38,5 +38,4 @@ public class MedicationControllerImpl implements MedicationController {
     public List<Medication> readAll(Long offset, Long limit) {
         return medicationService.findAllMedications(offset, limit);
     }
-
 }

@@ -26,8 +26,8 @@ public interface UserController {
     )
     @ResponseStatus(HttpStatus.OK)
     List<UserDTO> findAllUsers(
-            @RequestParam("offset") Long offset,
-            @RequestParam("limit") Long limit
+            @RequestParam(value = "offset", required = false) Long offset,
+            @RequestParam(value = "limit", required = false) Long limit
     );
 
     @GetMapping("/{id}")

@@ -38,5 +38,4 @@ public class OrderEntryControllerImpl implements OrderEntryController {
     public List<OrderEntryRead> readAll(Long offset, Long limit) {
         return orderEntryService.findAllOrderEntries(offset, limit);
     }
-
 }

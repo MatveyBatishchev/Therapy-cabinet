@@ -68,6 +68,6 @@
                uplim,
                uplimnum
         from std_1305_therapy.labtype
-        limit #{limit} offset #{offset};
+        <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 </mapper>

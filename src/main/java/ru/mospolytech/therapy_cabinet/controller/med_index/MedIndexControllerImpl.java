@@ -48,5 +48,4 @@ public class MedIndexControllerImpl implements MedIndexController {
     public List<MedIndexCreate> readAllBySearch(Integer therapyId, IndexType indexType) {
         return medIndexService.findMedIndexesBySearch(therapyId, indexType);
     }
-
 }

@@ -51,6 +51,4 @@ public class PrescriptionControllerImpl implements PrescriptionController {
                                                     AdministrationType administrationType) {
         return prescriptionService.findPrescriptionsBySearch(medicationId, doseAmount, substanceAmount, administrationType);
     }
-
-
 }

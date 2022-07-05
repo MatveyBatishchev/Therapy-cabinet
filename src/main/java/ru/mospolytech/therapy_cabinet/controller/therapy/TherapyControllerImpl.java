@@ -56,5 +56,4 @@ public class TherapyControllerImpl implements TherapyController{
                                                TherapyStatus therapyStatus) {
         return therapyService.findTherapiesBySearch(patientId, startDate, endDate, timePeriod, therapyStatus);
     }
-
 }

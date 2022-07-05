@@ -39,5 +39,4 @@ public class LabEventControllerImpl implements LabEventController {
     public List<LabEventRead> readAll(Long offset, Long limit) {
         return labEventService.findAllLabEvents(offset, limit);
     }
-
 }

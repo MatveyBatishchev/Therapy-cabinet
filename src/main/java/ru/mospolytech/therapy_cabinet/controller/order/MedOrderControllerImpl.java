@@ -38,5 +38,4 @@ public class MedOrderControllerImpl implements MedOrderController {
     public List<MedOrder> readAll(Long offset, Long limit) {
         return medOrderService.findAllMedOrders(offset, limit);
     }
-
 }

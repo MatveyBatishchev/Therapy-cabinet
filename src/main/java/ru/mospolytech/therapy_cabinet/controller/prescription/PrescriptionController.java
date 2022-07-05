@@ -39,8 +39,8 @@ public interface PrescriptionController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Получить список назначений")
-    List<PrescriptionCreate> readAll(@RequestParam("offset") Long offset,
-                                     @RequestParam("limit") Long limit);
+    List<PrescriptionCreate> readAll(@RequestParam(value = "offset", required = false) Long offset,
+                                     @RequestParam(value = "limit", required = false) Long limit);
 
     @GetMapping("/by-therapy")
     @ResponseStatus(HttpStatus.OK)
@@ -55,5 +55,4 @@ public interface PrescriptionController {
                                              @RequestParam(name="doseAmount", required = false) Integer doseAmount,
                                              @RequestParam(name="substanceAmount", required = false) Double substanceAmount,
                                              @RequestParam(name="administrationType", required = false) AdministrationType administrationType);
-
 }
