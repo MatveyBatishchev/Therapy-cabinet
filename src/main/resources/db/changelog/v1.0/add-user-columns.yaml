@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-patient-columns
+      author: VKamalov
+      comment: "Добавление полей в таблицу пользователя"
+      changes:
+        - addColumn:
+            tableName: customer
+            columns:
+              - column:
+                  name: full_name
+                  type: varchar(127)
+                  remarks: "ФИО пользователя"
+                  constraints:
+                    nullable: false

@@ -41,3 +41,6 @@ databaseChangeLog:
   - include:
       relativeToChangelogFile: true
       file: add-cascade-prescription-therapy-medication-fk.yaml
+  - include:
+      relativeToChangelogFile: true
+      file: add-user-columns.yaml
