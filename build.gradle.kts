@@ -25,7 +25,7 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda")
 
     // DB tools
-    implementation("mysql:mysql-connector-java:8.0.22")
+    implementation("mysql:mysql-connector-java:8.0.29")
     implementation("org.liquibase:liquibase-core:3.8.0")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0")
