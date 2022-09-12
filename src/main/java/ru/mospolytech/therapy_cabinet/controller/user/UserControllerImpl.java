@@ -37,8 +37,8 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public void updateUser(User user) {
-        userService.updateUser(user);
+    public void updateUser(Integer userId, User user) {
+        userService.updateUser(userId, user);
     }
 
     @Override

@@ -1,13 +1,8 @@
 package ru.mospolytech.therapy_cabinet.service.user;
 
 import ru.mospolytech.therapy_cabinet.models.domain.user.User;
-import ru.mospolytech.therapy_cabinet.models.dto.user.RefreshTokenRequest;
-import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
-import ru.mospolytech.therapy_cabinet.models.dto.user.UserRegistrationRequest;
+import ru.mospolytech.therapy_cabinet.models.dto.user.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,15 +16,11 @@ public interface UserService {
 
     UserDTO findUserById(Integer userId);
 
-    User findUserByUsername(String username);
+    UserDTO findUserByUsername(String username);
 
     User createUser(UserRegistrationRequest userRegistrationRequest);
 
-    void updateUser(User user);
+    void updateUser(Integer userId, User user);
 
     void deleteUser(Integer userId);
-
-    void invalidateToken(RefreshTokenRequest refreshToken);
-
-    void refreshToken(RefreshTokenRequest tokenRequest, HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

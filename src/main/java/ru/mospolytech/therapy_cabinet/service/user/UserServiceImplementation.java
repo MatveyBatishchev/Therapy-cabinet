@@ -1,27 +1,17 @@
 package ru.mospolytech.therapy_cabinet.service.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mospolytech.therapy_cabinet.exception.EntityNotFoundException;
 import ru.mospolytech.therapy_cabinet.models.domain.user.User;
-import ru.mospolytech.therapy_cabinet.models.dto.user.RefreshTokenRequest;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserRegistrationRequest;
 import ru.mospolytech.therapy_cabinet.mybatis.mappers.UserMapper;
-import ru.mospolytech.therapy_cabinet.models.domain.redis.RefreshToken;
-import ru.mospolytech.therapy_cabinet.redis.repository.RefreshTokenRepository;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.mospolytech.therapy_cabinet.exception.EntityNotFoundException.NOT_EXISTS;
 
 /**
@@ -36,7 +26,6 @@ public class UserServiceImplementation implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
-    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     @Transactional
@@ -63,24 +52,6 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void refreshToken(RefreshTokenRequest tokenRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RefreshToken token = refreshTokenRepository.findByToken(tokenRequest.getRefreshToken())
-                .orElseThrow(() -> new IllegalArgumentException("Token either no more available or doesn't exists"));
-
-        if (token.getExpiredAt().before(new Date(System.currentTimeMillis()))) {
-            throw new IllegalArgumentException("Token has expired");
-        }
-        refreshTokenRepository.deleteByToken(token.getToken());
-
-        UserDTO userDTO = userMapper.findUserById(token.getUserId())
-                .orElseThrow();
-        Map<String, Object> tokens = refreshTokenRepository.generateJwtTokens(userDTO.getLogin(), request);
-
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-    }
-
-    @Override
     public UserDTO findUserById(Integer userId) {
         return userMapper.findUserById(userId)
                 .orElseThrow(() ->
@@ -88,33 +59,25 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public UserDTO findUserByUsername(String username) {
         return userMapper.findUserByUsername(username)
                 .orElseThrow(() ->
                         new EntityNotFoundException(String.format(NOT_EXISTS, "User: " + username)));
     }
 
     @Override
-    @Transactional
     public void deleteUser(Integer userId) {
         userMapper.deleteUser(userId);
     }
 
     @Override
-    public void invalidateToken(RefreshTokenRequest refreshToken) {
-        RefreshToken token = refreshTokenRepository.findByToken(refreshToken.getRefreshToken())
-                .orElseThrow(() ->
-                        new EntityNotFoundException(String.format(NOT_EXISTS, "Token: " + refreshToken)));
+    public void updateUser(Integer userId, User user) {
+        if (user.getPassword() != null) {
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+        }
 
-        refreshTokenRepository.deleteByToken(token.getToken());
-    }
-
-    @Override
-    public void updateUser(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        userMapper.updateUser(user);
+        userMapper.updateUser(userId, user);
     }
 
     @Override
