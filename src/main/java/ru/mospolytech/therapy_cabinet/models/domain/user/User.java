@@ -26,6 +26,10 @@ public class User {
      */
     private String login;
     /**
+     * ФИО пользователя
+     */
+    private String fullName;
+    /**
      * Пароль для входа (ключ шифрования BCrypt)
      */
     private String password;
