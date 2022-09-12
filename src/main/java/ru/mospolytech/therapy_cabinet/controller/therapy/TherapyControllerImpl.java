@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class TherapyControllerImpl implements TherapyController{
+public class TherapyControllerImpl implements TherapyController {
 
     private final TherapyMapper therapyMapper;
     private final TherapyService therapyService;
@@ -47,13 +47,17 @@ public class TherapyControllerImpl implements TherapyController{
 
     @Override
     public List<Calendar> readTherapyCalendar(LocalDate startDate, LocalDate endDate) {
-        return therapyMapper.readCalendar(startDate, endDate);
+        return therapyMapper.readCalendar(startDate, endDate.plusDays(1));
     }
 
     @Override
     public List<TherapyCreate> readAllBySearch(Integer patientId, LocalDate startDate,
                                                LocalDate endDate, TimePeriod timePeriod,
                                                TherapyStatus therapyStatus) {
+        if (endDate != null) {
+            endDate = endDate.plusDays(1);
+        }
+
         return therapyService.findTherapiesBySearch(patientId, startDate, endDate, timePeriod, therapyStatus);
     }
 }
