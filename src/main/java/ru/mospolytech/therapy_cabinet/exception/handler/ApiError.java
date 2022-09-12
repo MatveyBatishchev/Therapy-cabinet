@@ -15,9 +15,13 @@ import java.time.LocalDateTime;
 public class ApiError {
 
     private HttpStatus status;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
-    private String message;
+
+    private String reason;
+
+    private String exception;
 
     public ApiError(HttpStatus status) {
         this.timestamp = LocalDateTime.now();
@@ -27,12 +31,13 @@ public class ApiError {
     public ApiError(HttpStatus status, Throwable ex) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
-        this.message = "Unexpected error";
+        this.reason = "Unexpected error";
     }
 
-    public ApiError(HttpStatus status, String message, Throwable ex) {
+    public ApiError(HttpStatus status, String reason, String exception, Throwable ex) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
-        this.message = message;
+        this.reason = reason;
+        this.exception = exception;
     }
 }

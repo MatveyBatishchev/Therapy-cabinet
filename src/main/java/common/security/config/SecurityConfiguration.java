@@ -1,5 +1,7 @@
-package common.security;
+package common.security.config;
 
+import common.security.filter.CustomAuthenticationFilter;
+import common.security.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,14 +12,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ru.mospolytech.therapy_cabinet.exception.handler.ApiAuthenticationEntryPoint;
 import ru.mospolytech.therapy_cabinet.redis.repository.RefreshTokenRepository;
-import ru.mospolytech.therapy_cabinet.service.user.security.UserDetailsServiceImplementation;
+import ru.mospolytech.therapy_cabinet.redis.service.JwtTokenService;
 
 import java.util.List;
 
@@ -32,9 +36,10 @@ import java.util.List;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final List<String> corsPatterns = List.of("*");
-    private final UserDetailsServiceImplementation userDetailsService;
+    private final UserDetailsService userDetailsService;
+    private final JwtTokenService jwtTokenService;
 
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository tokenRepository;
 
 
     @Override
@@ -61,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(corsPatterns);
+        configuration.addAllowedOriginPattern("*");
         configuration.setAllowedMethods(corsPatterns);
         configuration.setAllowedHeaders(corsPatterns);
         configuration.setAllowCredentials(true);
@@ -69,6 +75,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+
+    @Bean
+    public ApiAuthenticationEntryPoint authenticationHandler() {
+        return new ApiAuthenticationEntryPoint();
     }
 
     @Override
@@ -88,7 +99,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().anyRequest().permitAll();
         http
-                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), refreshTokenRepository));
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationHandler())
+                .accessDeniedHandler(authenticationHandler());
+        http
+                .addFilterBefore(new CustomAuthorizationFilter(userDetailsService, tokenRepository), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), jwtTokenService));
     }
 }
