@@ -3,12 +3,12 @@ package ru.mospolytech.therapy_cabinet.controller.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.mospolytech.therapy_cabinet.models.dto.user.RefreshTokenRequest;
-import ru.mospolytech.therapy_cabinet.service.user.UserServiceImplementation;
+import ru.mospolytech.therapy_cabinet.models.dto.user.LoginRequest;
+import ru.mospolytech.therapy_cabinet.models.dto.user.LoginResponse;
+import ru.mospolytech.therapy_cabinet.models.dto.user.RefreshTokenResponse;
+import ru.mospolytech.therapy_cabinet.service.user.UserAuthService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Dimevision
@@ -19,19 +19,25 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserAuthControllerImplementation implements UserAuthController {
 
-    private final UserServiceImplementation userService;
+    private final UserAuthService userAuthService;
 
     @Override
-    public ResponseEntity<Void> logout(RefreshTokenRequest refreshTokenRequest) {
-        userService.invalidateToken(refreshTokenRequest);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Map<String, Object>> logout(String refreshToken, String bearerToken) {
+        return bearerToken != null
+                ? userAuthService.logout(bearerToken.substring(7))
+                : userAuthService.logout(refreshToken);
     }
 
     @Override
-    public ResponseEntity<Void> refreshToken(RefreshTokenRequest refreshTokenRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        userService.refreshToken(refreshTokenRequest, request, response);
+    public ResponseEntity<RefreshTokenResponse> refreshToken(String accessToken, String refreshToken, String bearerToken) {
+        if (bearerToken != null) {
+            return userAuthService.refreshToken(bearerToken.substring(7));
+        }
+        return userAuthService.refreshToken(refreshToken);
+    }
 
-        return ResponseEntity.ok().build();
+    @Override
+    public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
+        return userAuthService.login(loginRequest);
     }
 }
