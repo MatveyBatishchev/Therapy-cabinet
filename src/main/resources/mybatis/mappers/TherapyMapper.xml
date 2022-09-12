@@ -38,24 +38,23 @@
     </insert>
 
     <select id="read" parameterType="map" resultMap="TherapyReadMap">
-        select therapy.id                        as id,
-               patient_id,
-               date,
-               time_period,
-               status,
-               therapy.comments                  as comments,
-               patient.id                        as patient_id,
-               patient.full_name                 as patient_full_name,
-               patient.phone_number              as patient_phone_number,
-               patient.adverse_reactions         as patient_adverse_reactions,
-               patient.date_of_birth             as patient_date_of_birth,
-               patient.sex                       as patient_sex,
-               patient.email                     as patient_email,
-               patient.ambulatory_card           as patient_ambulatory_card,
-               patient.contact_person            as patient_contact_person,
-               patient.finance_source            as patient_finance_source
+        select therapy.id                as id,
+               therapy.date              as date,
+               therapy.time_period       as time_period,
+               therapy.status            as status,
+               therapy.comments          as comments,
+               patient.id                as patient_id,
+               patient.full_name         as patient_full_name,
+               patient.phone_number      as patient_phone_number,
+               patient.adverse_reactions as patient_adverse_reactions,
+               patient.date_of_birth     as patient_date_of_birth,
+               patient.sex               as patient_sex,
+               patient.email             as patient_email,
+               patient.ambulatory_card   as patient_ambulatory_card,
+               patient.contact_person    as patient_contact_person,
+               patient.finance_source    as patient_finance_source
         from std_1305_therapy.therapy
-             left join std_1305_therapy.patient patient on patient.id = therapy.patient_id
+                 left join std_1305_therapy.patient patient on patient.id = therapy.patient_id
         where therapy.id = #{id};
     </select>
 
@@ -78,38 +77,60 @@
         where id = #{id};
     </delete>
 
-    <select id="readAll" parameterType="map" resultMap="TherapyCreateMap">
-        select id,
-               patient_id,
-               date,
-               time_period,
-               status,
-               comments
+    <select id="readAll" parameterType="map" resultMap="TherapyReadMap">
+        select therapy.id                as id,
+               therapy.date              as date,
+               therapy.time_period       as time_period,
+               therapy.status            as status,
+               therapy.comments          as comments,
+               patient.id                as patient_id,
+               patient.full_name         as patient_full_name,
+               patient.phone_number      as patient_phone_number,
+               patient.adverse_reactions as patient_adverse_reactions,
+               patient.date_of_birth     as patient_date_of_birth,
+               patient.sex               as patient_sex,
+               patient.email             as patient_email,
+               patient.ambulatory_card   as patient_ambulatory_card,
+               patient.contact_person    as patient_contact_person,
+               patient.finance_source    as patient_finance_source
         from std_1305_therapy.therapy
+                 left join std_1305_therapy.patient patient on patient.id = therapy.patient_id
         <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
-    <select id="readAllBySearch" parameterType="map" resultMap="TherapyCreateMap">
-        select id,
-               date,
-               time_period,
-               status,
-               patient_id
+    <select id="readAllBySearch" parameterType="map" resultMap="TherapyReadMap">
+        select therapy.id                as id,
+               therapy.date              as date,
+               therapy.time_period       as time_period,
+               therapy.status            as status,
+               therapy.comments          as comments,
+               patient.id                as patient_id,
+               patient.full_name         as patient_full_name,
+               patient.phone_number      as patient_phone_number,
+               patient.adverse_reactions as patient_adverse_reactions,
+               patient.date_of_birth     as patient_date_of_birth,
+               patient.sex               as patient_sex,
+               patient.email             as patient_email,
+               patient.ambulatory_card   as patient_ambulatory_card,
+               patient.contact_person    as patient_contact_person,
+               patient.finance_source    as patient_finance_source
         from std_1305_therapy.therapy
+                 left join std_1305_therapy.patient patient on patient.id = therapy.patient_id
         where true
         <if test="patientId != null">and patient_id = #{patientId}</if>
-        <if test="startDate != null">and date &gt;= #{startDate}</if>
+        <if test="startDate != null">and date > #{startDate}</if>
         <if test="endDate != null">and date &lt;= #{endDate}</if>
         <if test="timePeriod != null">and time_period = #{timePeriod}</if>
         <if test="therapyStatus != null">and status = #{therapyStatus}</if>
     </select>
 
     <select id="readCalendar" parameterType="map" resultMap="CalendarMap">
-        select date, count(*) FILTER (WHERE time_period = 0) as "morning_count", count(*) FILTER (WHERE time_period = 1) as "day_count"
+        select date                          as date,
+               (select SUM(time_period = 0)) as morning_count,
+               (select SUM(time_period = 1)) as day_count
         from std_1305_therapy.therapy
-        where date &gt;= #{startDate}::date and date &lt;= #{endDate}::date
+        where (DATE(date) between #{startDate,jdbcType=DATE} and #{endDate,jdbcType=DATE})
         group by date
-        order by date
+        order by date;
     </select>
-
 </mapper>

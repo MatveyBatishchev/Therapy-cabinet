@@ -32,19 +32,19 @@
     </insert>
 
     <select id="read" parameterType="map" resultMap="MedIndexReadMap">
-        select medindex.id               as id,
-               index_type,
-               value,
-               medindex.comments         as comments,
-               aflag,
-               therapy.id                as therapy_id,
-               therapy.date              as therapy_date,
-               therapy.time_period       as therapy_time_period,
-               therapy.status            as therapy_status,
-               therapy.comments          as therapy_comments,
-               therapy.patient_id        as therapy_patient_id
+        select medindex.id         as id,
+               medindex.index_type as index_type,
+               medindex.value      as value,
+               medindex.comments   as comments,
+               medindex.aflag      as aflag,
+               therapy.id          as therapy_id,
+               therapy.date        as therapy_date,
+               therapy.time_period as therapy_time_period,
+               therapy.status      as therapy_status,
+               therapy.comments    as therapy_comments,
+               therapy.patient_id  as therapy_patient_id
         from std_1305_therapy.medindex
-                 left join std_1305_therapy.therapy therapy on therapy.id =  medindex.therapy_id
+                 left join std_1305_therapy.therapy therapy on therapy.id = medindex.therapy_id
         where medindex.id = #{id};
     </select>
 
@@ -66,14 +66,20 @@
         where id = #{id};
     </delete>
 
-    <select id="readAll" parameterType="map" resultMap="MedIndexCreateMap">
-        select id,
-               therapy_id,
-               index_type,
-               value,
-               comments,
-               aflag
+    <select id="readAll" parameterType="map" resultMap="MedIndexReadMap">
+        select medindex.id         as id,
+               medindex.index_type as index_type,
+               medindex.value      as value,
+               medindex.comments   as comments,
+               medindex.aflag      as aflag,
+               therapy.id          as therapy_id,
+               therapy.date        as therapy_date,
+               therapy.time_period as therapy_time_period,
+               therapy.status      as therapy_status,
+               therapy.comments    as therapy_comments,
+               therapy.patient_id  as therapy_patient_id
         from std_1305_therapy.medindex
+                 left join therapy on medindex.therapy_id = therapy.id
         <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
@@ -89,5 +95,4 @@
         <if test="therapyId != null">and therapy_id = #{therapyId}</if>
         <if test="indexType != null">and index_type = #{indexType}</if>
     </select>
-
 </mapper>

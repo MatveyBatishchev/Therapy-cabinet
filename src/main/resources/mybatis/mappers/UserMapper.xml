@@ -6,6 +6,7 @@
     <resultMap id="UserMap" type="ru.mospolytech.therapy_cabinet.models.domain.user.User">
         <id column="id" property="id"/>
         <result column="login" property="login"/>
+        <result column="fullName" property="fullName"/>
         <result column="password" property="password"/>
         <result column="roles" property="roles"
                 javaType="java.util.ArrayList" jdbcType="SMALLINT"
@@ -15,6 +16,7 @@
     <resultMap id="UserDTOMap" type="ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO">
         <id column="id" property="id"/>
         <result column="login" property="login"/>
+        <result column="fullName" property="fullName"/>
         <result column="roles" property="roles"
                 javaType="java.util.ArrayList" jdbcType="SMALLINT"
                 typeHandler="ru.mospolytech.therapy_cabinet.mybatis.type_handlers.UserRoleTypeHandler"/>
@@ -22,24 +24,27 @@
 
     <!--    Queries    -->
     <select id="findAllUsers" parameterType="map" resultMap="UserDTOMap">
-        select u.id    as id,
-               u.login as login,
-               u.roles as roles
+        select u.id as id,
+        u.login as login,
+        u.full_name as fullName,
+        u.roles as roles
         from std_1305_therapy.customer u
         <if test="limit != null and offset != null">limit #{limit} offset #{offset};</if>
     </select>
 
     <select id="findUserById" parameterType="map" resultMap="UserDTOMap">
-        select u.id    as id,
-               u.login as login,
-               u.roles as roles
+        select u.id        as id,
+               u.login     as login,
+               u.full_name as fullName,
+               u.roles     as roles
         from std_1305_therapy.customer u
         where u.id = #{id}
     </select>
 
-    <insert id="createUser" parameterType="ru.mospolytech.therapy_cabinet.models.domain.user.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into std_1305_therapy.customer (id, login, password, roles)
-        values (#{user.id}, #{user.login}, #{user.password},
+    <insert id="createUser" parameterType="ru.mospolytech.therapy_cabinet.models.domain.user.User"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into std_1305_therapy.customer (id, login, full_name, password, roles)
+        values (#{user.id}, #{user.login}, #{user.fullName}, #{user.password},
         <foreach collection="user.roles" item="role" separator=",">
             #{role.id}
         </foreach>);
@@ -47,13 +52,16 @@
 
     <update id="updateUser" parameterType="map">
         UPDATE std_1305_therapy.customer
-        SET login = #{user.login},
-        password = #{user.password},
-        roles =
-        <foreach collection="user.roles" item="role" separator="," open="[" close="]">
-            #{role.id}
-        </foreach>
-        WHERE id = #{user.id}
+        SET
+        <if test="user.login != null">login = #{user.login}</if>
+        <if test="user.fullName != null">,full_name = #{user.fullName}</if>
+        <if test="user.password != null">,password = #{user.password}</if>
+        <if test="user.roles != null">,roles =
+            <foreach collection="user.roles" item="role" separator=",">
+                #{role.id}
+            </foreach>
+        </if>
+        WHERE id = #{id}
     </update>
 
     <delete id="deleteUser" parameterType="map">
@@ -62,11 +70,21 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="findUserByUsername" resultMap="UserMap">
-        select u.id       as id,
-               u.login    as login,
-               u.password as password,
-               u.roles    as roles
+    <select id="findUserByUsername" resultMap="UserDTOMap">
+        select u.id        as id,
+               u.login     as login,
+               u.full_name as fullName,
+               u.roles     as roles
+        from std_1305_therapy.customer u
+        where login = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAuthenticatedUserByUsername" resultMap="UserMap">
+        select u.id        as id,
+               u.login     as login,
+               u.full_name as fullName,
+               u.password  as password,
+               u.roles     as roles
         from std_1305_therapy.customer u
         where login = #{username, jdbcType=VARCHAR}
     </select>
