@@ -7,10 +7,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TherapyCreate extends Therapy {
-
     /**
      * Идентификатор пациента
      */
     private Integer patientId;
-
 }
