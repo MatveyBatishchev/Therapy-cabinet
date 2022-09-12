@@ -1,4 +1,4 @@
-package common.security;
+package common.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,8 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.mospolytech.therapy_cabinet.redis.repository.RefreshTokenRepository;
+import ru.mospolytech.therapy_cabinet.redis.service.JwtTokenService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +28,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final AuthenticationManager authenticationManager;
 
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtTokenService jwtTokenService;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, RefreshTokenRepository refreshTokenRepository) {
-        super.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/login", "POST"));
-
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
         this.authenticationManager = authenticationManager;
-        this.refreshTokenRepository = refreshTokenRepository;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
@@ -65,7 +62,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
         User user = (User) authentication.getPrincipal();
-        Map<String, Object> tokens = refreshTokenRepository.generateJwtTokens(user.getUsername(), request);
+        Map<String, Object> tokens = jwtTokenService.generateJwtTokens(user.getUsername());
 
         response.setContentType(APPLICATION_JSON_VALUE);
 
