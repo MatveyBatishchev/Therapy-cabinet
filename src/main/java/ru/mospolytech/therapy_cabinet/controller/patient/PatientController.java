@@ -3,6 +3,7 @@ package ru.mospolytech.therapy_cabinet.controller.patient;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.Patient;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RequestMapping("/patient")
 @Tag(name = "Пациент")
+@PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'DOCTOR', 'OPERATOR')")
 public interface PatientController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)

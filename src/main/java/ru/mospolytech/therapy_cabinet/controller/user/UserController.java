@@ -3,6 +3,7 @@ package ru.mospolytech.therapy_cabinet.controller.user;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.user.User;
 import ru.mospolytech.therapy_cabinet.models.dto.user.UserDTO;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RequestMapping("/user")
 @Tag(name = "Пользователь")
+@PreAuthorize("hasAnyAuthority('ADMINISTRATOR')")
 public interface UserController {
 
     @GetMapping
@@ -40,10 +42,10 @@ public interface UserController {
     @ResponseStatus(HttpStatus.OK)
     User createUser(@RequestBody UserRegistrationRequest user);
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Operation(summary = "Обновить данные пользователя")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateUser(@RequestBody User user);
+    void updateUser(@PathVariable("id") Integer userId, @RequestBody User user);
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удалить пользователя по ID")

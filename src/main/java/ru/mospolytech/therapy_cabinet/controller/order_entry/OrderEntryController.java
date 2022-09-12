@@ -3,6 +3,7 @@ package ru.mospolytech.therapy_cabinet.controller.order_entry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.order.OrderEntryCreate;
 import ru.mospolytech.therapy_cabinet.models.domain.order.OrderEntryRead;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RequestMapping("/order-entry")
 @Tag(name = "Запись заказа")
+@PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'DOCTOR', 'OPERATOR')")
 public interface OrderEntryController {
 
     @PostMapping

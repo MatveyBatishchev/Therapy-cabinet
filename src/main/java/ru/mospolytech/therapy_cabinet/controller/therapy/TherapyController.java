@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.Calendar;
 import ru.mospolytech.therapy_cabinet.models.domain.therapy.TherapyCreate;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RequestMapping("/therapy")
 @Tag(name = "Терапия")
+@PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'DOCTOR', 'OPERATOR')")
 public interface TherapyController {
 
     @PostMapping

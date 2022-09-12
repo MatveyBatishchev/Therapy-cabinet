@@ -3,6 +3,7 @@ package ru.mospolytech.therapy_cabinet.controller.order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mospolytech.therapy_cabinet.models.domain.order.MedOrder;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RequestMapping("/medorder")
 @Tag(name = "Заказ", description = "Заказы в аптеку")
+@PreAuthorize("hasAnyAuthority('ADMINISTRATOR', 'DOCTOR', 'OPERATOR')")
 public interface MedOrderController {
 
     @PostMapping
