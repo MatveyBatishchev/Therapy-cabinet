@@ -6,7 +6,7 @@ spring:
   profiles:
     active: local
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:db/changelog/db.changelog-master.yaml
 mybatis:
   config-location: classpath:mybatis/conf.xml
