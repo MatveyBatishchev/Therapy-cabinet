@@ -22,7 +22,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.findUserByUsername(username)
+        User user = userMapper.findAuthenticatedUserByUsername(username)
                 .orElseThrow(() ->
                         new NotFoundException(String.format("User with email: %s not exists in database", username)));
 
