@@ -22,7 +22,7 @@ public interface UserMapper {
 
     Optional<UserDTO> findUserById(@Param("id") Integer id);
 
-    void updateUser(@Param("user") User user);
+    void updateUser(@Param("id") Integer id, @Param("user") User user);
 
     void deleteUser(@Param("id") Integer id);
 
@@ -31,5 +31,7 @@ public interface UserMapper {
             @Param("limit") Long limit
     );
 
-    Optional<User> findUserByUsername(@Param("username") String username);
+    Optional<UserDTO> findUserByUsername(@Param("username") String username);
+
+    Optional<User> findAuthenticatedUserByUsername(@Param("username") String username);
 }
